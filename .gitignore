@@ -285,7 +285,10 @@ FakesAssemblies/
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
-node_modules/
+**/node_modules/
+**/.angular
+**/.vscode
+
 
 # Visual Studio 6 build log
 *.plg
