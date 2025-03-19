@@ -1,0 +1,96 @@
+<div class="register-container">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form">
+
+    <div>
+      <p-float-label variant="on">
+        <input pInputText id="companyName" formControlName="companyName"/>
+        <label for="companyName">Company Name*</label>
+      </p-float-label>
+    </div>
+
+    <div class="form-group">
+      <div>
+        <p-float-label variant="on">
+          <p-inputMask id="nip" formControlName="nip" mask="9999999999"/>
+          <label for="nip">NIP*</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <p-inputMask id="regon" formControlName="regon" mask="999999999"/>
+          <label for="regon">REGON*</label>
+        </p-float-label>
+      </div>
+    </div>
+
+    <div></div>
+
+    <div class="form-group">
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="street" formControlName="street"/>
+          <label for="street">Street*</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="building" formControlName="building"/>
+          <label for="building">Building*</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="apartment" formControlName="apartment"/>
+          <label for="apartment">Apartment</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="city" formControlName="city"/>
+          <label for="city">City*</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="state" formControlName="state"/>
+          <label for="state">State*</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="country" formControlName="country"/>
+          <label for="country">Country*</label>
+        </p-float-label>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="postalCode" formControlName="postalCode"/>
+          <label for="postalCode">Postal Code*</label>
+        </p-float-label>
+      </div>
+    </div>
+
+    <div>
+      <p-float-label variant="on">
+        <p-inputMask id="phoneNumber" formControlName="phoneNumber" mask="(999) 999-9999"/>
+        <label for="phoneNumber">Phone Number*</label>
+      </p-float-label>
+    </div>
+
+    <div>
+      <p-float-label variant="on">
+        <input pInputText id="email" formControlName="email" type="email"/>
+        <label for="email">Email*</label>
+      </p-float-label>
+    </div>
+  </div>
+</form>
+</div>

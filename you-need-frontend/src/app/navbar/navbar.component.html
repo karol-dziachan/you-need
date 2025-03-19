@@ -1,0 +1,19 @@
+
+<div class="card">
+  <p-menubar [model]="items">
+    <ng-template #start>
+      <img src="assets/youneed_black.png" width="120">
+    </ng-template>
+    <ng-template #item let-item let-root="root" >
+      <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.route">
+        <span>{{ item.label }}</span>
+        <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+      </a>
+    </ng-template>
+    <ng-template #end>
+      <div class="flex items-center gap-2">
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>

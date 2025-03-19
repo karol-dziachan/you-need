@@ -1,146 +1,32 @@
 <div class="register-container">
   <p-card header="Register Company and Owner">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="form">
-        <!-- Company Details Section -->
-        <div>
-          <h2>Company Details</h2>
-        </div>
+    <p-stepper [value]="1">
+      <p-step-item [value]="1">
+        <p-step>Podaj swoje dane</p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
 
-        <div>
-          <p-float-label>
-            <input pInputText id="companyName" formControlName="companyName"/>
-            <label for="companyName">Company Name*</label>
-          </p-float-label>
-        </div>
+            <app-register-owner></app-register-owner>
+            <div class="flex py-6 gap-2">
+              <p-button label="Next" (onClick)="activateCallback(2)" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
 
-        <div class="form-group">
-          <div>
-            <p-float-label>
-              <p-inputMask id="nip" formControlName="nip" mask="9999999999"/>
-              <label for="nip">NIP*</label>
-            </p-float-label>
-          </div>
+      <p-step-item [value]="2">
+        <p-step>Header II</p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
+            <app-register-company-form></app-register-company-form>
+            <div class="flex">
+              <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+    </p-stepper>
 
-          <div>
-            <p-float-label>
-              <p-inputMask id="regon" formControlName="regon" mask="999999999"/>
-              <label for="regon">REGON*</label>
-            </p-float-label>
-          </div>
-        </div>
-
-        <div></div>
-
-        <div class="form-group">
-          <div>
-            <p-float-label>
-              <input pInputText id="street" formControlName="street"/>
-              <label for="street">Street*</label>
-            </p-float-label>
-          </div>
-
-          <div>
-            <p-float-label>
-              <input pInputText id="building" formControlName="building"/>
-              <label for="building">Building*</label>
-            </p-float-label>
-          </div>
-
-          <div>
-            <p-float-label>
-              <input pInputText id="apartment" formControlName="apartment"/>
-              <label for="apartment">Apartment</label>
-            </p-float-label>
-          </div>
-
-          <div>
-            <p-float-label>
-              <input pInputText id="city" formControlName="city"/>
-              <label for="city">City*</label>
-            </p-float-label>
-          </div>
-
-          <div>
-            <p-float-label>
-              <input pInputText id="state" formControlName="state"/>
-              <label for="state">State*</label>
-            </p-float-label>
-          </div>
-
-          <div>
-            <p-float-label>
-              <input pInputText id="country" formControlName="country"/>
-              <label for="country">Country*</label>
-            </p-float-label>
-          </div>
-
-          <div>
-            <p-float-label>
-              <input pInputText id="postalCode" formControlName="postalCode"/>
-              <label for="postalCode">Postal Code*</label>
-            </p-float-label>
-          </div>
-        </div>
-
-        <div>
-          <p-float-label>
-            <p-inputMask id="phoneNumber" formControlName="phoneNumber" mask="(999) 999-9999"/>
-            <label for="phoneNumber">Phone Number*</label>
-          </p-float-label>
-        </div>
-
-        <div>
-          <p-float-label>
-            <input pInputText id="email" formControlName="email" type="email"/>
-            <label for="email">Email*</label>
-          </p-float-label>
-        </div>
-
-        <!-- Owner Details Section -->
-        <div>
-          <h2>Owner Details</h2>
-        </div>
-
-        <div>
-          <p-float-label>
-            <input pInputText id="firstName" formControlName="firstName"/>
-            <label for="firstName">First Name*</label>
-          </p-float-label>
-        </div>
-
-        <div>
-          <p-float-label>
-            <input pInputText id="lastName" formControlName="lastName"/>
-            <label for="lastName">Last Name*</label>
-          </p-float-label>
-        </div>
-
-        <div>
-          <p-float-label>
-            <input pInputText id="login" formControlName="login" type="email"/>
-            <label for="login">Email*</label>
-          </p-float-label>
-        </div>
-
-        <div>
-          <p-float-label>
-            <input pInputText id="password" formControlName="password" type="password"/>
-            <label for="password">Password*</label>
-          </p-float-label>
-        </div>
-        <div>
-          <p-float-label>
-            <input pInputText id="confirmPassword" formControlName="confirmPassword" type="password"/>
-            <label for="confirmPassword">Confirm Password*</label>
-          </p-float-label>
-        </div>
-      </div>
-
-      <div class="flex justify-content-end mt-4">
-        <p-button type="submit" label="Register" [disabled]="!registerForm.valid"></p-button>
-      </div>
-    </form>
   </p-card>
 </div>
 

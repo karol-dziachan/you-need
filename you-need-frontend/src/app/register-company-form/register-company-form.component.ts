@@ -1,40 +1,23 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputMaskModule } from 'primeng/inputmask';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { StepperModule } from 'primeng/stepper';
-import { RegisterOwnerComponent } from '../register-owner/register-owner.component';
-import {RegisterCompanyFormComponent} from '../register-company-form/register-company-form.component';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {MessageService} from 'primeng/api';
+import {FloatLabel} from 'primeng/floatlabel';
+import {InputTextModule} from 'primeng/inputtext';
+import {InputMaskModule} from 'primeng/inputmask';
 
 @Component({
-  selector: 'app-register-company',
-  standalone: true,
+  selector: 'app-register-company-form',
   imports: [
-    CommonModule,
-    FormsModule,
+    FloatLabel,
     ReactiveFormsModule,
-    CardModule,
     InputTextModule,
-    InputMaskModule,
-    ButtonModule,
-    ToastModule,
-    StepperModule,
-    InputGroupModule,
-    RegisterOwnerComponent,
-    RegisterCompanyFormComponent
+    InputMaskModule
   ],
-  providers: [ MessageService ],
-  templateUrl: './register-company.component.html',
-  styleUrl: './register-company.component.scss'
+  templateUrl: './register-company-form.component.html',
+  styleUrl: './register-company-form.component.scss'
 })
-export class RegisterCompanyComponent {
+export class RegisterCompanyFormComponent {
   registerForm: FormGroup;
 
   constructor(
