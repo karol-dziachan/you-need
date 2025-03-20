@@ -1,0 +1,22 @@
+services:
+  you-need-backend:
+    container_name: you-need-backend
+    image: you-need-backend:1.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: you-need-db:5432
+      DB_NAME: you-need
+  you-need-db:
+    container_name: you-need-db
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: you-need
+    volumes:
+      - 'db:/data/you-need'
+volumes:
+  db:
