@@ -1,19 +1,13 @@
-FROM node:22.14.0 as build
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
+FROM node:lts-slim AS build
+WORKDIR /src
 RUN npm install -g @angular/cli
 
-COPY . ./
+COPY package*.json ./
+RUN npm ci
 
+COPY . ./
 RUN ng build --configuration=production
 
-FROM nginx:latest
-
-COPY --from=build app/dist/you-need-frontend /usr/share/nginx/html
-
+FROM nginx:stable AS final
 EXPOSE 80
+COPY --from=build src/dist/you-need-frontend/browser  /usr/share/nginx/html
