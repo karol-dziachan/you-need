@@ -20,7 +20,7 @@ services:
       - 'db:/data/you-need'
   you-need-frontend:
     container_name: you-need-frontend
-    image: you-need-frontend-idea-test:latest
+    image: you-need-frontend:latest
     ports:
       - "4201:80"
 volumes:
