@@ -1,8 +1,8 @@
-
 <div class="card">
   <p-menubar [model]="items">
     <ng-template #start>
-      <img src="assets/youneed_black.png" width="120">
+      <img *ngIf="!isDarkMode()" src="assets/youneed_black.png" width="120">
+      <img *ngIf="isDarkMode()" src="assets/youneed_white.png" width="120">
     </ng-template>
     <ng-template #item let-item let-root="root" >
       <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.route">
@@ -12,7 +12,10 @@
     </ng-template>
     <ng-template #end>
       <div class="flex items-center gap-2">
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+        <p-avatar (click)="toggleDarkMode()" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+      </div>
+      <div class="navbar-right">
+        <p-button label="Zaloguj" icon="pi pi-sign-in" (onClick)="navigateToLogin()" styleClass="p-button-text"/>
       </div>
     </ng-template>
   </p-menubar>

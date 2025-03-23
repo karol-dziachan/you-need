@@ -4,13 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: auto;
 
   h2 {
     margin: 1.5rem 0;
     color: var(--primary-color);
   }
 
-  .p-card {
+  p-card {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
@@ -18,29 +19,13 @@
     width: 100%;
   }
 
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 4vh;
-    .form-group {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-    }
-  }
-
-  .col-12 {
-    padding: 0 0.5rem;
-  }
-
-  .mt-4 {
-    margin-top: 1.5rem;
-  }
-
-  .flex {
-    display: flex;
-  }
-
   .justify-content-end {
     justify-content: flex-end;
   }
+  .register-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
 }

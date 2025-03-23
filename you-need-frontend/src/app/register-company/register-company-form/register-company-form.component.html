@@ -1,0 +1,168 @@
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText pSize="small" id="name" formControlName="name"/>
+          <label for="name">Nazwa firmy</label>
+        </p-float-label>
+        <div class="error-message" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+          <small style="font-size: 12px; color: red;">
+            Pole jest wymagane
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="nip" pattern="[0-9]{10}" inputmode="numeric" maxlength="10"
+                   formControlName="nip"/>
+            <label for="nip">NIP*</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('nip')?.invalid && registerForm.get('nip')?.touched">
+            <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('nip')?.errors?.['required']">
+              Pole jest wymagane
+            </small>
+            <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('nip')?.errors?.['minlength'] || registerForm.get('nip')?.errors?.['maxlength']">
+              NIP musi mieć dokładnie 10 cyfr
+            </small>
+          </div>
+        </div>
+        <div>
+          <p-float-label variant="on">
+            <input pInputText id="regon" pSize="small" pattern="[0-9]{9,14}" inputmode="numeric" maxlength="14"
+                   formControlName="regon"/>
+            <label for="regon">REGON</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('regon')?.invalid && registerForm.get('regon')?.touched">
+            <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('regon')?.errors?.['required']">
+              Pole jest wymagane
+            </small>
+            <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('regon')?.errors?.['minlength'] || registerForm.get('regon')?.errors?.['maxlength']">
+              REGON musi mieć od 9 do 14 cyfr
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="street" formControlName="street"/>
+            <label for="street">Ulica</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('street')?.invalid && registerForm.get('street')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="building" formControlName="building"/>
+            <label for="building">Nr domu</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('building')?.invalid && registerForm.get('building')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="apartment" formControlName="apartment"/>
+            <label for="apartment">Nr mieszkania</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('apartment')?.invalid && registerForm.get('apartment')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="city" formControlName="city"/>
+            <label for="city">Miasto</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('city')?.invalid && registerForm.get('city')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="state" formControlName="state"/>
+            <label for="state">Województwo</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('state')?.invalid && registerForm.get('state')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="country" formControlName="country"/>
+            <label for="country">Kraj</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('country')?.invalid && registerForm.get('country')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText pSize="small" id="postalCode" formControlName="postalCode"/>
+            <label for="postalCode">Kod pocztowy</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('postalCode')?.invalid && registerForm.get('postalCode')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText id="phoneNumber" type="tel" pSize="small" formControlName="phoneNumber" required/>
+            <label for="phoneNumber">Firmowy numer telefonu</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Pole jest wymagane
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p-float-label variant="on">
+          <input pInputText pSize="small" id="email" formControlName="email" type="email"/>
+          <label for="email">Email*</label>
+        </p-float-label>
+        <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('email')?.errors?.['required']">
+            Pole jest wymagane
+          </small>
+          <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('email')?.errors?.['email']">
+            Podany email jest nieprawidłowy
+          </small>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <div class="nav-buttons">
+    <p-button label="Poprzedni krok" severity="secondary" (onClick)="callbackFn(1)" />
+  </div>
+</div>

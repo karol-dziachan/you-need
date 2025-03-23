@@ -1,8 +1,10 @@
 .register-container {
+  margin: 5px 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  //max-width: 90%;
 
   h2 {
     margin: 1.5rem 0;
@@ -14,7 +16,7 @@
     .form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
 
       .form-group {
         display: grid;
@@ -27,6 +29,12 @@
 
         input {
           width: 100%;
+          border-radius: 15px;
+          //border: 1px solid black;
+        }
+
+        input.error{
+          border: 1px solid white;
         }
 
         label {
@@ -46,6 +54,12 @@
   }
 
   .justify-content-end {
+    justify-content: flex-end;
+  }
+  .nav-buttons {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
     justify-content: flex-end;
   }
 }

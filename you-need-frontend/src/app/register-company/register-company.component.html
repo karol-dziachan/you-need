@@ -1,32 +1,38 @@
 <div class="register-container">
-  <p-card header="Register Company and Owner">
+  <p-card header="Zarejestruj firmę">
     <p-stepper [value]="1">
       <p-step-item [value]="1">
         <p-step>Podaj swoje dane</p-step>
         <p-step-panel>
           <ng-template #content let-activateCallback="activateCallback">
-
-            <app-register-owner></app-register-owner>
-            <div class="flex py-6 gap-2">
-              <p-button label="Next" (onClick)="activateCallback(2)" />
-            </div>
+            <app-register-owner
+              [callbackFn]="activateCallback"
+              [currentSectionNumber]="1"
+              (componentDataEvent)="processOwnerData($event)"
+              [initialComponentData]="subFormsData.owner?.componentData"
+              (validDataEvent)="processOwnerDataForRegistration($event)"
+            ></app-register-owner>
           </ng-template>
         </p-step-panel>
       </p-step-item>
 
       <p-step-item [value]="2">
-        <p-step>Header II</p-step>
+        <p-step>Podaj dane firmy</p-step>
         <p-step-panel>
           <ng-template #content let-activateCallback="activateCallback">
-            <app-register-company-form></app-register-company-form>
-            <div class="flex">
-              <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
-            </div>
+            <app-register-company-form
+              [callbackFn]="activateCallback"
+              [currentSectionNumber]="1"
+              (componentDataEvent)="processCompanyData($event)"
+              (validDataEvent)="processCompanyDataForRegistration($event)"
+              [initialComponentData]="subFormsData.company?.componentData"></app-register-company-form>
           </ng-template>
         </p-step-panel>
       </p-step-item>
     </p-stepper>
-
+    <div class="register-button">
+      <p-button [disabled]="!registrationAvailable" label="Zarejestruj" severity="primary" (click)="registerCompany()"></p-button>
+    </div>
   </p-card>
 </div>
 

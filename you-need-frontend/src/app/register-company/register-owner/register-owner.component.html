@@ -1,0 +1,92 @@
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <div class="form-group">
+        <div>
+          <p-float-label variant="on">
+            <input pInputText
+                   id="firstName"
+                   pSize="small"
+                   formControlName="firstName"
+            />
+            <label for="firstName">Imię</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Imię jest wymagane
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText
+                   id="lastName"
+                   pSize="small"
+                   formControlName="lastName"
+            />
+            <label for="lastName">Nazwisko</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+            <small style="font-size: 12px; color: red;">
+              Nazwisko jest wymagane
+            </small>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p-float-label variant="on">
+          <input pInputText id="login" formControlName="login" pSize="small" type="email" />
+          <label for="login">Login</label>
+        </p-float-label>
+        <div class="error-message" *ngIf="registerForm.get('login')?.invalid && registerForm.get('login')?.touched">
+          <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('login')?.errors?.['required']">
+            Login jest wymagany
+          </small>
+          <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('login')?.errors?.['email']">
+            Podany email jest nieprawidłowy
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <p-float-label variant="on">
+            <input pInputText id="password" formControlName="password" pSize="small" type="password" />
+            <label for="password">Hasło</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('password')?.errors?.['required']">
+              Hasło jest wymagane
+            </small>
+            <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('password')?.errors?.['minlength']">
+              Hasło musi mieć minimum 8 znaków
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <p-float-label variant="on">
+            <input pInputText id="confirmPassword" pSize="small" formControlName="confirmPassword" type="password"/>
+            <label for="confirmPassword">Powtórz hasło</label>
+          </p-float-label>
+          <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+            <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+              Potwierdzenie hasła jest wymagane
+            </small>
+            <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.errors?.['mismatch']">
+              Hasła muszą być takie same
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="nav-buttons">
+    <p-button *ngIf="nextEnabled$ | async" (onClick)="callbackFn(currentSectionNumber + 1)">
+      Kolejny krok
+    </p-button>
+  </div>
+</div>
+
+<p-toast></p-toast>
