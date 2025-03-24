@@ -36,14 +36,14 @@
       </div>
       <div>
         <p-float-label variant="on">
-          <input pInputText id="login" formControlName="login" pSize="small" type="email" />
-          <label for="login">Login</label>
+          <input pInputText id="email" formControlName="email" pSize="small" type="email" />
+          <label for="email">email</label>
         </p-float-label>
-        <div class="error-message" *ngIf="registerForm.get('login')?.invalid && registerForm.get('login')?.touched">
-          <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('login')?.errors?.['required']">
-            Login jest wymagany
+        <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <small style="font-size: 12px; color: red;" *ngIf="registerForm.get('email')?.errors?.['required']">
+            email jest wymagany
           </small>
-          <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('login')?.errors?.['email']">
+          <small style="font-size: 12px; color: red; display: block;" *ngIf="registerForm.get('email')?.errors?.['email']">
             Podany email jest nieprawidłowy
           </small>
         </div>

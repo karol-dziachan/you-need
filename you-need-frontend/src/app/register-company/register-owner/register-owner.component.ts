@@ -66,7 +66,7 @@ export class RegisterOwnerComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group({
       firstName: [ null, [ Validators.required, Validators.minLength(2) ] ],
       lastName: [ null, [ Validators.required, Validators.minLength(2) ] ],
-      login: [ null, [ Validators.required, Validators.minLength(8) ] ],
+      email: [ null, [ Validators.required, Validators.minLength(8) ] ],
       password: [ null, [ Validators.required, Validators.minLength(8) ] ],
       confirmPassword: [ null, [ Validators.required, Validators.minLength(8) ] ]
     }, {validators: [ this.passwordMatchValidator ]} as AbstractControlOptions);
@@ -135,7 +135,7 @@ export type Errors = {
 export interface ComponentData {
   firstName?: string;
   lastName?: string;
-  login?: string;
+  email?: string;
   password?: string;
   confirmPassword?: string;
 }

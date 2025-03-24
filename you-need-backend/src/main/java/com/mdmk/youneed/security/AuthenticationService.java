@@ -30,8 +30,8 @@ public class AuthenticationService {
         Employee employee = Employee.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .login(request.getLogin())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .password(request.getPassword())
                 .role(Employee.Role.valueOf(request.getRole()))
                 .company(company)
                 .build();
@@ -46,12 +46,12 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getLogin(),
+                        request.getEmail(),
                         request.getPassword()
                 )
         );
 
-        Employee employee = employeeRepository.findByLogin(request.getLogin())
+        Employee employee = employeeRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         String jwtToken = jwtService.generateToken(employee);

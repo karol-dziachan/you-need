@@ -29,7 +29,7 @@ public class Employee implements UserDetails {
     private String lastName;
 
     @Column(nullable = false, unique = true)
-    private String login;
+    private String email;
 
     @Column(nullable = false)
     private String password;
@@ -54,7 +54,7 @@ public class Employee implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override

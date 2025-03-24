@@ -18,7 +18,7 @@ create table EMPLOYEE (
     id integer primary key generated always as identity,
     first_name varchar(255) not null,
     last_name varchar(255) not null,
-    login varchar(255) not null unique,
+    email varchar(255) not null unique,
     password varchar(255) not null,
     role varchar(50) not null,
     company_id integer references COMPANY not null

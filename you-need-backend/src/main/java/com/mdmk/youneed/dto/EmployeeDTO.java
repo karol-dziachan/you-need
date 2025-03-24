@@ -12,7 +12,7 @@ public class EmployeeDTO {
     @NotEmpty
     private String lastName;
     @NotEmpty
-    private String login;
+    private String email;
     @NotEmpty
     private String password;
     private String role;

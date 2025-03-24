@@ -8,6 +8,7 @@ import com.mdmk.youneed.dto.EmployeeDTO;
 import com.mdmk.youneed.dto.mappers.CompanyMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final EmployeeService employeeService;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void addCompany(final CreateCompanyDto newCompanyData) {
@@ -26,6 +28,7 @@ public class CompanyService {
 
     private void saveOwner(final EmployeeDTO owner, final Company company) {
         owner.setRole(Employee.Role.OWNER.name());
+        owner.setPassword(passwordEncoder.encode(owner.getPassword()));
         employeeService.saveEmployee(owner, company);
     }
 }

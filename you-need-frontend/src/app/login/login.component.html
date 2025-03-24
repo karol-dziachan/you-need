@@ -1,0 +1,41 @@
+<div class="login-container">
+  <p-card header="Logowanie">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form">
+        <div class="form-group">
+          <div>
+            <p-float-label variant="on">
+              <input pInputText pSize="small" id="email" formControlName="email" class="w-full"/>
+              <label for="email">Email*</label>
+            </p-float-label>
+            <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              <small style="font-size: 12px; color: red;" *ngIf="loginForm.get('email')?.errors?.['required']">
+                Pole jest wymagane
+              </small>
+            </div>
+          </div>
+
+          <div>
+            <p-float-label variant="on">
+              <input pInputText pSize="small" id="password" type="password" formControlName="password" class="w-full"/>
+              <label for="password">Hasło*</label>
+            </p-float-label>
+            <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              <small style="font-size: 12px; color: red;" *ngIf="loginForm.get('password')?.errors?.['required']">
+                Pole jest wymagane
+              </small>
+              <small style="font-size: 12px; color: red; display: block;" *ngIf="loginForm.get('password')?.errors?.['minlength']">
+                Hasło musi mieć minimum 8 znaków
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <p-button label="Zaloguj" type="submit" [disabled]="!loginForm.valid"/>
+        </div>
+      </div>
+    </form>
+  </p-card>
+  <p-toast></p-toast>
+</div>

@@ -11,12 +11,12 @@
       </a>
     </ng-template>
     <ng-template #end>
-      <div class="flex items-center gap-2">
-        <p-avatar (click)="toggleDarkMode()" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-      </div>
       <div class="navbar-right">
-        <p-button label="Zaloguj" icon="pi pi-sign-in" (onClick)="navigateToLogin()" styleClass="p-button-text"/>
+        <span>{{ currentUser$ | async}}</span>
+        <p-avatar (click)="toggleDarkMode()" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+        <p-button label="Zaloguj" *ngIf="!(currentUser$ | async)" (onClick)="navigateToLogin()" styleClass="p-button-text"/>
       </div>
+
     </ng-template>
   </p-menubar>
 </div>

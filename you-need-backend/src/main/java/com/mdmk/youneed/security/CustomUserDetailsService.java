@@ -20,11 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.findByLogin(username)
+        Employee employee = employeeRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return new User(
-                employee.getLogin(),
+                employee.getEmail(),
                 employee.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + employee.getRole().name()))
         );
