@@ -16,9 +16,11 @@ import {
 } from './register-owner/register-owner.component';
 import {ComponentData as CompanyComponentData} from './register-company-form/register-company-form.component';
 import {RegisterCompanyFormComponent} from './register-company-form/register-company-form.component';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {catchError, take, throwError} from 'rxjs';
+import {Message} from 'primeng/message';
 
 @Component({
   selector: 'app-register-company',
@@ -35,7 +37,8 @@ import {environment} from '../../environments/environment';
     StepperModule,
     InputGroupModule,
     RegisterOwnerComponent,
-    RegisterCompanyFormComponent
+    RegisterCompanyFormComponent,
+    Message
   ],
   providers: [ MessageService ],
   templateUrl: './register-company.component.html',
@@ -63,6 +66,8 @@ export class RegisterCompanyComponent {
 
   registrationAvailable: boolean = false;
 
+  errorFromBackend: boolean = false;
+
   constructor(private http: HttpClient, private router: Router) {
   }
 
@@ -85,7 +90,12 @@ export class RegisterCompanyComponent {
   }
 
   registerCompany(): void {
-    this.http.post(`${environment.apiUrl}/company`, this.registerRequest).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/company`, this.registerRequest).pipe(
+     catchError((error) => {
+       this.errorFromBackend = true;
+       return throwError(error);
+     })
+    ).subscribe(() => {
       this.router.navigate([ '/' ]);
     });
   }

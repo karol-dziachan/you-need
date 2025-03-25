@@ -7,16 +7,15 @@
     <ng-template #item let-item let-root="root" >
       <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.route">
         <span>{{ item.label }}</span>
-        <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
       </a>
     </ng-template>
     <ng-template #end>
       <div class="navbar-right">
-        <span>{{ currentUser$ | async}}</span>
-        <p-avatar (click)="toggleDarkMode()" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-        <p-button label="Zaloguj" *ngIf="!(currentUser$ | async)" (onClick)="navigateToLogin()" styleClass="p-button-text"/>
+        <p-button *ngIf="!(currentUser$ | async)" label="Zaloguj" icon="pi pi-sign-in" (onClick)="navigateToLogin()"></p-button>
+        <p-button *ngIf="currentUser$ | async" label="Wyloguj" icon="pi pi-sign-out" severity="secondary" (onClick)="logout()"></p-button>
+        <p-button *ngIf="isDarkMode()" size="small" icon="pi pi-sun" aria-label="Toggle dark mode" severity="contrast" (click)="toggleDarkMode()" [rounded]="true" />
+        <p-button *ngIf="!isDarkMode()" size="small" icon="pi pi-moon" aria-label="Toggle dark mode" severity="contrast" (click)="toggleDarkMode()" [rounded]="true" />
       </div>
-
     </ng-template>
   </p-menubar>
 </div>

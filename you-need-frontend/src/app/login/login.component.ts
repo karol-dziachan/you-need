@@ -8,7 +8,9 @@ import { FloatLabelModule} from 'primeng/floatlabel';
 import { Button } from 'primeng/button';
 import { Toast } from 'primeng/toast';
 import { NgIf } from '@angular/common';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,8 @@ import {InputTextModule} from 'primeng/inputtext';
     Card,
     FloatLabelModule,
     InputTextModule,
+    IconFieldModule,
+    InputIconModule,
     Button,
     ReactiveFormsModule,
     Toast,

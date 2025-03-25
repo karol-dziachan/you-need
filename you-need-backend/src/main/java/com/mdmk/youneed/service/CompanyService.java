@@ -8,6 +8,7 @@ import com.mdmk.youneed.dto.EmployeeDTO;
 import com.mdmk.youneed.dto.mappers.CompanyMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,12 @@ public class CompanyService {
     @Transactional
     public void addCompany(final CreateCompanyDto newCompanyData) {
         Company company = CompanyMapper.INSTANCE.dtoToCompany(newCompanyData.getCompany());
-        company = companyRepository.save(company);
-        saveOwner(newCompanyData.getOwner(), company);
+        try {
+            company = companyRepository.save(company);
+            saveOwner(newCompanyData.getOwner(), company);
+        } catch (DataIntegrityViolationException e) {
+            throw new InvalidDataException();
+        }
     }
 
     private void saveOwner(final EmployeeDTO owner, final Company company) {

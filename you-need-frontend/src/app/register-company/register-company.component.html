@@ -1,5 +1,6 @@
 <div class="register-container">
   <p-card header="Zarejestruj firmę">
+    <div class="card">
     <p-stepper [value]="1">
       <p-step-item [value]="1">
         <p-step>Podaj swoje dane</p-step>
@@ -32,6 +33,8 @@
     </p-stepper>
     <div class="register-button">
       <p-button [disabled]="!registrationAvailable" label="Zarejestruj" severity="primary" (click)="registerCompany()"></p-button>
+    </div>
+    <p-message *ngIf="errorFromBackend" severity="error">Istnieje firma zarejestrowana na podany nip lub regon. </p-message>
     </div>
   </p-card>
 </div>

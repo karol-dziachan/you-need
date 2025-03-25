@@ -1,3 +1,42 @@
-<div>
-  Strona w przygotowaniu
+<div class="home-container">
+  <p-card styleClass="work-in-progress-card">
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <h1>YouNeed</h1>
+        <h2>Twój partner w zarządzaniu biznesem</h2>
+      </div>
+    </ng-template>
+
+    <div class="card-content">
+      <p-divider align="center">
+        <p-tag value="Strona w budowie" severity="info"></p-tag>
+      </p-divider>
+
+      <div class="message-container">
+        <h3>Pracujemy nad rozwojem aplikacji</h3>
+        <p>Nasza platforma jest obecnie w fazie intensywnego rozwoju. Wkrótce udostępnimy pełną funkcjonalność systemu.</p>
+
+        <div class="progress-container">
+          <p-progressSpinner styleClass="custom-spinner" [style]="{width: '40px', height: '40px'}"
+                           strokeWidth="4" fill="var(--surface-ground)" animationDuration=".7s"></p-progressSpinner>
+        </div>
+
+        <div class="features-coming-soon">
+          <h4>Już wkrótce:</h4>
+          <ul>
+            <li>Zarządzanie pracownikami</li>
+            <li>Zarządzanie usługami</li>
+            <li>Raportowanie</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="card-footer">
+        <p>Dziękujemy za cierpliwość!</p>
+        <p-button label="Wróć później" icon="pi pi-clock" severity="secondary" size="small"></p-button>
+      </div>
+    </ng-template>
+  </p-card>
 </div>

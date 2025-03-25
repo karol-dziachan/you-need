@@ -7,10 +7,11 @@ import {MenuItem} from 'primeng/api';
 import {Avatar} from 'primeng/avatar';
 import {Button} from 'primeng/button';
 import {AuthService} from '../services/auth.service';
+import {Ripple} from 'primeng/ripple';
 
 @Component({
   selector: 'app-navbar',
-  imports: [ MenubarModule, Badge, RouterLink, NgClass, Avatar, NgIf, Button, AsyncPipe ],
+  imports: [ MenubarModule, Badge, RouterLink, NgClass, NgIf, Button, AsyncPipe, Ripple ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -51,5 +52,10 @@ export class NavbarComponent implements OnInit {
 
   navigateToLogin(): void {
     this.router.navigate([ '/login' ]);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate([ '/' ]);
   }
 }

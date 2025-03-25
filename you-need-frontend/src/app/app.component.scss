@@ -1,4 +1,15 @@
 :host {
   display: block;
-  height: 90vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+app-navbar {
+  height: 70px;
+  display: block;
+}
+
+router-outlet + * {
+  height: calc(100vh - 70px);
+  overflow: hidden;
 }

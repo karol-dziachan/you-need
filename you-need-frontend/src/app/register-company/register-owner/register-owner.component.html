@@ -4,11 +4,14 @@
       <div class="form-group">
         <div>
           <p-float-label variant="on">
-            <input pInputText
-                   id="firstName"
-                   pSize="small"
-                   formControlName="firstName"
-            />
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-user"></p-inputicon>
+              <input pInputText
+                     id="firstName"
+                     pSize="small"
+                     formControlName="firstName"
+              />
+            </p-iconfield>
             <label for="firstName">Imię</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
@@ -20,11 +23,14 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText
-                   id="lastName"
-                   pSize="small"
-                   formControlName="lastName"
-            />
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-user"></p-inputicon>
+              <input pInputText
+                     id="lastName"
+                     pSize="small"
+                     formControlName="lastName"
+              />
+            </p-iconfield>
             <label for="lastName">Nazwisko</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
@@ -36,7 +42,10 @@
       </div>
       <div>
         <p-float-label variant="on">
-          <input pInputText id="email" formControlName="email" pSize="small" type="email" />
+          <p-iconfield iconPosition="left">
+            <p-inputicon styleClass="pi pi-envelope"></p-inputicon>
+            <input pInputText id="email" formControlName="email" pSize="small" type="email" />
+          </p-iconfield>
           <label for="email">email</label>
         </p-float-label>
         <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
@@ -52,7 +61,10 @@
       <div class="form-group">
         <div>
           <p-float-label variant="on">
-            <input pInputText id="password" formControlName="password" pSize="small" type="password" />
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-lock"></p-inputicon>
+              <input pInputText id="password" formControlName="password" pSize="small" type="password" />
+            </p-iconfield>
             <label for="password">Hasło</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
@@ -67,7 +79,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText id="confirmPassword" pSize="small" formControlName="confirmPassword" type="password"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-lock"></p-inputicon>
+              <input pInputText id="confirmPassword" pSize="small" formControlName="confirmPassword" type="password"/>
+            </p-iconfield>
             <label for="confirmPassword">Powtórz hasło</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">

@@ -18,6 +18,8 @@ import {MessageService} from 'primeng/api';
 import {InputGroupModule} from 'primeng/inputgroup';
 import {FloatLabel} from 'primeng/floatlabel';
 import {map, Observable, of, startWith, tap} from 'rxjs';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
 
 @Component({
   selector: 'app-register-owner',
@@ -31,7 +33,9 @@ import {map, Observable, of, startWith, tap} from 'rxjs';
     ButtonModule,
     ToastModule,
     FloatLabel,
-    InputGroupModule
+    InputGroupModule,
+    IconFieldModule,
+    InputIconModule
   ],
   providers: [ MessageService ],
   templateUrl: './register-owner.component.html',

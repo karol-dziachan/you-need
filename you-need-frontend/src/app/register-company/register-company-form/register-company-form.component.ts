@@ -10,6 +10,8 @@ import { Errors } from '../register-owner/register-owner.component';
 import {map, Observable, of, startWith, Subscription, tap} from 'rxjs';
 import {NgIf} from '@angular/common';
 import {Button} from 'primeng/button';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
 
 @Component({
   selector: 'app-register-company-form',
@@ -20,7 +22,9 @@ import {Button} from 'primeng/button';
     InputMaskModule,
     InputNumberModule,
     NgIf,
-    Button
+    Button,
+    IconFieldModule,
+    InputIconModule
   ],
   templateUrl: './register-company-form.component.html',
   styleUrl: './register-company-form.component.scss'

@@ -4,7 +4,10 @@
 
       <div>
         <p-float-label variant="on">
-          <input pInputText pSize="small" id="name" formControlName="name"/>
+          <p-iconfield iconPosition="left">
+            <p-inputicon styleClass="pi pi-building"></p-inputicon>
+            <input pInputText pSize="small" id="name" formControlName="name"/>
+          </p-iconfield>
           <label for="name">Nazwa firmy</label>
         </p-float-label>
         <div class="error-message" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
@@ -17,8 +20,12 @@
       <div class="form-group">
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="nip" pattern="[0-9]{10}" inputmode="numeric" maxlength="10"
-                   formControlName="nip"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-id-card"></p-inputicon>
+              <input pInputText pSize="small" id="nip" pattern="[0-9]{10}" inputmode="numeric" maxlength="10"
+                     formControlName="nip" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+              />
+            </p-iconfield>
             <label for="nip">NIP*</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('nip')?.invalid && registerForm.get('nip')?.touched">
@@ -32,8 +39,11 @@
         </div>
         <div>
           <p-float-label variant="on">
-            <input pInputText id="regon" pSize="small" pattern="[0-9]{9,14}" inputmode="numeric" maxlength="14"
-                   formControlName="regon"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-id-card"></p-inputicon>
+              <input pInputText id="regon" pSize="small" pattern="[0-9]{9,14}" inputmode="numeric" maxlength="14"
+                     formControlName="regon"  oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+            </p-iconfield>
             <label for="regon">REGON</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('regon')?.invalid && registerForm.get('regon')?.touched">
@@ -50,7 +60,10 @@
       <div class="form-group">
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="street" formControlName="street"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-home"></p-inputicon>
+              <input pInputText pSize="small" id="street" formControlName="street"/>
+            </p-iconfield>
             <label for="street">Ulica</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('street')?.invalid && registerForm.get('street')?.touched">
@@ -62,7 +75,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="building" formControlName="building"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-home"></p-inputicon>
+              <input pInputText pSize="small" id="building" formControlName="building"/>
+            </p-iconfield>
             <label for="building">Nr domu</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('building')?.invalid && registerForm.get('building')?.touched">
@@ -74,7 +90,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="apartment" formControlName="apartment"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-home"></p-inputicon>
+              <input pInputText pSize="small" id="apartment" formControlName="apartment"/>
+            </p-iconfield>
             <label for="apartment">Nr mieszkania</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('apartment')?.invalid && registerForm.get('apartment')?.touched">
@@ -86,7 +105,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="city" formControlName="city"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-map-marker"></p-inputicon>
+              <input pInputText pSize="small" id="city" formControlName="city"/>
+            </p-iconfield>
             <label for="city">Miasto</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('city')?.invalid && registerForm.get('city')?.touched">
@@ -98,7 +120,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="state" formControlName="state"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-map-marker"></p-inputicon>
+              <input pInputText pSize="small" id="state" formControlName="state"/>
+            </p-iconfield>
             <label for="state">Województwo</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('state')?.invalid && registerForm.get('state')?.touched">
@@ -110,7 +135,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="country" formControlName="country"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-map-marker"></p-inputicon>
+              <input pInputText pSize="small" id="country" formControlName="country"/>
+            </p-iconfield>
             <label for="country">Kraj</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('country')?.invalid && registerForm.get('country')?.touched">
@@ -122,7 +150,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText pSize="small" id="postalCode" formControlName="postalCode"/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-inbox"></p-inputicon>
+              <input pInputText pSize="small" id="postalCode" formControlName="postalCode"/>
+            </p-iconfield>
             <label for="postalCode">Kod pocztowy</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('postalCode')?.invalid && registerForm.get('postalCode')?.touched">
@@ -134,7 +165,10 @@
 
         <div>
           <p-float-label variant="on">
-            <input pInputText id="phoneNumber" type="tel" pSize="small" formControlName="phoneNumber" required/>
+            <p-iconfield iconPosition="left">
+              <p-inputicon styleClass="pi pi-phone"></p-inputicon>
+              <input pInputText id="phoneNumber" type="tel" pSize="small" formControlName="phoneNumber" required oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+            </p-iconfield>
             <label for="phoneNumber">Firmowy numer telefonu</label>
           </p-float-label>
           <div class="error-message" *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
@@ -147,7 +181,10 @@
 
       <div>
         <p-float-label variant="on">
-          <input pInputText pSize="small" id="email" formControlName="email" type="email"/>
+          <p-iconfield iconPosition="left">
+            <p-inputicon styleClass="pi pi-envelope"></p-inputicon>
+            <input pInputText pSize="small" id="email" formControlName="email" type="email"/>
+          </p-iconfield>
           <label for="email">Email*</label>
         </p-float-label>
         <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
