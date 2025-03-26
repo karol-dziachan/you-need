@@ -4,6 +4,7 @@ import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -34,6 +35,7 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/company/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/branch/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

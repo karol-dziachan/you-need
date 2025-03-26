@@ -7,6 +7,7 @@ services:
     environment:
       DB_URL: you-need-db:5432
       DB_NAME: you-need
+      SPRING_CORS_ALLOWORIGIN: you-need-frontend:80
   you-need-db:
     container_name: you-need-db
     image: postgres
@@ -18,10 +19,14 @@ services:
       POSTGRES_DB: you-need
     volumes:
       - 'db:/data/you-need'
+      - './../you-need-backend/src/main/resources/sql/init.sql:/docker-entrypoint-initdb.d/init.sql'
   you-need-frontend:
     container_name: you-need-frontend
     image: you-need-frontend:latest
     ports:
       - "4200:80"
+    environment:
+      API_URL: you-need-backend:8080
+
 volumes:
   db:
