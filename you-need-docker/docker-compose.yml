@@ -7,7 +7,6 @@ services:
     environment:
       DB_URL: you-need-db:5432
       DB_NAME: you-need
-      SPRING_CORS_ALLOWORIGIN: you-need-frontend:80
   you-need-db:
     container_name: you-need-db
     image: postgres

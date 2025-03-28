@@ -6,8 +6,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . ./
-RUN ["docker-entrypoint.sh"]
-RUN ng build --configuration=production
+RUN ng build --configuration=docker
 
 
 FROM nginx:stable AS final
