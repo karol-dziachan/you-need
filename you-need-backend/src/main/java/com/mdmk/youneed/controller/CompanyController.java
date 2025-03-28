@@ -1,5 +1,6 @@
 package com.mdmk.youneed.controller;
 
+import com.mdmk.youneed.dto.AuthenticationResponse;
 import com.mdmk.youneed.dto.CreateCompanyDto;
 import com.mdmk.youneed.service.CompanyService;
 import jakarta.validation.ConstraintViolationException;
@@ -21,10 +22,9 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createCompany(@RequestBody @Valid CreateCompanyDto newCompanyData) {
+    public ResponseEntity<AuthenticationResponse> createCompany(@RequestBody @Valid CreateCompanyDto newCompanyData) {
         try {
-            companyService.addCompany(newCompanyData);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return ResponseEntity.ok(companyService.addCompany(newCompanyData));
         } catch (ConstraintViolationException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

@@ -1,7 +1,9 @@
 package com.mdmk.youneed.service;
 
+import com.mdmk.youneed.db.dataentity.DefaultService;
 import com.mdmk.youneed.db.entity.Branch;
 import com.mdmk.youneed.db.repository.BranchRepository;
+import com.mdmk.youneed.db.repository.DefaultServiceRepository;
 import com.mdmk.youneed.dto.BranchDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BranchService {
     private final BranchRepository branchRepository;
+    private final DefaultServiceRepository defaultServiceRepository;
 
     public List<BranchDTO> getBranches() {
         return branchRepository.findAllByParentIsNull().stream()
@@ -23,6 +26,20 @@ public class BranchService {
                         .children(getChildrenBranches(branch.getId()))
                         .build()
                 )
+                .toList();
+    }
+
+    public List<String> getDefaultServices(Long branchId) {
+        return defaultServiceRepository.getDefaultServiceByBranchId(branchId)
+                .stream()
+                .map(DefaultService::getNamePl)
+                .toList();
+    }
+
+    public List<String> getDefaultServicesEn(Long branchId) {
+        return defaultServiceRepository.getDefaultServiceByBranchId(branchId)
+                .stream()
+                .map(DefaultService::getNameEn)
                 .toList();
     }
 

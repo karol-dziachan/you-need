@@ -11,6 +11,7 @@
     </ng-template>
     <ng-template #end>
       <div class="navbar-right">
+        <div *ngIf="currentUser$ | async; let currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
         <p-button *ngIf="!(currentUser$ | async)" label="Zaloguj" icon="pi pi-sign-in" (onClick)="navigateToLogin()"></p-button>
         <p-button *ngIf="currentUser$ | async" label="Wyloguj" icon="pi pi-sign-out" severity="secondary" (onClick)="logout()"></p-button>
         <p-button *ngIf="isDarkMode()" size="small" icon="pi pi-sun" aria-label="Toggle dark mode" severity="contrast" (click)="toggleDarkMode()" [rounded]="true" />

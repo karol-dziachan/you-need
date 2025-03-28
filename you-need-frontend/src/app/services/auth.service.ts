@@ -6,18 +6,22 @@ import { environment } from '../../environments/environment';
 
 interface LoginResponse {
   token: string;
-  user: {
-    id: number;
-    email: string;
-    role: string;
-  };
+  user: User
+
+};
+
+
+export interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<string | undefined>(undefined);
+  private currentUserSubject = new BehaviorSubject<User | undefined>(undefined);
   public currentUser$ = this.currentUserSubject.asObservable();
 
 
@@ -25,7 +29,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (token) {
       // TODO: Decode token and set user
-      this.currentUserSubject.next(localStorage.getItem('user') ?? undefined);
+      this.currentUserSubject.next(JSON.parse(localStorage.getItem('user') ?? '{}') ?? undefined);
     }
   }
 
@@ -34,8 +38,8 @@ export class AuthService {
       .pipe(
         tap(response => {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('user', credentials.email);
-          this.currentUserSubject.next(credentials.email);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          this.currentUserSubject.next(response.user);
         })
       );
   }
@@ -54,7 +58,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  getUser(): string | undefined {
-    return localStorage.getItem('user') ?? undefined;
+  getUser(): User | undefined {
+    return JSON.parse(localStorage.getItem('user') ?? '{}') ?? undefined;
   }
 }

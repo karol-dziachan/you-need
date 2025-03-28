@@ -111,6 +111,169 @@ CREATE TABLE IF NOT EXISTS SERVICE (
     branch_id integer references BRANCH(id) not null
 );
 
+INSERT INTO SERVICE (name_en, name_pl, branch_id) VALUES
+-- Beauty and Hairdressing Services
+('Facial Treatments', 'Zabiegi na twarz', 2),
+('Waxing', 'Depilacja woskiem', 2),
+('Eyebrow and Lash Henna', 'Henna brwi i rzęs', 2),
+('Facial Massage', 'Masaż twarzy', 2),
+
+(E'Women\'s Haircut', 'Strzyżenie damskie', 3),
+(E'Men\'s Haircut', 'Strzyżenie męskie', 3),
+('Hair Coloring', 'Koloryzacja włosów', 3),
+('Keratin Hair Straightening', 'Keratynowe prostowanie', 3),
+
+('Relaxing Massage', 'Masaż relaksacyjny', 4),
+('Finnish Sauna', 'Sauna fińska', 4),
+('Floating', 'Floating', 4),
+('Aromatherapy Treatments', 'Zabiegi aromaterapeutyczne', 4),
+
+('Manicure', 'Manicure hybrydowy', 5),
+('Pedicure', 'Pedicure klasyczny', 5),
+('Nail Extensions', 'Przedłużanie paznokci żelem', 5),
+('Nail Reconstruction', 'Rekonstrukcja paznokci', 5),
+
+-- Construction and Renovation Services
+('Interior Design', 'Projektowanie wnętrz', 7),
+('3D Visualizations', 'Wizualizacje 3D', 7),
+('Color Consultation', 'Doradztwo kolorystyczne', 7),
+('Custom Furniture Design', 'Projektowanie mebli na wymiar', 7),
+
+('Wall Painting', 'Malowanie ścian', 8),
+('Wallpapering', 'Tapetowanie', 8),
+('Plastering', 'Kładzenie gładzi', 8),
+('Flooring Installation', 'Układanie paneli', 8),
+
+('Electrical Installations', 'Instalacje elektryczne', 9),
+('Plumbing Services', 'Usługi hydrauliczne', 9),
+('Lighting Installation', 'Instalacja oświetlenia', 9),
+('Bathroom Fixture Installation', 'Montaż armatury łazienkowej', 9),
+
+('House Building', 'Budowa domów', 10),
+('Home Expansion', 'Rozbudowa domów', 10),
+('Renovation of Houses', 'Remonty domów', 10),
+('Construction Site Management', 'Zarządzanie placem budowy', 10),
+
+-- Automotive Services
+('Oil Change', 'Serwis olejowy', 12),
+('Brake Pads Replacement', 'Wymiana klocków hamulcowych', 12),
+('Computer Diagnostics', 'Diagnostyka komputerowa', 12),
+('Suspension Repair', 'Naprawa zawieszenia', 12),
+
+('Vehicle Inspection', 'Przegląd techniczny', 13),
+('Emission Test', 'Badanie emisji spalin', 13),
+('Brake System Check', 'Kontrola układu hamulcowego', 13),
+('Wheel Alignment', 'Sprawdzenie geometrii kół', 13),
+
+('Hand Car Wash', 'Mycie ręczne', 14),
+('Car Waxing', 'Woskowanie karoserii', 14),
+('Upholstery Cleaning', 'Pranie tapicerki', 14),
+('Headlight Polishing', 'Polerowanie reflektorów', 14),
+
+('Tire Change', 'Wymiana opon', 15),
+('Wheel Balancing', 'Wyważanie kół', 15),
+('Puncture Repair', 'Naprawa przebitej opony', 15),
+('Tire Storage', 'Sezonowa przechowalnia opon', 15),
+
+-- Home and Garden Services
+('House Cleaning', 'Sprzątanie mieszkań', 17),
+('Carpet Cleaning', 'Czyszczenie dywanów', 17),
+('Window Washing', 'Mycie okien', 17),
+('Disinfection Services', 'Dezynfekcja pomieszczeń', 17),
+
+('Lawn Mowing', 'Koszenie trawy', 18),
+('Tree and Shrub Pruning', 'Przycinanie drzew i krzewów', 18),
+('Planting Flowers', 'Sadzenie roślin', 18),
+('Irrigation Systems', 'Nawadnianie ogrodu', 18),
+
+('Furniture Assembly', 'Montaż mebli', 19),
+('Lock Replacement', 'Wymiana zamków', 19),
+('Minor Repairs', 'Naprawa drobnych usterek', 19),
+('Shelf Installation', 'Instalacja półek', 19),
+
+('Home Staging', 'Stylizacja wnętrz', 20),
+('Interior Styling', 'Stylizacja wnętrz', 20),
+('Personal Shopping for Home', 'Personal shopping wnętrzarski', 20),
+('Lighting Design', 'Projektowanie oświetlenia', 20),
+
+-- Freelance Creative Services
+('Blog Writing', 'Pisanie artykułów blogowych', 22),
+('Advertising Copywriting', 'Tworzenie tekstów reklamowych', 22),
+('Product Descriptions', 'Opisy produktów', 22),
+('Content Editing', 'Redagowanie treści', 22),
+
+('Logo Design', 'Projektowanie logo', 23),
+('Business Cards Design', 'Projektowanie wizytówek', 23),
+('Social Media Graphics', 'Obrazki do mediów społecznościowych', 23),
+('Photo Retouching', 'Retusz zdjęć', 23),
+
+('Portrait Sessions', 'Sesje portretowe', 24),
+('Product Photography', 'Fotografia produktowa', 24),
+('Wedding Photography', 'Reportaż ślubny', 24),
+('Business Photography', 'Zdjęcia biznesowe', 24),
+
+('Video Editing', 'Montaż filmów', 25),
+('Animation', 'Tworzenie animacji', 25),
+('Color Grading', 'Korekta kolorów', 25),
+('Special Effects', 'Dodawanie efektów specjalnych', 25),
+
+('Profile Management', 'Zarządzanie profilem', 26),
+('Social Media Content Creation', 'Tworzenie treści do mediów społecznościowych', 26),
+('Comment Moderation', 'Moderacja komentarzy', 26),
+('Statistical Analysis', 'Analiza statystyk', 26),
+
+-- Personal Assistance Services
+('Email Management', 'Obsługa e-maili', 28),
+('Data Entry', 'Wprowadzanie danych', 28),
+('Meeting Scheduling', 'Rezerwacja spotkań', 28),
+('Calendar Management', 'Zarządzanie kalendarzem', 28),
+
+('CV Writing', 'Pisanie CV', 29),
+('Cover Letter Writing', 'Pisanie listu motywacyjnego', 29),
+('LinkedIn Profile Optimization', 'Optymalizacja profilu LinkedIn', 29),
+('CV Editing', 'Korekta CV', 29),
+
+('Trip Planning', 'Planowanie podróży', 30),
+('Hotel and Flight Booking', 'Rezerwacja hoteli i lotów', 30),
+('Attractions Search', 'Wyszukiwanie atrakcji', 30),
+('Itinerary Creation', 'Tworzenie planu podróży', 30),
+
+('Personal Shopping', 'Zakupy odzieżowe', 31),
+('Gift Selection', 'Wybór prezentów', 31),
+('Fashion Consulting', 'Konsultacje modowe', 31),
+('Styling for Special Occasions', 'Stylizacje na specjalne okazje', 31),
+
+('Data Entry Services', 'Usługi wprowadzania danych', 32),
+('File Organization', 'Organizacja plików', 32),
+('Spreadsheet Management', 'Zarządzanie arkuszami kalkulacyjnymi', 32),
+('Document Editing', 'Edytowanie dokumentów', 32),
+
+-- Handmade and Craft Services
+('Custom Jewelry Creation', 'Tworzenie biżuterii na zamówienie', 34),
+('Jewelry Engraving', 'Grawerowanie biżuterii', 34),
+('Jewelry Repair', 'Naprawa biżuterii', 34),
+('Ring Design', 'Projektowanie pierścionków', 34),
+
+('Tailoring', 'Szycie na miarę', 35),
+('Clothing Alterations', 'Przeróbki odzieżowe', 35),
+('Clothing Design', 'Projektowanie odzieży', 35),
+('Clothing Repairs', 'Naprawy odzieżowe', 35),
+
+('Personalized Gifts', 'Personalizowane prezenty', 36),
+('Customized Wooden Gifts', 'Personalizowane drewniane prezenty', 36),
+('Custom Engraving', 'Personalizowane grawerowanie', 36),
+('Canvas Prints', 'Druk na płótnie', 36),
+
+('Woodworking', 'Stolarstwo', 37),
+('Furniture Restoration', 'Renowacja mebli', 37),
+('Wooden Decorations', 'Drewniane dekoracje', 37),
+('Wooden Toy Making', 'Tworzenie zabawek drewnianych', 37),
+
+('Candle Making', 'Tworzenie świec', 38),
+('Scented Candles', 'Świece zapachowe', 38),
+('Wax Figure Creation', 'Tworzenie woskowych figur', 38),
+('Candle Decoration', 'Dekorowanie świec', 38);
+
 CREATE TABLE IF NOT EXISTS COMPANY_BRANCH (
     company_id integer references COMPANY(id) not null,
     branch_id integer references BRANCH(id) not null,

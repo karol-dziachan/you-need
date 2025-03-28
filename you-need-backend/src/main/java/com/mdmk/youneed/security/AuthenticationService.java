@@ -36,10 +36,15 @@ public class AuthenticationService {
                 .company(company)
                 .build();
 
-        employeeRepository.save(employee);
+        employee = employeeRepository.save(employee);
         String jwtToken = jwtService.generateToken(employee);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(AuthenticationResponse.User.builder()
+                        .email(employee.getEmail())
+                        .firstName(employee.getFirstName())
+                        .lastName(employee.getLastName())
+                        .build())
                 .build();
     }
 
@@ -57,6 +62,12 @@ public class AuthenticationService {
         String jwtToken = jwtService.generateToken(employee);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(AuthenticationResponse.User.builder()
+                        .email(employee.getEmail())
+                        .firstName(employee.getFirstName())
+                        .lastName(employee.getLastName())
+                        .build()
+                )
                 .build();
     }
 }

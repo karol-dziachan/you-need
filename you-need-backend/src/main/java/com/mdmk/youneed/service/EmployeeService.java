@@ -1,22 +1,26 @@
 package com.mdmk.youneed.service;
 
-import com.mdmk.youneed.db.entity.Company;
-import com.mdmk.youneed.db.entity.Employee;
-import com.mdmk.youneed.db.repository.EmployeeRepository;
+import com.mdmk.youneed.dto.AuthenticationResponse;
 import com.mdmk.youneed.dto.EmployeeDTO;
-import com.mdmk.youneed.dto.mappers.EmployeeMapper;
+import com.mdmk.youneed.dto.RegisterRequest;
+import com.mdmk.youneed.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
-    private final EmployeeRepository employeeRepository;
+    private final AuthenticationService authenticationService;
 
-    public void saveEmployee(EmployeeDTO employeeData, Company company) {
-        Employee employee = EmployeeMapper.INSTANCE.dtoToEmployee(employeeData);
-        employee.setCompany(company);
-        employeeRepository.save(employee);
+    public AuthenticationResponse RegisterEmployee(EmployeeDTO employeeData, Long companyId) {
+        return authenticationService.register(RegisterRequest.builder()
+                        .firstName(employeeData.getFirstName())
+                        .lastName(employeeData.getLastName())
+                        .role(employeeData.getRole())
+                        .email(employeeData.getEmail())
+                        .companyId(companyId)
+                        .password(employeeData.getPassword())
+                .build());
     }
 
 }

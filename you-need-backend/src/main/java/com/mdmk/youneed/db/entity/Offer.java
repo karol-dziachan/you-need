@@ -1,10 +1,13 @@
 package com.mdmk.youneed.db.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +38,7 @@ public class Offer {
     @ManyToOne
     @JoinColumn(nullable = false, name = "company_id")
     @JoinColumn(nullable = false, name = "branch_id")
+    @With
     private CompanyBranch companyBranch;
 
 }
