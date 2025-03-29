@@ -28,13 +28,13 @@ namespace KARacter.YouNeed.Infrastructure
 
         public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
-           services.AddHealthChecks()
-            .AddMySql(
+           /*services.AddHealthChecks()
+            .AddSqlServer(
                 configuration.GetConnectionString("DefaultConnection"),
-                name: "Po³¹czenie z baz¹ danych",
+                name: "Poï¿½ï¿½czenie z bazï¿½ danych",
                 failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Degraded,
                 tags: new[] { "db", "mysql" }
-            );
+            );*/
 
             return services;
         }
@@ -80,7 +80,7 @@ namespace KARacter.YouNeed.Infrastructure
                         var result = JsonSerializer.Serialize(new
                         {
                             error = "Brak autoryzacji",
-                            message = "Nie masz uprawnieñ do tego zasobu"
+                            message = "Nie masz uprawnieï¿½ do tego zasobu"
                         });
 
                         return context.Response.WriteAsync(result);
@@ -92,8 +92,8 @@ namespace KARacter.YouNeed.Infrastructure
 
                         var result = JsonSerializer.Serialize(new
                         {
-                            error = "Dostêp zabroniony",
-                            message = "Nie masz wymaganych uprawnieñ"
+                            error = "Dostï¿½p zabroniony",
+                            message = "Nie masz wymaganych uprawnieï¿½"
                         });
 
                         return context.Response.WriteAsync(result);

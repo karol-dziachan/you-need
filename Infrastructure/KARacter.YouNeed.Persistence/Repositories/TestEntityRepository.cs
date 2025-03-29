@@ -19,9 +19,9 @@ namespace KARacter.YouNeed.Persistence.Repositories
             ArgumentNullException.ThrowIfNull(entity);
 
             const string sql = @"
-                        INSERT INTO [dbo].TestEntity (FirstName, LastName)
+                        INSERT INTO [dbo].TestEntity (Id, FirstName, LastName)
                         OUTPUT INSERTED.ID 
-                        VALUES (@FirstName, @LastName);";
+                        VALUES (@Id, @FirstName, @LastName);";
 
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync(cancellationToken);
@@ -30,7 +30,7 @@ namespace KARacter.YouNeed.Persistence.Repositories
 
             try
             {
-                var parameters = new { entity.FirstName, entity.LastName };
+                var parameters = new { Id = Guid.NewGuid(), entity.FirstName, entity.LastName };
                 var insertedId = await connection.ExecuteScalarAsync<Guid>(sql, parameters, transaction: transaction);
 
                 await transaction.CommitAsync(cancellationToken);
