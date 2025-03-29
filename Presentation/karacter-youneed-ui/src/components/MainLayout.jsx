@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { createStyles } from '@mantine/styles';
-
+import { useNavigate } from 'react-router-dom';
 const COLORS = {
   primary: '#E3F2FD',
   secondary: '#BBDEFB',
@@ -102,6 +102,7 @@ const MainLayout = () => {
   const [opened, { toggle }] = useDisclosure();
   const { classes } = useStyles();
   const [sparkles, setSparkles] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const generateSparkles = () => {
@@ -208,7 +209,10 @@ const MainLayout = () => {
                         background: `linear-gradient(135deg, ${COLORS.text}, ${COLORS.accent})`,
                       },
                     },
+
                   }}
+
+                  onClick={() => navigate('/login')}
                 >
                   Zaloguj się
                 </Button>
@@ -250,19 +254,81 @@ const MainLayout = () => {
                       color: COLORS.text,
                       fontWeight: 500,
                     }}
+                    onClick={() => navigate('/login')}
                   >
                     Zaloguj się
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             </Group>
+             <Text> 
+            
+             </Text>
           </Container>
         </AppShell.Header>
 
+        
+
         <AppShell.Main className={classes.content}>
           <Outlet />
+
         </AppShell.Main>
+
+        <Group
+          styles={(theme) => ({
+            root: {
+              borderTop: `1px solid rgba(189, 189, 189, 0.5)`,
+              background: theme.white,
+              padding: theme.spacing.md,
+              marginTop: 'auto',
+              boxShadow: '0 -4px 12px rgba(224, 224, 224, 0.15)',
+              position: 'relative',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '2px',
+                background: `linear-gradient(90deg, ${theme.colors.blue[3]}, ${theme.colors.blue[5]}, ${theme.colors.blue[3]})`,
+                opacity: 0.7
+              }
+            }
+          })}
+        >
+          <Group position="center">
+            <Text
+              component="a" 
+              href="https://karacter.type.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              styles={(theme) => ({
+                root: {
+                  color: COLORS.text,
+                  fontSize: '1rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    color: theme.colors.blue[7],
+                    transform: 'translateY(-2px)',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                  }
+                }
+              })}
+            >
+              Created with passion by <span style={{
+                fontWeight: 600,
+                background: `linear-gradient(120deg, ${COLORS.accent}, ${COLORS.text})`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                padding: '0 4px'
+              }}>KARacter.type.com</span>
+            </Text>
+          </Group>
+        </Group>
       </AppShell>
+      
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Title,
@@ -16,6 +17,11 @@ import { useStyles } from './HomePage.styles.js';
 
 export default function HomePage() {
   const { classes } = useStyles();
+  const navigate = useNavigate();
+
+  const handleStartJourney = () => {
+    navigate('/add-service-provider');
+  };
 
   return (
     <Container size="lg">
@@ -64,6 +70,7 @@ export default function HomePage() {
             <Button 
               className={classes.actionButton}
               size="xl" 
+              onClick={handleStartJourney}
               sx={(theme) => ({
                 position: 'relative',
                 overflow: 'hidden',
@@ -87,9 +94,6 @@ export default function HomePage() {
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
                 }
               })}
-              onClick={() => {
-                
-              }}
             >
               Rozpocznij Swoją Przygodę
             </Button>

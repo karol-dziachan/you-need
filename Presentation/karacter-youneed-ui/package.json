@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@mantine/core": "^7.17.3",
+    "@mantine/form": "^7.17.3",
     "@mantine/hooks": "^7.17.3",
     "@mantine/notifications": "^7.17.3",
     "@mantine/styles": "^6.0.22",
@@ -15,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.8.4",
     "canvas-confetti": "^1.9.3",
+    "framer-motion": "^12.6.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
