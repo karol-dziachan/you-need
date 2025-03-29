@@ -13,13 +13,12 @@
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\KARacter.YouNeed.Common\KARacter.YouNeed.Common.csproj" />
     <ProjectReference Include="..\KARacter.YouNeed.Domain\KARacter.YouNeed.Domain.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\KARacter.YouNeed.Persistence\KARacter.YouNeed.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

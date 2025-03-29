@@ -8,48 +8,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4074a3a0-353a-45f8-8e85-079c7b9f8376" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Behaviours/ValidationBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Behaviours/ValidationBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Common/Abstractions/BaseResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Common/Abstractions/BaseResult.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Common/Interfaces/IDateTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Common/Interfaces/IDateTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.KARacter.YouNeed.Api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KARacter.YouNeed.Api/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/DependencyInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandResult.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryResult.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Commands/AddTestEntity/AddTestEntityCommandValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQuery.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryResult.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/KARacter.YouNeed.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/KARacter.YouNeed.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Exceptions/ItemNotFoundException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Exceptions/ItemNotFoundException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Extensions/ParametersToPredicateExpression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Extensions/ParametersToPredicateExpression.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Extensions/PredicateToWhereClause.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Extensions/PredicateToWhereClause.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/KARacter.YouNeed.Common.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/KARacter.YouNeed.Common.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Shared/Status.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Common/Shared/Status.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Common/AuditableEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Common/AuditableEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Entities/TestEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Entities/TestEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/KARacter.YouNeed.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/KARacter.YouNeed.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/DependencyInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/KARacter.YouNeed.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/KARacter.YouNeed.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/RequestResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/RequestResult.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Services/DateTimeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Services/DateTimeService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Services/Status.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Services/Status.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Abstractions/ITestEntityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Abstractions/ITestEntityRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Abstractions/ITestEntityRepository.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/DependencyInjection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Exceptions/RepositoryException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Exceptions/ResourceUnavailableException.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/KARacter.YouNeed.Persistence.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/KARacter.YouNeed.Persistence.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Repositories/TestEntityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Repositories/TestEntityRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KARacter.YouNeed.Api.sln" beforeDir="false" afterPath="$PROJECT_DIR$/KARacter.YouNeed.Api.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/ClientApp/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/ClientApp/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Abstraction/BaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Abstraction/BaseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Repositories/TestEntityRepository.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/TestEntityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/TestEntityController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/KARacter.YouNeed.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/KARacter.YouNeed.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Properties/launchSettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.Development.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wymagania.md" beforeDir="false" afterPath="$PROJECT_DIR$/wymagania.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +43,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/721419248abb429f893abc86e13060efb2e000/6e/7c90ea55/ArgumentNullException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9a9343bd6768445b96adc85d2274cab67c00/8d/fbaad94d/HealthCheckEndpointRouteBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/95fc696d91bc61835f3e531f168ca1fd9b5381ecf8af8d1999af07476a8d/Mediator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///usr/lib/dotnet/sdk/8.0.114/Microsoft.Common.CurrentVersion.targets" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -77,7 +57,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.KARacter.YouNeed.Api.executor": "Debug",
+    ".NET Launch Settings Profile.KARacter.YouNeed.Api.executor": "Run",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -118,7 +98,7 @@
       <updated>1743241261910</updated>
       <workItem from="1743241262348" duration="1915000" />
       <workItem from="1743244092039" duration="1723000" />
-      <workItem from="1743262714592" duration="243000" />
+      <workItem from="1743262714592" duration="1872000" />
     </task>
     <servers />
   </component>
@@ -135,19 +115,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/TestEntityController.cs</url>
-          <line>26</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/TestEntityController.cs" containingFunctionPresentation="Method 'GetAllTestEntities'">
-            <startOffsets>
-              <option value="1257" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1299" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/TestEntity/Queries/GetTestEntities/GetAllTestEntitiesQueryHandler.cs</url>
           <line>18</line>
