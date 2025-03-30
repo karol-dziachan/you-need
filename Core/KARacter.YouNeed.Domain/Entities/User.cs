@@ -9,8 +9,8 @@ namespace KARacter.YouNeed.Domain.Entities
         public required string FirstName { get; init; }
         public required string LastName { get; init; }
         public string? PhoneNumber { get; init; }
-        public bool IsActive { get; init; } = true;
-        public bool IsEmailConfirmed { get; init; }
+        public bool IsActive { get; set; } = true;
+        public bool IsEmailConfirmed { get; set; }
         public DateTime? LastLoginDate { get; init; }
         public string? RefreshToken { get; init; }
         public DateTime? RefreshTokenExpiryTime { get; init; }

@@ -114,7 +114,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyBreakSettings", b =>
@@ -229,7 +229,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasIndex("UserRoleId1");
 
-                    b.ToTable("CompanyUser");
+                    b.ToTable("CompanyUsers");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyWorkArea", b =>
@@ -284,7 +284,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasIndex("CompanyId1");
 
-                    b.ToTable("CompanyWorkArea");
+                    b.ToTable("CompanyWorkAreas");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyWorkSchedule", b =>
@@ -338,7 +338,47 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasIndex("CompanyId1");
 
-                    b.ToTable("CompanyWorkSchedule");
+                    b.ToTable("CompanyWorkSchedules");
+                });
+
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.DomainEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EventData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventError")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventResult")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventSource")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("EventType")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("HandledDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsHandled")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RetryCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DomainEvents");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Payment", b =>
@@ -428,7 +468,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasIndex("PaymentMethodId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.PaymentMethod", b =>
@@ -476,7 +516,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentMethod");
+                    b.ToTable("PaymentMethods");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.User", b =>
@@ -535,7 +575,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.UserRole", b =>
@@ -566,7 +606,41 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("165e4abc-b865-4a0f-8166-4cadee1221fa"),
+                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Administrator",
+                            IsActive = true,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("9b8c9cad-d76d-4de8-a3e3-3568251bc321"),
+                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Administrator firmy",
+                            IsActive = true,
+                            Name = "CompanyAdmin"
+                        },
+                        new
+                        {
+                            Id = new Guid("b6ab7a7d-3e3d-41f4-b6b9-0562ea2c392c"),
+                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Pracownik firmy",
+                            IsActive = true,
+                            Name = "CompanyEmployee"
+                        },
+                        new
+                        {
+                            Id = new Guid("cb35649e-0b78-48fb-94bc-a150994c9988"),
+                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Klient",
+                            IsActive = true,
+                            Name = "Customer"
+                        });
                 });
 
             modelBuilder.Entity("CompanyPayment", b =>

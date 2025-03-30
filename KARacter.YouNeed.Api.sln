@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{75
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KARacter.YouNeed.Database", "Database\KARacter.YouNeed.Database\KARacter.YouNeed.Database.sqlproj", "{54755604-8CB4-4D72-9FE3-D7C88D906656}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KARacter.YouNeed.EventProcessor", "Infrastructure\KARacter.YouNeed.EventProcessor\KARacter.YouNeed.EventProcessor.csproj", "{929352C1-841E-4673-8FD9-EE367ED58286}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{54755604-8CB4-4D72-9FE3-D7C88D906656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54755604-8CB4-4D72-9FE3-D7C88D906656}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54755604-8CB4-4D72-9FE3-D7C88D906656}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{929352C1-841E-4673-8FD9-EE367ED58286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{929352C1-841E-4673-8FD9-EE367ED58286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{929352C1-841E-4673-8FD9-EE367ED58286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{929352C1-841E-4673-8FD9-EE367ED58286}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{7146C957-8C5A-493D-8B10-A3E93B1B5E60} = {48720D1F-3783-4839-BA0D-8C543684B32E}
 		{03868DC0-0D34-4457-9C18-0400CEB09CA5} = {8D275DB7-7D50-4D21-BC35-A517BB969A84}
 		{54755604-8CB4-4D72-9FE3-D7C88D906656} = {753DFAB4-C1B5-47E1-8EAF-DF5BA113FD4D}
+		{929352C1-841E-4673-8FD9-EE367ED58286} = {BFD7B110-A659-4971-B3EE-66CF0964EE7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCDB93DE-3E4E-472F-88C5-BBAFAF5A04BE}

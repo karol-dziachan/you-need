@@ -66,7 +66,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.HasMany(x => x.WorkSchedules)
             .WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(x => x.Payments)
             .WithMany(x => x.Companies);

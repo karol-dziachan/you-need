@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using KARacter.YouNeed.Common.Options;
 
 namespace KARacter.YouNeed.Infrastructure
 {
@@ -16,7 +17,9 @@ namespace KARacter.YouNeed.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<EmailSettingsOptions>(configuration.GetSection("EmailSettings"));
             services.AddTransient<IDateTime, DateTimeService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }

@@ -4,8 +4,8 @@ namespace KARacter.YouNeed.Domain.Entities
 {
     public record CompanyWorkArea : AuditableEntity
     {
-        public required Guid CompanyId { get; init; }
-        public required Company Company { get; init; }
+        public Guid CompanyId { get; init; }
+    public Company Company { get; init; }
         public required string City { get; init; }
         public required string PostalCode { get; init; }
         public required string District { get; init; }

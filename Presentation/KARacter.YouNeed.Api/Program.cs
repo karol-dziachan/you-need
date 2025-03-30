@@ -7,6 +7,22 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+// Konfiguracja CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:3000",
+            "http://localhost:3001",
+            "http://youneed.com.pl",
+            "https://youneed.com.pl"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -54,29 +70,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-/*
-app.MapHealthChecks("/health", new HealthCheckOptions
-{
-    ResponseWriter = async (context, report) =>
-    {
-        context.Response.ContentType = "application/json";
-        var response = new
-        {
-            Status = report.Status.ToString(),
-            HealthChecks = report.Entries.Select(x => new
-            {
-                Component = x.Key,
-                Status = x.Value.Status.ToString(),
-                Description = x.Value.Description,
-                Error = x.Value.Exception?.Message,
-                Details = x.Value.Data.Count > 0 ? x.Value.Data : null
-            }),
-            TotalDuration = report.TotalDuration
-        };
-        await context.Response.WriteAsJsonAsync(response);
-    }
-});
-*/
+
+// Dodanie CORS middleware przed innymi middleware'ami
+app.UseCors();
 
 app.ConfigureMiddlewares();
 

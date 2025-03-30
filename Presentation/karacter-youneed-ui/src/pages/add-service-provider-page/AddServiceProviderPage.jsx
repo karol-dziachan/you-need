@@ -21,7 +21,9 @@ import {
   Box,
   List,
   Grid,
+  PasswordInput
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { 
@@ -37,13 +39,22 @@ import {
   IconCheck,
   IconAlertCircle,
   IconInfoCircle,
+  IconLock,
+  IconUser,
+  IconX
 } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
+import { useApi } from '../../hooks/useApi';
+import { useClasses } from '../../hooks/useClasses';
+import { useNotificationStyles } from '../../styles/notifications.styles';
 
 export const AddServiceProviderPage = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [active, setActive] = useState(0);
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const api = useApi();
+  const classes = useClasses();
+  const { classes: notificationClasses } = useNotificationStyles();
 
   const form = useForm({
     initialValues: {
@@ -71,6 +82,10 @@ export const AddServiceProviderPage = () => {
           additionalInfo: '',
         },
       ],
+      password: '',
+      confirmPassword: '',
+      firstName: '',
+      lastName: '',
     },
     validate: {
       companyName: (value) => (value.length < 2 ? 'Nazwa firmy jest wymagana' : null),
@@ -85,12 +100,29 @@ export const AddServiceProviderPage = () => {
         postalCode: (value) => (!value ? 'Kod pocztowy jest wymagany' : null),
         district: (value) => (!value ? 'Dzielnica jest wymagana' : null),
       },
+      password: (value) => (
+        value.length < 8 
+          ? 'Hasło musi mieć minimum 8 znaków'
+          : !value.match(/[A-Z]/)
+          ? 'Hasło musi zawierać wielką literę'
+          : !value.match(/[0-9]/)
+          ? 'Hasło musi zawierać cyfrę'
+          : null
+      ),
+      confirmPassword: (value, values) =>
+        value !== values.password ? 'Hasła nie są identyczne' : null,
+      firstName: (value) => (value.length < 2 ? 'Imię jest wymagane' : null),
+      lastName: (value) => (value.length < 2 ? 'Nazwisko jest wymagane' : null),
     },
   });
 
   const nextStep = () => {
+    console.log('Próba przejścia do następnego kroku:', active);
+    console.log('Aktualne wartości formularza:', form.values);
+    console.log('Błędy formularza:', form.errors);
+
     const validationMap = {
-      0: ['companyName', 'nip', 'regon', 'email', 'website'],
+      0: ['companyName', 'nip', 'regon', 'email', 'website', 'firstName', 'lastName', 'password', 'confirmPassword'],
       1: ['description', 'phoneNumber'],
       2: ['address', 'city', 'postalCode'],
       3: ['workAreas'],
@@ -101,19 +133,47 @@ export const AddServiceProviderPage = () => {
     if (active === 3) {
       // Specjalna walidacja dla obszarów działania
       const isWorkAreasValid = form.values.workAreas.every((area, index) => {
-        const areaErrors = Object.keys(form.errors)
-          .filter(key => key.startsWith(`workAreas.${index}`))
-          .length === 0;
-        return areaErrors;
+        const requiredFields = ['city', 'postalCode', 'district'];
+        const hasErrors = requiredFields.some(field => {
+          const hasError = !area[field];
+          if (hasError) {
+            form.setFieldError(`workAreas.${index}.${field}`, 'To pole jest wymagane');
+          }
+          return hasError;
+        });
+        return !hasErrors;
       });
+      
+      console.log('Walidacja obszarów działania:', isWorkAreasValid);
       
       if (isWorkAreasValid) {
         setActive((current) => current < 4 ? current + 1 : current);
+      } else {
+        notifications.show({
+          title: 'Błąd walidacji',
+          message: 'Wypełnij wszystkie wymagane pola w obszarach działania',
+          color: 'red',
+          icon: <IconX size={16} />,
+        });
       }
     } else {
-      const isValid = currentStepFields.every((field) => !form.validateField(field).hasError);
+      const validationResults = currentStepFields.map(field => ({
+        field,
+        error: form.validateField(field)
+      }));
+      
+      console.log('Wyniki walidacji:', validationResults);
+      
+      const isValid = validationResults.every(result => !result.error.hasError);
       if (isValid) {
         setActive((current) => current < 4 ? current + 1 : current);
+      } else {
+        notifications.show({
+          title: 'Błąd walidacji',
+          message: 'Wypełnij wszystkie wymagane pola',
+          color: 'red',
+          icon: <IconX size={16} />,
+        });
       }
     }
   };
@@ -135,6 +195,88 @@ export const AddServiceProviderPage = () => {
       return value && value.toString().trim() !== '';
     }).length;
     return (filledFields / totalFields) * 100;
+  };
+
+  const handleSubmit = async (values) => {
+    console.log('Próba wysłania formularza:', values);
+    try {
+      const response = await api.post('/service-provider', {
+        companyName: values.companyName,
+        nip: values.nip,
+        regon: values.regon,
+        email: values.email,
+        website: values.website,
+        description: values.description,
+        phoneNumber: values.phoneNumber,
+        address: values.address,
+        city: values.city,
+        postalCode: values.postalCode,
+        workAreas: values.workAreas.map(area => ({
+          city: area.city,
+          postalCode: area.postalCode,
+          district: area.district,
+          radiusInKm: area.radiusInKm,
+          additionalInfo: area.additionalInfo
+        })),
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName
+      });
+      
+      console.log('Odpowiedź z API:', response);
+      
+      if (response.isSuccess) {
+        notifications.show({
+          title: 'Sukces',
+          message: 'Zgłoszenie zostało wysłane pomyślnie. Na Twój adres email został wysłany link aktywacyjny.',
+          color: 'green',
+          icon: <IconCheck size={16} />,
+          withBorder: true,
+          autoClose: 4000,
+          withCloseButton: true,
+          classNames: {
+            root: classes.notification,
+            title: classes.notificationTitle,
+            description: classes.notificationDescription,
+          },
+        });
+        
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+      } else {
+        notifications.show({
+          title: 'Błąd',
+          message: response.message || 'Wystąpił błąd podczas wysyłania zgłoszenia. Sprawdź poprawność danych.',
+          color: 'red',
+          icon: <IconX size={16} />,
+          withBorder: true,
+          autoClose: 6000,
+          withCloseButton: true,
+          classNames: {
+            root: classes.notification,
+            title: classes.notificationTitle,
+            description: classes.notificationDescription,
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Błąd podczas wysyłania formularza:', error);
+      notifications.show({
+        title: 'Błąd',
+        message: error?.response?.data || 'Wystąpił nieoczekiwany błąd podczas rejestracji. Spróbuj ponownie później.',
+        color: 'red',
+        icon: <IconX size={16} />,
+        withBorder: true,
+        autoClose: 6000,
+        withCloseButton: true,
+        classNames: {
+          root: classes.notification,
+          title: classes.notificationTitle,
+          description: classes.notificationDescription,
+        },
+      });
+    }
   };
 
   if (!isFormVisible) {
@@ -192,7 +334,10 @@ export const AddServiceProviderPage = () => {
   return (
     <Container size="lg" py="xl">
       <Paper p="xl" radius="md" withBorder shadow="md">
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit((values) => {
+          console.log('Form submitted with values:', values);
+          handleSubmit(values);
+        })}>
           <Stack spacing="xl">
             <Group position="apart" align="center">
               <Title order={2}>Rejestracja Usługodawcy</Title>
@@ -233,36 +378,87 @@ export const AddServiceProviderPage = () => {
                         placeholder="Wprowadź nazwę firmy"
                         {...form.getInputProps('companyName')}
                       />
-                      <Group grow>
-                        <TextInput
-                          required
-                          icon={<IconId size={16} />}
-                          label="NIP"
-                          placeholder="Wprowadź NIP"
-                          {...form.getInputProps('nip')}
-                        />
-                        <TextInput
-                          icon={<IconId size={16} />}
-                          label="REGON"
-                          placeholder="Wprowadź REGON"
-                          {...form.getInputProps('regon')}
-                        />
-                      </Group>
-                      <Group grow>
-                        <TextInput
-                          required
-                          icon={<IconMail size={16} />}
-                          label="Email"
-                          placeholder="Wprowadź email"
-                          {...form.getInputProps('email')}
-                        />
-                        <TextInput
-                          icon={<IconWorld size={16} />}
-                          label="Strona WWW"
-                          placeholder="Wprowadź adres strony WWW"
-                          {...form.getInputProps('website')}
-                        />
-                      </Group>
+                      <Grid>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            required
+                            icon={<IconId size={16} />}
+                            label="NIP"
+                            placeholder="Wprowadź NIP"
+                            {...form.getInputProps('nip')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            icon={<IconId size={16} />}
+                            label="REGON"
+                            placeholder="Wprowadź REGON"
+                            {...form.getInputProps('regon')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            required
+                            icon={<IconMail size={16} />}
+                            label="Email"
+                            placeholder="Wprowadź email"
+                            {...form.getInputProps('email')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            icon={<IconWorld size={16} />}
+                            label="Strona WWW"
+                            placeholder="Wprowadź adres strony WWW"
+                            {...form.getInputProps('website')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            required
+                            label="Imię"
+                            placeholder="Twoje imię"
+                            icon={<IconUser size={16} />}
+                            {...form.getInputProps('firstName')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            required
+                            label="Nazwisko"
+                            placeholder="Twoje nazwisko"
+                            icon={<IconUser size={16} />}
+                            {...form.getInputProps('lastName')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <PasswordInput
+                            required
+                            label="Hasło"
+                            placeholder="Minimum 8 znaków, wielka litera i cyfra"
+                            icon={<IconLock size={16} />}
+                            {...form.getInputProps('password')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <PasswordInput
+                            required
+                            label="Potwierdź hasło"
+                            placeholder="Powtórz hasło"
+                            icon={<IconLock size={16} />}
+                            {...form.getInputProps('confirmPassword')}
+                          />
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                          <TextInput
+                            required
+                            icon={<IconPhone size={16} />}
+                            label="Telefon"
+                            placeholder="Wprowadź numer telefonu"
+                            {...form.getInputProps('phoneNumber')}
+                          />
+                        </Grid.Col>
+                      </Grid>
                     </Stack>
                   )}
                 </Transition>
@@ -281,13 +477,6 @@ export const AddServiceProviderPage = () => {
                         placeholder="Opisz czym zajmuje się Twoja firma"
                         minRows={4}
                         {...form.getInputProps('description')}
-                      />
-                      <TextInput
-                        required
-                        icon={<IconPhone size={16} />}
-                        label="Telefon"
-                        placeholder="Wprowadź numer telefonu"
-                        {...form.getInputProps('phoneNumber')}
                       />
                     </Stack>
                   )}
@@ -443,6 +632,37 @@ export const AddServiceProviderPage = () => {
                       </Stack>
 
                       <Grid>
+                        <Grid.Col span={12}>
+                          <Card withBorder radius="md" p="md">
+                            <Stack spacing="xs">
+                              <Title order={4} color="blue">Dane osobowe i logowania</Title>
+                              <List spacing="xs" size="sm">
+                                <List.Item icon={
+                                  <ThemeIcon color="blue" size={24} radius="xl">
+                                    <IconUser size={16} />
+                                  </ThemeIcon>
+                                }>
+                                  <Text weight={700}>Imię:</Text> {form.values.firstName}
+                                </List.Item>
+                                <List.Item icon={
+                                  <ThemeIcon color="blue" size={24} radius="xl">
+                                    <IconUser size={16} />
+                                  </ThemeIcon>
+                                }>
+                                  <Text weight={700}>Nazwisko:</Text> {form.values.lastName}
+                                </List.Item>
+                                <List.Item icon={
+                                  <ThemeIcon color="blue" size={24} radius="xl">
+                                    <IconLock size={16} />
+                                  </ThemeIcon>
+                                }>
+                                  <Text weight={700}>Hasło:</Text> ••••••••
+                                </List.Item>
+                              </List>
+                            </Stack>
+                          </Card>
+                        </Grid.Col>
+
                         <Grid.Col span={12}>
                           <Card withBorder radius="md" p="md">
                             <Stack spacing="xs">
@@ -636,16 +856,30 @@ export const AddServiceProviderPage = () => {
                   Dalej
                 </Button>
               ) : (
-                <Button
-                  type="submit"
-                  radius="xl"
-                  rightIcon={<IconCheck size={20} />}
-                  variant="gradient"
-                  gradient={{ from: 'blue', to: 'cyan' }}
-                  size="lg"
-                >
-                  Wyślij zgłoszenie
-                </Button>
+                api.loading ? (
+                  <Button
+                    radius="xl"
+                    variant="gradient"
+                    gradient={{ from: 'blue', to: 'cyan' }}
+                    size="lg"
+                    loading
+                    fullWidth
+                  >
+                    Wysyłanie zgłoszenia...
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    radius="xl"
+                    rightIcon={<IconCheck size={20} />}
+                    variant="gradient"
+                    gradient={{ from: 'blue', to: 'cyan' }}
+                    size="lg"
+                    disabled={api.loading}
+                  >
+                    Wyślij zgłoszenie
+                  </Button>
+                )
               )}
             </Group>
           </Stack>

@@ -14,6 +14,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { createStyles } from '@mantine/styles';
 import { useNavigate } from 'react-router-dom';
+
 const COLORS = {
   primary: '#E3F2FD',
   secondary: '#BBDEFB',
@@ -126,6 +127,7 @@ const MainLayout = () => {
 
   return (
     <div className={classes.pageWrapper}>
+
       {sparkles.map((sparkle) => (
         <div
           key={sparkle.id}
@@ -199,6 +201,24 @@ const MainLayout = () => {
                     {item.label}
                   </Button>
                 ))}
+
+                <Button
+                  variant="outline"
+                  styles={{
+                    root: {
+                      borderColor: COLORS.accent,
+                      color: COLORS.text,
+                      '&:hover': {
+                        background: COLORS.primary,
+                        borderColor: COLORS.text,
+                      },
+                    },
+                  }}
+                  onClick={() => navigate('/add-service-provider')}
+                >
+                  Zostań Usługodawcą
+                </Button>
+
                 <Button
                   variant="filled"
                   styles={{
@@ -209,9 +229,7 @@ const MainLayout = () => {
                         background: `linear-gradient(135deg, ${COLORS.text}, ${COLORS.accent})`,
                       },
                     },
-
                   }}
-
                   onClick={() => navigate('/login')}
                 >
                   Zaloguj się
@@ -249,6 +267,15 @@ const MainLayout = () => {
                     </Menu.Item>
                   ))}
                   <Menu.Divider />
+                  <Menu.Item
+                    style={{
+                      color: COLORS.text,
+                      fontWeight: 500,
+                    }}
+                    onClick={() => navigate('/register-provider')}
+                  >
+                    Zostań Usługodawcą
+                  </Menu.Item>
                   <Menu.Item
                     style={{
                       color: COLORS.text,

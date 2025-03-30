@@ -37,6 +37,7 @@ const MotionPaper = motion(Paper);
 export const RegisterPage = () => {
   const { classes } = useStyles();
   const [active, setActive] = useState(0);
+  const navigate = useNavigate();
 
   const form = useForm({
     initialValues: {
@@ -100,7 +101,7 @@ export const RegisterPage = () => {
   };
 
   return (
-    <Container size="sm" py="xl" className={classes.container}>
+    <Container size="sm" py="xl" className={classes.container} bg="transparent">
       <Stack spacing="xl">
         <Center>
           <ThemeIcon size={80} radius="xl" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }}>
@@ -112,7 +113,23 @@ export const RegisterPage = () => {
           Dołącz do YouNeed
         </Title>
         <Text align="center" color="dimmed" size="sm">
-          Zarejestruj się i zacznij korzystać z naszych usług
+          Zarejestruj się jako klient i zacznij korzystać z naszych usług
+        </Text>
+        <Text align="center" size="sm">
+          Chcesz świadczyć usługi?{' '}
+          <Text
+            component="span"
+            variant="gradient"
+            gradient={{ from: 'blue', to: 'cyan' }}
+            
+            style={{
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
+            onClick={() => navigate('/add-service-provider')}
+          >
+            Zarejestruj się jako usługodawca
+          </Text>
         </Text>
 
         <MotionPaper
