@@ -10,10 +10,15 @@ import {
   Burger,
   Menu,
   Box,
+  Image,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { createStyles } from '@mantine/styles';
 import { useNavigate } from 'react-router-dom';
+import { ServiceProviderNavbar } from './service-provider-navbar/ServiceProviderNavbar';
+import { useJwtData } from '../hooks/useJwtData';
+import logo from '../assets/logo_white.png';
+import { rem } from '@mantine/styles';
 
 const COLORS = {
   primary: '#E3F2FD',
@@ -96,6 +101,8 @@ const useStyles = createStyles((theme) => ({
   content: {
     position: 'relative',
     zIndex: 2,
+    width: '100%',
+    margin: '0 auto',
   },
 }));
 
@@ -104,7 +111,7 @@ const MainLayout = () => {
   const { classes } = useStyles();
   const [sparkles, setSparkles] = useState([]);
   const navigate = useNavigate();
-
+  const userData = useJwtData();
   useEffect(() => {
     const generateSparkles = () => {
       return Array.from({ length: SPARKLES_COUNT }, () => ({
@@ -145,6 +152,12 @@ const MainLayout = () => {
       <AppShell
         header={{ height: 70 }}
         padding={0}
+        styles={{
+          main: {
+            padding: 0,
+            width: '100%',
+          }
+        }}
       >
         <AppShell.Header
           style={{
@@ -155,7 +168,7 @@ const MainLayout = () => {
             zIndex: 3,
           }}
         >
-          <Container size="lg" h="100%">
+          <Container size="xl" h="100%">
             <Group h="100%" justify="space-between">
               <Group>
                 <Burger
@@ -166,17 +179,17 @@ const MainLayout = () => {
                   color={COLORS.text}
                 />
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                  <Title
-                    order={1}
-                    size="h3"
-                    style={{
-                      background: `linear-gradient(135deg, ${COLORS.text}, ${COLORS.accent})`,
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}
-                  >
-                    You<Text span style={{ color: '#FF4081' }}>Need</Text>
-                  </Title>
+                <Image
+                src={logo}
+                alt="YouNeed Logo"
+                width={85}
+                style={{ 
+                  marginTop: '-5px',
+                  filter: 'brightness(0)', 
+                  height: '80px',
+                  objectFit: 'contain',
+                }}
+              />
                 </Link>
               </Group>
 
@@ -202,6 +215,8 @@ const MainLayout = () => {
                   </Button>
                 ))}
 
+            {(!localStorage.getItem('token') && !sessionStorage.getItem('token')) ? (
+              <>
                 <Button
                   variant="outline"
                   styles={{
@@ -234,6 +249,17 @@ const MainLayout = () => {
                 >
                   Zaloguj się
                 </Button>
+              </>
+            ) : (
+              <>
+              {userData && userData.role === 'CompanyAdmin' ? (
+                <ServiceProviderNavbar />
+              ) : (
+                 <ServiceProviderNavbar />
+                // <> </>
+              )}
+              </>
+            )}
               </Group>
 
               <Menu
@@ -288,17 +314,13 @@ const MainLayout = () => {
                 </Menu.Dropdown>
               </Menu>
             </Group>
-             <Text> 
-            
-             </Text>
           </Container>
         </AppShell.Header>
 
-        
-
-        <AppShell.Main className={classes.content}>
-          <Outlet />
-
+        <AppShell.Main>
+          <Container size="xl" className={classes.content} px={0}>
+            <Outlet />
+          </Container>
         </AppShell.Main>
 
         <Group

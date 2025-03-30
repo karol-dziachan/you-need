@@ -27,15 +27,22 @@ import {
   IconMail,
   IconUserCircle,
   IconArrowRight,
+  IconCheck,
+  IconX,
 } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useApi } from '../../hooks/useApi';
+import { useClasses } from '../../hooks/useClasses';
 
 const MotionStack = motion(Stack);
 
 export const LoginPage = () => {
   const [visible, { toggle }] = useDisclosure(true);
   const navigate = useNavigate();
+  const api = useApi();
+  const { classes } = useClasses();
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -48,14 +55,63 @@ export const LoginPage = () => {
     },
   });
 
-  const handleSubmit = (values) => {
-    // Tutaj będzie logika logowania
-    console.log(values);
-    notifications.show({
-      title: 'Logowanie...',
-      message: 'Trwa proces logowania',
-      loading: true,
-    });
+  const handleSubmit = async (values) => {
+    try {
+      notifications.show({
+        title: 'Logowanie...',
+        message: 'Trwa proces logowania',
+        loading: true,
+        autoClose: true,
+        withCloseButton: true,
+      });
+
+      const response = await api.post('/auth/login', {
+        email: values.email,
+        password: values.password
+      });
+
+      if (response.isSuccess && response.token) {
+        // Zapisz token w localStorage jeśli użytkownik chce być zapamiętany
+        if (values.rememberMe) {
+          localStorage.setItem('token', response.token);
+        }
+        
+        // Zawsze zapisz token w sessionStorage
+        sessionStorage.setItem('token', response.token);
+
+        notifications.show({
+          title: 'Sukces!',
+          message: 'Logowanie zakończone pomyślnie',
+          color: 'green',
+          icon: <IconCheck size={16} />,
+          autoClose: 2000,
+          classNames: {
+            root: classes.notification,
+            title: classes.notificationTitle,
+            description: classes.notificationDescription,
+          },
+        });
+
+        // Przekieruj na stronę główną po krótkim opóźnieniu
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      } else {
+        throw new Error(response.message || 'Wystąpił błąd podczas logowania');
+      }
+    } catch (error) {
+      notifications.show({
+        title: 'Błąd logowania',
+        message: error?.response?.data?.message || 'Nieprawidłowy email lub hasło',
+        color: 'red',
+        icon: <IconX size={16} />,
+        classNames: {
+          root: classes.notification,
+          title: classes.notificationTitle,
+          description: classes.notificationDescription,
+        },
+      });
+    }
   };
 
   return (

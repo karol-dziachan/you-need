@@ -10,10 +10,13 @@ import {PrivacyPolicyPage} from './pages/text-pages/PrivacyPolicyPage';
 import {RegisterPage} from './pages/register-page/RegisterPage';
 import ActivateServiceProviderPage from './pages/activate-service-provider-page/ActivateServiceProviderPage';
 import { Notifications } from '@mantine/notifications';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import ServiceProviderDashboardPage from './pages/service-provider-dashboard-page/ServiceProviderDashboardPage';
+
 function App() {
   return (
     <Provider store={store}>
-            <Notifications
+      <Notifications
         position="top-right"
         zIndex={9999999}
         autoClose={4000}
@@ -65,12 +68,20 @@ function App() {
       />
       <Router>
         <Routes>
-          
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="activation/:id" element={<ActivateServiceProviderPage />} />
             <Route path="add-service-provider" element={<AddServiceProviderPage />} />
+            
+            {/* Chronione routy */}
+            <Route path="service-provider/*" element={
+              <ProtectedRoute>
+                <ServiceProviderDashboardPage />
+              </ProtectedRoute>
+            } />
+ 
+            {/* Publiczne routy */}
             <Route path="register" element={<RegisterPage />} />
             <Route path="terms-of-service" element={<TermsOfServicePage />} />
             <Route path="privacy-policy" element={<PrivacyPolicyPage />} />

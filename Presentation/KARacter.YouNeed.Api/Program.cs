@@ -33,7 +33,7 @@ builder.Services.AddDistributedMemoryCache();
 
 
 builder.Services.AddHttpContextAccessor();
-//builder.Services.AddJwtAuthorization(builder.Configuration);
+builder.Services.AddJwtAuthorization(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();

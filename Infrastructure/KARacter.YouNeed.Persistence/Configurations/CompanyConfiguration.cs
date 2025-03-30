@@ -43,7 +43,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .HasMaxLength(200);
 
         builder.Property(x => x.Description)
-            .HasMaxLength(1000);
+            .HasColumnType("nvarchar(max)");
 
         builder.Property(x => x.IsActive)
             .IsRequired();

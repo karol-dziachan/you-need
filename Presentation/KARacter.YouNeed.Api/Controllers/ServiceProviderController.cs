@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.ActivateServiceMakerAcoount;
 using Microsoft.Extensions.Logging;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Queries.DashboardData;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KARacter.YouNeed.Api.Controllers
 {
@@ -100,6 +102,27 @@ namespace KARacter.YouNeed.Api.Controllers
         public async Task<IActionResult> Activate([FromRoute] Guid id)
         {
             var result = await _mediator.Send(new ActivateServiceMakerAcoountCommand { Id = id });
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("dashboard-data")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> GetDashboardData()
+        {
+            _logger.LogInformation("Received dashboard data request");
+            var authHeader = Request.Headers["Authorization"].ToString();
+            var token = authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase) 
+                ? authHeader[7..] 
+                : authHeader;
+
+            
+            var result = await _mediator.Send(new GetDashboardDataQuery { JwtToken = token });
 
             if (result.IsSuccess)
             {

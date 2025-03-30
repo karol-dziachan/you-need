@@ -40,6 +40,7 @@ import {
   IconAlertCircle,
   IconInfoCircle,
   IconLock,
+  IconBuildingStore,
   IconUser,
   IconX
 } from '@tabler/icons-react';
@@ -47,6 +48,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { useApi } from '../../hooks/useApi';
 import { useClasses } from '../../hooks/useClasses';
 import { useNotificationStyles } from '../../styles/notifications.styles';
+import { useNavigate } from 'react-router-dom';
 
 export const AddServiceProviderPage = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -54,6 +56,7 @@ export const AddServiceProviderPage = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const api = useApi();
   const classes = useClasses();
+  const navigate = useNavigate();
   const { classes: notificationClasses } = useNotificationStyles();
 
   const form = useForm({
@@ -181,6 +184,29 @@ export const AddServiceProviderPage = () => {
   const prevStep = () => setActive((current) => current > 0 ? current - 1 : current);
 
   const handleStartRegistration = () => {
+    if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
+      notifications.show({
+        title: 'Masz już założoną firmę',
+        message: 'Zapraszamy do panelu usługodawcy, gdzie możesz zarządzać swoją firmą.',
+        color: 'blue',
+        icon: <IconBuildingStore size={16} />,
+        autoClose: 5000,
+        styles: (theme) => ({
+          root: {
+            backgroundColor: theme.white,
+            borderColor: theme.colors.blue[6],
+          },
+          title: { color: theme.colors.blue[7] },
+          description: { color: theme.colors.dark[6] },
+          closeButton: {
+            color: theme.colors.gray[6],
+            '&:hover': { backgroundColor: theme.colors.gray[0] },
+          },
+        }),
+      });
+      navigate('/service-provider/dashboard');
+      return;
+    }
     setIsFormVisible(true);
   };
 

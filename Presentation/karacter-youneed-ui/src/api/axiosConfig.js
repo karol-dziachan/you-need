@@ -11,25 +11,28 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    console.error('Request Error:', error);
+    return Promise.resolve({ data: {} });
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   (error) => {
+    console.error('Response Error:', error);
+    
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
+      console.log('Unauthorized access');
     }
-    return Promise.reject(error);
+    
+    return Promise.resolve({ data: {} });
   }
 );
 

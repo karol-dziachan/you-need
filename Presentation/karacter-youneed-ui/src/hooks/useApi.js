@@ -12,27 +12,32 @@ export const useApi = () => {
       const response = await requestFn();
       return response;
     } catch (err) {
+      console.error('API Error:', err);
       setError(err.response?.data?.message || 'Wystąpił błąd podczas komunikacji z serwerem');
-      throw err;
+      return { data: {} };
     } finally {
       setLoading(false);
     }
   }, []);
 
-  const get = useCallback((endpoint) => {
-    return handleRequest(() => axiosInstance.get(endpoint));
+  const get = useCallback(async (endpoint) => {
+    const response = await handleRequest(() => axiosInstance.get(endpoint));
+    return response || { data: {} };
   }, [handleRequest]);
 
-  const post = useCallback((endpoint, data) => {
-    return handleRequest(() => axiosInstance.post(endpoint, data));
+  const post = useCallback(async (endpoint, data) => {
+    const response = await handleRequest(() => axiosInstance.post(endpoint, data));
+    return response || { data: {} };
   }, [handleRequest]);
 
-  const put = useCallback((endpoint, data) => {
-    return handleRequest(() => axiosInstance.put(endpoint, data));
+  const put = useCallback(async (endpoint, data) => {
+    const response = await handleRequest(() => axiosInstance.put(endpoint, data));
+    return response || { data: {} };
   }, [handleRequest]);
 
-  const del = useCallback((endpoint) => {
-    return handleRequest(() => axiosInstance.delete(endpoint));
+  const del = useCallback(async (endpoint) => {
+    const response = await handleRequest(() => axiosInstance.delete(endpoint));
+    return response || { data: {} };
   }, [handleRequest]);
 
   return {

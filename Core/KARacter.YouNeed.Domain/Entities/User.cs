@@ -11,7 +11,7 @@ namespace KARacter.YouNeed.Domain.Entities
         public string? PhoneNumber { get; init; }
         public bool IsActive { get; set; } = true;
         public bool IsEmailConfirmed { get; set; }
-        public DateTime? LastLoginDate { get; init; }
+        public DateTime? LastLoginDate { get; set; }
         public string? RefreshToken { get; init; }
         public DateTime? RefreshTokenExpiryTime { get; init; }
 
