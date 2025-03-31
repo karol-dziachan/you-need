@@ -35,8 +35,8 @@ export const useApi = () => {
     return response || { data: {} };
   }, [handleRequest]);
 
-  const del = useCallback(async (endpoint) => {
-    const response = await handleRequest(() => axiosInstance.delete(endpoint));
+  const del = useCallback(async (endpoint, data) => {
+    const response = await handleRequest(() => axiosInstance.delete(endpoint, data));
     return response || { data: {} };
   }, [handleRequest]);
 
@@ -44,7 +44,7 @@ export const useApi = () => {
     get,
     post,
     put,
-    delete: del,
+    del,
     loading,
     error,
   };

@@ -91,6 +91,15 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
             };
         }
 
+        var workSchedules = await _context.CompanyWorkSchedules
+            .Include(x => x.User)
+            .Where(x => x.CompanyId == company.Id)
+            .ToListAsync(cancellationToken);
+
+        var workAreas = await _context.CompanyWorkAreas
+            .Where(x => x.CompanyId == company.Id)
+            .ToListAsync(cancellationToken);
+
         _logger.LogInformation("Company found");
         _logger.LogInformation("Company: {Company}", company);
         var result = new GetDashboardDataQueryResult
@@ -109,6 +118,7 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                 },
                 Company = new CompanyDto
                 {
+                    Id = company.Id,
                     Name = company.Name,
                     NIP = company.NIP,
                     REGON = company.REGON,
@@ -123,6 +133,7 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                 },
                 BreakSettings = company.BreakSettings is not null ? new BreakSettingsDto
                 {
+                    Id = company.BreakSettings.Id,
                     MinimumBreakBetweenOrdersInMinutes = company.BreakSettings.MinimumBreakBetweenOrdersInMinutes,
                     MaximumOrdersPerDay = company.BreakSettings.MaximumOrdersPerDay,
                     IsActive = company.BreakSettings.IsActive,
@@ -133,13 +144,17 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                 } : null,
                 CompanyUsers = company.CompanyUsers?.Select(x => new CompanyUserDto
                 {
+                    Id = x.Id,
                     Email = x.User?.Email,
                     FirstName = x.User?.FirstName,
                     LastName = x.User?.LastName,
-                    PhoneNumber = x.User?.PhoneNumber
+                    PhoneNumber = x.User?.PhoneNumber,
+                    Role = x.UserRole?.Name,
+                    IsActive = x.IsActive
                 })?.ToList() ?? new List<CompanyUserDto>(),
-                WorkAreas = company.WorkAreas?.Select(x => new WorkAreaDto
+                WorkAreas = workAreas?.Select(x => new WorkAreaDto
                 {
+                    Id = x.Id,
                     City = x.City,
                     PostalCode = x.PostalCode,
                     District = x.District,
@@ -147,8 +162,10 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                     AdditionalInfo = x.AdditionalInfo,
                     IsActive = x.IsActive
                 })?.ToList() ?? new List<WorkAreaDto>(),
-                WorkSchedules = company.WorkSchedules?.Select(x => new WorkScheduleDto
+                WorkSchedules = workSchedules?.Select(x => new WorkScheduleDto
                 {
+                    Id = x.Id,
+                    CompanyUserId = x.UserId,
                     DayOfWeek = x.DayOfWeek,
                     StartTime = x.StartTime,
                     EndTime = x.EndTime,
@@ -156,7 +173,8 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                     IsActive = x.IsActive,
                     BreakStartTime = x.BreakStartTime,
                     BreakEndTime = x.BreakEndTime,
-                    Notes = x.Notes
+                    Notes = x.Notes,
+                    UserFullName = $"{x.User?.User?.FirstName} {x.User?.User?.LastName}"
                 })?.ToList() ?? new List<WorkScheduleDto>()
             }
         };

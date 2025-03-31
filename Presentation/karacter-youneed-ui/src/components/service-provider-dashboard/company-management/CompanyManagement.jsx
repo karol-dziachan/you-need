@@ -8,6 +8,9 @@ import { CompanySchedules } from './CompanySchedules';
 import { CompanyWorkAreas } from './CompanyWorkAreas';
 import { CompanyBreakSettings } from './CompanyBreakSettings';
 
+// Funkcja pomocnicza do konwersji czasu z formatu "HH:mm" na format TimeSpan
+
+
 export const CompanyManagement = ({ dashboardData }) => {
   const { classes } = useStyles();
 
@@ -43,11 +46,11 @@ export const CompanyManagement = ({ dashboardData }) => {
           </Tabs.Panel>
 
           <Tabs.Panel value="users" pt="xl">
-            <CompanyUsers users={dashboardData?.companyUsers} />
+          <CompanyUsers users={dashboardData?.companyUsers} fetchDashboardData={fetchDashboardData} companyId={dashboardData?.Company?.Id} />
           </Tabs.Panel>
 
           <Tabs.Panel value="schedules" pt="xl">
-            <CompanySchedules schedules={dashboardData?.workSchedules} />
+            <CompanySchedules schedules={dashboardData?.workSchedules} companyId={dashboardData?.company?.id} users={dashboardData?.companyUsers} fetchDashboardData={fetchDashboardData} />
           </Tabs.Panel>
 
           <Tabs.Panel value="areas" pt="xl">

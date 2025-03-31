@@ -34,6 +34,18 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, LoginQueryResult>
             };
         }
 
+        if (!user.IsActive)
+        {
+            _logger.LogWarning("Użytkownik: {Email} jest nieaktywny", request.Email);
+            return new LoginQueryResult
+            {
+                IsSuccess = false,
+                Message = "Użytkownik jest nieaktywny",
+                Token = null
+            };
+        }
+        
+
         _logger.LogDebug("Weryfikacja hasła dla użytkownika: {Email}", request.Email);
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
         {

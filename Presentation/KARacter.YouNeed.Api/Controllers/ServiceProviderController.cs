@@ -6,6 +6,14 @@ using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.ActivateServic
 using Microsoft.Extensions.Logging;
 using KARacter.YouNeed.Application.Features.ServiceMaker.Queries.DashboardData;
 using Microsoft.AspNetCore.Authorization;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.UpdateContactInfo;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.AddCompanyUser;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.EditCompanyUser;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteCompanyUser;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.ActivateCompanyUser;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.AddCompanyWorkSchedule;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.EditCompanyWorkSchedule;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteCompanyWorkSchedule;
 
 namespace KARacter.YouNeed.Api.Controllers
 {
@@ -132,6 +140,105 @@ namespace KARacter.YouNeed.Api.Controllers
             return BadRequest(result.Message);
         }
 
+        [HttpPut("update-contact-info")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> UpdateContactInfo([FromBody] UpdateContactInfoCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
 
+            return BadRequest(result);
+        }
+
+
+        [HttpPost("add-company-user")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> AddCompanyUser([FromBody] AddCompanyUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+
+        [HttpPut("edit-company-user")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> EditCompanyUser([FromBody] EditCompanyUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("delete-company-user")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> DeleteCompanyUser([FromBody] DeleteCompanyUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPut("activate-company-user")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> ActivateCompanyUser([FromBody] ActivateCompanyUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPost("add-company-work-schedule")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> AddCompanyWorkSchedule([FromBody] AddCompanyWorkScheduleCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPut("edit-company-work-schedule")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> EditCompanyWorkSchedule([FromBody] EditCompanyWorkScheduleCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("delete-company-work-schedule")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> DeleteCompanyWorkSchedule([FromBody] DeleteCompanyWorkScheduleCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }

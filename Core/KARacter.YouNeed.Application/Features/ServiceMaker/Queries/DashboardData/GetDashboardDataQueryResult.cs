@@ -28,6 +28,7 @@ public class UserDto
 
 public class CompanyDto
 {
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string NIP { get; set; }
     public string REGON { get; set; }
@@ -44,25 +45,30 @@ public class CompanyDto
 
 public class BreakSettingsDto
 {
-        public required int MinimumBreakBetweenOrdersInMinutes { get; init; }
-        public required int MaximumOrdersPerDay { get; init; }
-        public bool IsActive { get; init; } = true;
-        public bool AllowWeekendOrders { get; init; }
-        public bool AllowHolidayOrders { get; init; }
+    public Guid Id { get; set; }
+    public required int MinimumBreakBetweenOrdersInMinutes { get; init; }
+    public required int MaximumOrdersPerDay { get; init; }
+    public bool IsActive { get; init; } = true;
+    public bool AllowWeekendOrders { get; init; }
+    public bool AllowHolidayOrders { get; init; }
         public string? ExcludedDates { get; init; } // JSON z listą wykluczonych dat
         public string? SpecialBreakRules { get; init; } // JSON z dodatkowymi regułami przerw
 }
 
 public class CompanyUserDto
 {
+    public Guid Id { get; set; }
     public string Email { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }
+    public string Role { get; set; }
+    public bool IsActive { get; set; }
 }
 
 public class WorkAreaDto
 {
+    public Guid Id { get; set; }
     public string City { get; set; }
     public string PostalCode { get; set; }
     public string District { get; set; }
@@ -73,6 +79,8 @@ public class WorkAreaDto
 
 public class WorkScheduleDto
 {
+    public Guid Id { get; set; }
+    public Guid CompanyUserId { get; set; }
     public DayOfWeek DayOfWeek { get; set; }
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }
@@ -81,5 +89,6 @@ public class WorkScheduleDto
     public TimeSpan? BreakStartTime { get; set; }
     public TimeSpan? BreakEndTime { get; set; }
     public string? Notes { get; set; }
+    public string UserFullName { get; set; }
 }
 

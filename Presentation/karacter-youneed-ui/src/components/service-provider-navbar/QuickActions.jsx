@@ -11,10 +11,10 @@ import { useStyles } from './QuickActions.styles';
 
 const quickActions = [
   { id: 'dashboard', title: 'Panel zarządzania', icon: IconBuildingStore, color: 'blue', path: '/service-provider/dashboard' },
+  { id: 'offers', title: 'Moja oferta', icon: IconShoppingBag, color: 'indigo', path: '/service-provider/offers' },
   { id: 'employees', title: 'Moi pracownicy', icon: IconUsers, color: 'green', path: '/service-provider/employees' },
   { id: 'wallet', title: 'Portfel', icon: IconWallet, color: 'yellow', path: '/service-provider/wallet' },
   { id: 'payments', title: 'Moje płatności', icon: IconReceipt, color: 'red', path: '/service-provider/payments' },
-  { id: 'offers', title: 'Moja oferta', icon: IconShoppingBag, color: 'indigo', path: '/service-provider/offers' },
   { id: 'bookings', title: 'Historia zapisów', icon: IconClipboardList, color: 'teal', path: '/service-provider/bookings' },
 ];
 

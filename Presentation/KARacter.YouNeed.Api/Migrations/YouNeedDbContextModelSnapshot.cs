@@ -304,6 +304,9 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.Property<Guid?>("CompanyId1")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CompanyUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
@@ -331,11 +334,18 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("CompanyId1");
+
+                    b.HasIndex("CompanyUserId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CompanyWorkSchedules");
                 });
@@ -606,40 +616,6 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9d0e6b3a-09a5-4a40-bdfa-3ab200370936"),
-                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Administrator",
-                            IsActive = true,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("3561a3cf-6735-4309-b6ac-84ce7de98091"),
-                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Administrator firmy",
-                            IsActive = true,
-                            Name = "CompanyAdmin"
-                        },
-                        new
-                        {
-                            Id = new Guid("2d6e1b60-1071-4fff-b1bd-ee720c271c3f"),
-                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Pracownik firmy",
-                            IsActive = true,
-                            Name = "CompanyEmployee"
-                        },
-                        new
-                        {
-                            Id = new Guid("dbd430a9-b6e0-498d-8f79-9e6b2a7e010f"),
-                            CreatedDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Klient",
-                            IsActive = true,
-                            Name = "Customer"
-                        });
                 });
 
             modelBuilder.Entity("CompanyPayment", b =>
@@ -749,7 +725,19 @@ namespace KARacter.YouNeed.Api.Migrations
                         .WithMany("WorkSchedules")
                         .HasForeignKey("CompanyId1");
 
+                    b.HasOne("KARacter.YouNeed.Domain.Entities.CompanyUser", null)
+                        .WithMany("WorkSchedules")
+                        .HasForeignKey("CompanyUserId");
+
+                    b.HasOne("KARacter.YouNeed.Domain.Entities.CompanyUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Payment", b =>
@@ -771,6 +759,11 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.Navigation("WorkAreas");
 
+                    b.Navigation("WorkSchedules");
+                });
+
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyUser", b =>
+                {
                     b.Navigation("WorkSchedules");
                 });
 

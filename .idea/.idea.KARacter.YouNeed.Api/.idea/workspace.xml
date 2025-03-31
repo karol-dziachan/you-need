@@ -8,31 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4074a3a0-353a-45f8-8e85-079c7b9f8376" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.KARacter.YouNeed.Api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KARacter.YouNeed.Api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Behaviours/ValidationBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Behaviours/ValidationBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Common/Interfaces/IYouNeedDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Common/Interfaces/IYouNeedDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/DependencyInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/KARacter.YouNeed.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/KARacter.YouNeed.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Entities/CompanyWorkArea.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Entities/CompanyWorkArea.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Entities/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Domain/Entities/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/DependencyInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/KARacter.YouNeed.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/KARacter.YouNeed.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Configurations/CompanyConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Configurations/CompanyConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/ContextCreator/YouNeedDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/ContextCreator/YouNeedDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KARacter.YouNeed.Api.sln" beforeDir="false" afterPath="$PROJECT_DIR$/KARacter.YouNeed.Api.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Abstraction/BaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Abstraction/BaseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/TestEntityController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Migrations/YouNeedDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Migrations/YouNeedDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/api/axiosConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/api/axiosConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/MainLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/add-service-provider-page/AddServiceProviderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/add-service-provider-page/AddServiceProviderPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/register-page/RegisterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/register-page/RegisterPage.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="4074a3a0-353a-45f8-8e85-079c7b9f8376" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,24 +38,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.KARacter.YouNeed.Api.executor": "Debug",
-    ".NET Project.KARacter.YouNeed.EventProcessor.executor": "Run",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "do_not_show_solution_notification": "true",
-    "git-widget-placeholder": "develop",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.KARacter.YouNeed.Api.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Project.KARacter.YouNeed.EventProcessor.executor&quot;: &quot;Run&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;do_not_show_solution_notification&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Project.KARacter.YouNeed.EventProcessor">
     <configuration name="KARacter.YouNeed.EventProcessor" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -128,6 +104,7 @@
       <workItem from="1743262714592" duration="1872000" />
       <workItem from="1743330054728" duration="105000" />
       <workItem from="1743330166261" duration="8096000" />
+      <workItem from="1743412973734" duration="16000" />
     </task>
     <servers />
   </component>
@@ -153,14 +130,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/ServiceProvider/Commands/RegisterServiceProviderCommandHandler.cs</url>
           <line>121</line>
-          <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/ServiceProvider/Commands/RegisterServiceProviderCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="4872" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4873" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/ServiceProvider/Commands/RegisterServiceProviderCommandHandler.cs" containingFunctionPresentation="Method 'Handle'" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">

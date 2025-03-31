@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using KARacter.YouNeed.Application.Common.Interfaces;
 using KARacter.YouNeed.Domain.Entities;
+using KARacter.YouNeed.Domain.Common;
 
 namespace KARacter.YouNeed.Persistence.ContextCreator;
 
@@ -24,17 +25,27 @@ public class YouNeedDbContext : DbContext, Application.Common.Interfaces.IYouNee
         {
         }
 
-        
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            modelBuilder.SeedData();
+           // modelBuilder.SeedData();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Europe/Warsaw"));
+                        break;  
+                    case EntityState.Modified:
+                        entry.Entity.ModifiedDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Europe/Warsaw"));
+                        break;
+                }
+            }
             
             return base.SaveChangesAsync(cancellationToken);
         }

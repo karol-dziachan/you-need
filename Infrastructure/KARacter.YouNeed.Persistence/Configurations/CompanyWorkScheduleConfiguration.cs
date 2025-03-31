@@ -13,6 +13,9 @@ public class CompanyWorkScheduleConfiguration : IEntityTypeConfiguration<Company
         builder.Property(x => x.CompanyId)
             .IsRequired();
 
+        builder.Property(x => x.UserId)
+            .IsRequired();
+
         builder.Property(x => x.DayOfWeek)
             .IsRequired();
 
@@ -39,6 +42,11 @@ public class CompanyWorkScheduleConfiguration : IEntityTypeConfiguration<Company
         builder.HasOne(x => x.Company)
             .WithMany()
             .HasForeignKey(x => x.CompanyId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

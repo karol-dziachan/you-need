@@ -40,10 +40,63 @@ const ServiceProviderDashboardPage = () => {
     const path = location.pathname.split('/').pop();
     
     switch (path) {
+      case 'offers':
+        return (
+          <Paper p="xl" radius="md" withBorder>
+            <Stack spacing="md">
+              <Text size="xl" weight={700}>Moja oferta</Text>
+              <Text size="sm" color="dimmed">
+                Tu będzie zarządzanie ofertami
+              </Text>
+            </Stack>
+          </Paper>
+        );
       case 'dashboard':
-        return <CompanyManagement dashboardData={dashboardData} />;
+        return <CompanyManagement dashboardData={dashboardData} fetchDashboardData={fetchDashboardData} />;
       case 'employees':
-        return <EmployeesManagement />;
+        return (
+          <Paper p="xl" radius="md" withBorder>
+            <Stack spacing="xl">
+              <Stack spacing="xs">
+                <Text size="xl" weight={700}>Zarządzanie pracownikami</Text>
+                <Text size="sm" color="dimmed">
+                  Moduł zarządzania pracownikami - w trakcie rozwoju
+                </Text>
+              </Stack>
+
+              <Grid>
+                <Grid.Col span={12}>
+                  <Paper p="md" radius="md" withBorder>
+                    <Stack spacing="md">
+                      <Text weight={600} size="lg">🎯 Planowane funkcjonalności</Text>
+                      <Text size="sm">
+                        W tym module będziesz mógł w pełni zarządzać swoim zespołem. Planowane funkcje to:
+                      </Text>
+                      <Stack spacing="xs" ml="md">
+                        <Text size="sm">• Dodawanie i usuwanie pracowników</Text>
+                        <Text size="sm">• Zarządzanie uprawnieniami</Text>
+                        <Text size="sm">• Przydzielanie zadań i projektów</Text>
+                        <Text size="sm">• Monitorowanie czasu pracy</Text>
+                        <Text size="sm">• Oceny i feedback</Text>
+                      </Stack>
+                    </Stack>
+                  </Paper>
+                </Grid.Col>
+
+                <Grid.Col span={12}>
+                  <Paper p="md" radius="md" withBorder>
+                    <Stack spacing="md">
+                      <Text weight={600} size="lg">⌛ Status wdrożenia</Text>
+                      <Text size="sm">
+                        Aktualnie pracujemy nad implementacją tego modułu. Spodziewaj się pierwszej wersji w najbliższym czasie.
+                      </Text>
+                    </Stack>
+                  </Paper>
+                </Grid.Col>
+              </Grid>
+            </Stack>
+          </Paper>
+        );
       case 'wallet':
         return (
           <Paper p="xl" radius="md" withBorder>
@@ -154,17 +207,7 @@ const ServiceProviderDashboardPage = () => {
             </Stack>
           </Paper>
         );
-      case 'offers':
-        return (
-          <Paper p="xl" radius="md" withBorder>
-            <Stack spacing="md">
-              <Text size="xl" weight={700}>Moja oferta</Text>
-              <Text size="sm" color="dimmed">
-                Tu będzie zarządzanie ofertami
-              </Text>
-            </Stack>
-          </Paper>
-        );
+
       case 'bookings':
         return (
           <Paper p="xl" radius="md" withBorder>
