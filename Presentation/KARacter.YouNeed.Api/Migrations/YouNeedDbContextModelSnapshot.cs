@@ -63,6 +63,9 @@ namespace KARacter.YouNeed.Api.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<Guid?>("BreakSettingsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -113,6 +116,8 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BreakSettingsId");
+
                     b.ToTable("Companies");
                 });
 
@@ -129,9 +134,6 @@ namespace KARacter.YouNeed.Api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CompanyId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDateTime")
@@ -159,12 +161,14 @@ namespace KARacter.YouNeed.Api.Migrations
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId")
-                        .IsUnique();
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("CompanyId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("CompanyBreakSettings");
                 });
@@ -277,11 +281,16 @@ namespace KARacter.YouNeed.Api.Migrations
                         .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("CompanyId1");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CompanyWorkAreas");
                 });
@@ -388,6 +397,103 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DomainEvents");
+                });
+
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.EntityOffer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<Guid>("EntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("OfferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Price")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("float(18)");
+
+                    b.Property<int>("TimeToCompleteInMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitOfMeasure")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("WhichEntity")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferId");
+
+                    b.ToTable("EntityOffer", t =>
+                        {
+                            t.HasCheckConstraint("CK_EntityOffer_WhichEntity", "WhichEntity IN ('Company', 'Worker')");
+                        });
+                });
+
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Offer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2500)
+                        .HasColumnType("nvarchar(2500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAddedByUser")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsHead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsParentOffer")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<Guid?>("ParentOfferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PathToImage")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offer");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Payment", b =>
@@ -648,19 +754,33 @@ namespace KARacter.YouNeed.Api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Company", b =>
+                {
+                    b.HasOne("KARacter.YouNeed.Domain.Entities.CompanyBreakSettings", "BreakSettings")
+                        .WithMany()
+                        .HasForeignKey("BreakSettingsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("BreakSettings");
+                });
+
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyBreakSettings", b =>
                 {
-                    b.HasOne("KARacter.YouNeed.Domain.Entities.Company", null)
-                        .WithOne("BreakSettings")
-                        .HasForeignKey("KARacter.YouNeed.Domain.Entities.CompanyBreakSettings", "CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KARacter.YouNeed.Domain.Entities.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyId1");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KARacter.YouNeed.Domain.Entities.User", "User")
+                        .WithMany("CompanyBreakSettings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyUser", b =>
@@ -710,7 +830,14 @@ namespace KARacter.YouNeed.Api.Migrations
                         .WithMany("WorkAreas")
                         .HasForeignKey("CompanyId1");
 
+                    b.HasOne("KARacter.YouNeed.Domain.Entities.User", "User")
+                        .WithMany("CompanyWorkAreas")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.CompanyWorkSchedule", b =>
@@ -740,6 +867,17 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.EntityOffer", b =>
+                {
+                    b.HasOne("KARacter.YouNeed.Domain.Entities.Offer", "Offer")
+                        .WithMany("EntityOffers")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Offer");
+                });
+
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Payment", b =>
                 {
                     b.HasOne("KARacter.YouNeed.Domain.Entities.PaymentMethod", "PaymentMethod")
@@ -753,8 +891,6 @@ namespace KARacter.YouNeed.Api.Migrations
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Company", b =>
                 {
-                    b.Navigation("BreakSettings");
-
                     b.Navigation("CompanyUsers");
 
                     b.Navigation("WorkAreas");
@@ -767,6 +903,11 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.Navigation("WorkSchedules");
                 });
 
+            modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Offer", b =>
+                {
+                    b.Navigation("EntityOffers");
+                });
+
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.PaymentMethod", b =>
                 {
                     b.Navigation("Payments");
@@ -774,7 +915,11 @@ namespace KARacter.YouNeed.Api.Migrations
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.User", b =>
                 {
+                    b.Navigation("CompanyBreakSettings");
+
                     b.Navigation("CompanyUser");
+
+                    b.Navigation("CompanyWorkAreas");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.UserRole", b =>

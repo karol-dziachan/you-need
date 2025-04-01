@@ -14,6 +14,12 @@ using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.ActivateCompan
 using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.AddCompanyWorkSchedule;
 using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.EditCompanyWorkSchedule;
 using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteCompanyWorkSchedule;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.AddCompanyWorkArea;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.EditCompanyWorkArea;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteCompanyWorkArea;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.AddCompanyBreakSettings;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.EditCompanyBreakSettings;
+using KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteCompanyBreakSettings;
 
 namespace KARacter.YouNeed.Api.Controllers
 {
@@ -240,5 +246,85 @@ namespace KARacter.YouNeed.Api.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpPost("add-company-work-area")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> AddCompanyWorkArea([FromBody] AddCompanyWorkAreaCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPut("edit-company-work-area")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> EditCompanyWorkArea([FromBody] EditCompanyWorkAreaCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("delete-company-work-area")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> DeleteCompanyWorkArea([FromBody] DeleteCompanyWorkAreaCommand command)
+        {
+            var result = await _mediator.Send(command); 
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPost("add-company-break-settings")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> AddCompanyBreakSettings([FromBody] AddCompanyBreakSettingsCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPut("edit-company-break-settings")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> EditCompanyBreakSettings([FromBody] EditCompanyBreakSettingsCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("delete-company-break-settings")]
+        [Authorize(Roles = "CompanyAdmin")]
+        public async Task<IActionResult> DeleteCompanyBreakSettings([FromBody] DeleteCompanyBreakSettingsCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
+
+
 }

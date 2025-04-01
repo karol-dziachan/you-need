@@ -37,12 +37,15 @@ public class AddCompanyUserCommandHandler : IRequestHandler<AddCompanyUserComman
                     _logger.LogError("Company not found");
                     return new AddCompanyUserCommandResult { IsSuccess = false, Message = "Company not found" };
                 }
+                _logger.LogInformation("Found company {CompanyName} with ID {CompanyId}", company.Name, company.Id);
+
                 var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
                 if (user != null)
                 {
                     _logger.LogError("User already exists");
                     return new AddCompanyUserCommandResult { IsSuccess = false, Message = "User already exists" };
                 }
+                _logger.LogInformation("User with email {Email} does not exist - proceeding with creation", request.Email);
 
                 var userRole = await _dbContext.UserRoles.FirstOrDefaultAsync(ur => ur.Name == request.UserRole);
                 if (userRole == null)
@@ -50,6 +53,7 @@ public class AddCompanyUserCommandHandler : IRequestHandler<AddCompanyUserComman
                     _logger.LogError("User role not found");
                     return new AddCompanyUserCommandResult { IsSuccess = false, Message = "User role not found" };
                 }
+                _logger.LogInformation("Found user role {UserRole}", userRole.Name);
 
                 var newUser = new User
                 {
@@ -64,6 +68,7 @@ public class AddCompanyUserCommandHandler : IRequestHandler<AddCompanyUserComman
                 
                 _dbContext.Users.Add(newUser);
                 await _dbContext.SaveChangesAsync(cancellationToken);
+                _logger.LogInformation("Created new user with ID {UserId}", newUser.Id);
 
                 var companyUser = new CompanyUser
                 {
@@ -82,6 +87,7 @@ public class AddCompanyUserCommandHandler : IRequestHandler<AddCompanyUserComman
 
                 _dbContext.CompanyUsers.Add(companyUser);
                 await _dbContext.SaveChangesAsync(cancellationToken);
+                _logger.LogInformation("Created company user association for user {UserId} and company {CompanyId}", newUser.Id, company.Id);
 
                 var domainEvent = new DomainEvent
                 {
@@ -93,8 +99,8 @@ public class AddCompanyUserCommandHandler : IRequestHandler<AddCompanyUserComman
 
                 _dbContext.DomainEvents.Add(domainEvent);
                 await _dbContext.SaveChangesAsync(cancellationToken);
-
                 await transaction.CommitAsync(cancellationToken);
+                _logger.LogInformation("Created domain event {EventType} for user activation", domainEvent.EventType);
 
                 return new AddCompanyUserCommandResult { IsSuccess = true, Message = "User added successfully" };
             }

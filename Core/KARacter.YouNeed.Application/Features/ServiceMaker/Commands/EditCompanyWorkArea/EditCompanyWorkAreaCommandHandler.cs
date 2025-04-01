@@ -1,5 +1,4 @@
 using KARacter.YouNeed.Application.Common.Interfaces;
-using KARacter.YouNeed.Application.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -8,17 +7,16 @@ namespace KARacter.YouNeed.Application.Features.ServiceMaker.Commands.EditCompan
 
 public class EditCompanyWorkAreaCommandHandler : IRequestHandler<EditCompanyWorkAreaCommand, CommandResponse>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IYouNeedDbContext _context;
     private readonly ILogger<EditCompanyWorkAreaCommandHandler> _logger;
 
     public EditCompanyWorkAreaCommandHandler(
-        IApplicationDbContext context,
+        IYouNeedDbContext context,
         ILogger<EditCompanyWorkAreaCommandHandler> logger)
     {
         _context = context;
         _logger = logger;
     }
-
     public async Task<CommandResponse> Handle(EditCompanyWorkAreaCommand request, CancellationToken cancellationToken)
     {
         try
@@ -27,6 +25,7 @@ public class EditCompanyWorkAreaCommandHandler : IRequestHandler<EditCompanyWork
                 request.Id, request.CompanyId);
 
             var workArea = await _context.CompanyWorkAreas
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == request.Id && x.CompanyId == request.CompanyId, 
                     cancellationToken);
 
@@ -41,7 +40,7 @@ public class EditCompanyWorkAreaCommandHandler : IRequestHandler<EditCompanyWork
                 };
             }
 
-            var updatedWorkArea = workArea with
+            workArea = workArea with
             {
                 City = request.City,
                 PostalCode = request.PostalCode,
@@ -51,7 +50,7 @@ public class EditCompanyWorkAreaCommandHandler : IRequestHandler<EditCompanyWork
                 AdditionalInfo = request.AdditionalInfo
             };
 
-            _context.CompanyWorkAreas.Update(updatedWorkArea);
+            _context.Entry(workArea).State = EntityState.Modified;
             await _context.SaveChangesAsync(cancellationToken);
 
             _logger.LogInformation("Pomyślnie zaktualizowano obszar roboczy: {Id} dla firmy: {CompanyId}", 

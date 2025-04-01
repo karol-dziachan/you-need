@@ -54,11 +54,11 @@ export const CompanyManagement = ({ dashboardData }) => {
           </Tabs.Panel>
 
           <Tabs.Panel value="areas" pt="xl">
-            <CompanyWorkAreas areas={dashboardData?.workAreas} />
+            <CompanyWorkAreas areas={dashboardData?.workAreas} companyId={dashboardData?.company?.id} fetchDashboardData={fetchDashboardData} />
           </Tabs.Panel>
 
           <Tabs.Panel value="breaks" pt="xl">
-            <CompanyBreakSettings breakSettings={dashboardData?.breakSettings} />
+            <CompanyBreakSettings breakSettings={dashboardData?.breakSettings} companyId={dashboardData?.company?.id} users={dashboardData?.companyUsers} fetchBreakSettings={fetchDashboardData} />
           </Tabs.Panel>
         </Tabs>
       </Stack>

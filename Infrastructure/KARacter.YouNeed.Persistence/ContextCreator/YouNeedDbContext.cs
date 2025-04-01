@@ -19,6 +19,8 @@ public class YouNeedDbContext : DbContext, Application.Common.Interfaces.IYouNee
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<EntityOffer> EntityOffers { get; set; }
         #endregion
 
         public YouNeedDbContext(DbContextOptions<YouNeedDbContext> options) : base(options)

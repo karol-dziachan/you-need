@@ -1,5 +1,4 @@
 using KARacter.YouNeed.Application.Common.Interfaces;
-using KARacter.YouNeed.Application.Common.Models;
 using KARacter.YouNeed.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -8,11 +7,11 @@ namespace KARacter.YouNeed.Application.Features.ServiceMaker.Commands.AddCompany
 
 public class AddCompanyWorkAreaCommandHandler : IRequestHandler<AddCompanyWorkAreaCommand, CommandResponse>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IYouNeedDbContext _context;
     private readonly ILogger<AddCompanyWorkAreaCommandHandler> _logger;
 
     public AddCompanyWorkAreaCommandHandler(
-        IApplicationDbContext context,
+        IYouNeedDbContext context,
         ILogger<AddCompanyWorkAreaCommandHandler> logger)
     {
         _context = context;
@@ -41,11 +40,12 @@ public class AddCompanyWorkAreaCommandHandler : IRequestHandler<AddCompanyWorkAr
             var workArea = new CompanyWorkArea
             {
                 CompanyId = request.CompanyId,
+                UserId = request.UserId,
                 City = request.City,
                 PostalCode = request.PostalCode,
                 District = request.District,
                 RadiusInKm = request.RadiusInKm,
-                IsActive = request.IsActive,
+                IsActive = true,
                 AdditionalInfo = request.AdditionalInfo
             };
 

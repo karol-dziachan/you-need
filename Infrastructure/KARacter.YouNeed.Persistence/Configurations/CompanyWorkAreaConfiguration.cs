@@ -39,5 +39,12 @@ public class CompanyWorkAreaConfiguration : IEntityTypeConfiguration<CompanyWork
             .WithMany()
             .HasForeignKey(x => x.CompanyId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.CompanyWorkAreas)
+            .HasForeignKey(x => x.UserId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

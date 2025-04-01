@@ -16,5 +16,7 @@ namespace KARacter.YouNeed.Domain.Entities
         public DateTime? RefreshTokenExpiryTime { get; set; }
 
         public CompanyUser CompanyUser { get; set; }
+        public ICollection<CompanyWorkArea> CompanyWorkAreas { get; set; }
+        public ICollection<CompanyBreakSettings> CompanyBreakSettings { get; set; }
     }
 }

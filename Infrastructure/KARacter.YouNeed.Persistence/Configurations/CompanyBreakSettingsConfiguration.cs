@@ -39,6 +39,11 @@ public class CompanyBreakSettingsConfiguration : IEntityTypeConfiguration<Compan
             .WithMany()
             .HasForeignKey(x => x.CompanyId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.CompanyBreakSettings)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
 }

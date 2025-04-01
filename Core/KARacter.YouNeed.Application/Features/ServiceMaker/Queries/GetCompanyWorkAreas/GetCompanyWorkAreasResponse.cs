@@ -10,14 +10,11 @@ public record GetCompanyWorkAreasResponse
 public record CompanyWorkAreaDto
 {
     public required Guid Id { get; init; }
-    public required Guid CompanyId { get; init; }
+    public required string UserFullName { get; init; }
     public required string City { get; init; }
     public required string PostalCode { get; init; }
     public required string District { get; init; }
     public decimal? RadiusInKm { get; init; }
-    public bool IsActive { get; init; }
     public string? AdditionalInfo { get; init; }
-    public int ActiveOrdersCount { get; init; }
-    public DateTime CreatedAt { get; init; }
-    public DateTime? LastModifiedAt { get; init; }
+    public bool IsActive { get; init; }
 } 

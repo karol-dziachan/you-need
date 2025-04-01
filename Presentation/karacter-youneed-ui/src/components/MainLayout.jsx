@@ -255,8 +255,26 @@ const MainLayout = () => {
               {userData && userData.role === 'CompanyAdmin' ? (
                 <ServiceProviderNavbar />
               ) : (
-                 <ServiceProviderNavbar />
-                // <> </>
+                <>
+                {userData && userData.role === 'Admin' && (
+                  <Button
+                    variant="outline" 
+                    styles={{
+                      root: {
+                        borderColor: COLORS.accent,
+                        color: COLORS.text,
+                        '&:hover': {
+                          background: COLORS.primary,
+                          borderColor: COLORS.text,
+                        },
+                      },
+                    }}
+                    onClick={() => navigate('/admin/dashboard')}
+                  >
+                    Panel Administratora
+                  </Button>
+                )}
+                </>
               )}
               </>
             )}

@@ -1,7 +1,10 @@
 using KARacter.YouNeed.Application.Common.Interfaces;
+using KARacter.YouNeed.Domain.Entities;
+using KARacter.YouNeed.Domain.Events;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteCompanyUser;
 
@@ -23,6 +26,7 @@ public class DeleteCompanyUserCommandHandler : IRequestHandler<DeleteCompanyUser
             _logger.LogInformation("Deleting user {UserId} from company {CompanyId}", request.UserId, request.CompanyId);
 
         var companyUser = await _dbContext.CompanyUsers
+            .Include(cu => cu.Company)
             .Include(cu => cu.User)
             .FirstOrDefaultAsync(cu => cu.CompanyId == request.CompanyId && cu.Id == request.UserId);
 
@@ -45,7 +49,14 @@ public class DeleteCompanyUserCommandHandler : IRequestHandler<DeleteCompanyUser
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return new DeleteCompanyUserCommandResult { IsSuccess = true, Message = "Użytkownik został usunięty" };
+        var domainEvent = new DomainEvent
+        {
+            IsHandled = false,
+            EventType = "UserDeactivatedEvent",
+            EventData = JsonConvert.SerializeObject(new UserDeactivatedEvent { Id = companyUser.Id, Email = companyUser.User.Email, CompanyName = companyUser.Company.Name }),
+            RetryCount = 0
+        };
+        return new DeleteCompanyUserCommandResult { IsSuccess = true, Message = "Użytkownik został usunięty" };
         }
         catch (Exception ex)
         {

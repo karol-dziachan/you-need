@@ -22,5 +22,5 @@ namespace KARacter.YouNeed.Domain.Entities
         public List<CompanyWorkSchedule> WorkSchedules { get; set; }
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
         public ICollection<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();
-    }
+   }
 } 

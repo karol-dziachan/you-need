@@ -1,5 +1,4 @@
 using KARacter.YouNeed.Application.Common.Interfaces;
-using KARacter.YouNeed.Application.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -8,11 +7,11 @@ namespace KARacter.YouNeed.Application.Features.ServiceMaker.Commands.DeleteComp
 
 public class DeleteCompanyWorkAreaCommandHandler : IRequestHandler<DeleteCompanyWorkAreaCommand, CommandResponse>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IYouNeedDbContext _context;
     private readonly ILogger<DeleteCompanyWorkAreaCommandHandler> _logger;
 
     public DeleteCompanyWorkAreaCommandHandler(
-        IApplicationDbContext context,
+        IYouNeedDbContext context,
         ILogger<DeleteCompanyWorkAreaCommandHandler> logger)
     {
         _context = context;
@@ -38,22 +37,6 @@ public class DeleteCompanyWorkAreaCommandHandler : IRequestHandler<DeleteCompany
                 {
                     IsSuccess = false,
                     Message = "Nie znaleziono obszaru roboczego o podanym identyfikatorze."
-                };
-            }
-
-            // Sprawdzenie czy obszar nie jest używany w aktywnych zleceniach
-            var hasActiveOrders = await _context.ServiceOrders
-                .AnyAsync(x => x.CompanyWorkAreaId == request.Id && x.Status != Domain.Enums.ServiceOrderStatus.Completed,
-                    cancellationToken);
-
-            if (hasActiveOrders)
-            {
-                _logger.LogWarning("Nie można usunąć obszaru roboczego: {Id}, ponieważ jest używany w aktywnych zleceniach", 
-                    request.Id);
-                return new CommandResponse
-                {
-                    IsSuccess = false,
-                    Message = "Nie można usunąć obszaru roboczego, ponieważ jest używany w aktywnych zleceniach."
                 };
             }
 

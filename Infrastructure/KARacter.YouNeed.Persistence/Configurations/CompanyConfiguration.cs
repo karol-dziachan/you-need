@@ -49,8 +49,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .IsRequired();
 
         builder.HasOne(x => x.BreakSettings)
-            .WithOne()
-            .HasForeignKey<CompanyBreakSettings>(x => x.CompanyId)
+            .WithMany()
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(x => x.CompanyUsers)

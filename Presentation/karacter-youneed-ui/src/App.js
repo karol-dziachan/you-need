@@ -12,6 +12,7 @@ import ActivateServiceProviderPage from './pages/activate-service-provider-page/
 import { Notifications } from '@mantine/notifications';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import ServiceProviderDashboardPage from './pages/service-provider-dashboard-page/ServiceProviderDashboardPage';
+import { AdminDashboard } from './components/admin-dashboard/AdminDashboard';
 
 function App() {
   return (
@@ -78,6 +79,12 @@ function App() {
             <Route path="service-provider/*" element={
               <ProtectedRoute>
                 <ServiceProviderDashboardPage />
+              </ProtectedRoute>
+            } />
+
+            <Route path="admin/dashboard" element={
+              <ProtectedRoute>
+                <AdminDashboard />
               </ProtectedRoute>
             } />
  

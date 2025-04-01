@@ -18,6 +18,8 @@ public interface IYouNeedDbContext
     DbSet<PaymentMethod> PaymentMethods { get; }
     DbSet<User> Users { get; }
     DbSet<UserRole> UserRoles { get; }
+    DbSet<Offer> Offers { get; }
+    DbSet<EntityOffer> EntityOffers { get; }
     #endregion
 
     #region Entries

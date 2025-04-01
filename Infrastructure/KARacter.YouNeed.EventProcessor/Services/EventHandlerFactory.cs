@@ -18,6 +18,7 @@ public class EventHandlerFactory : IEventHandlerFactory
         return eventType switch
         {
             "ServiceProviderRegisteredEvent" => _serviceProvider.GetRequiredService<ServiceProviderRegisteredEventHandler>(),
+            "UserDeactivatedEvent" => _serviceProvider.GetRequiredService<UserDeactivatedEventHandler>(),
             _ => null
         };
     }
