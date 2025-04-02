@@ -13,6 +13,8 @@ import { Notifications } from '@mantine/notifications';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import ServiceProviderDashboardPage from './pages/service-provider-dashboard-page/ServiceProviderDashboardPage';
 import { AdminDashboard } from './components/admin-dashboard/AdminDashboard';
+import { ChangePasswordPage } from './pages/change-password/ChangePasswordPage';
+import { ResetPasswordPage } from './pages/reset-password-page/ResetPasswordPage';
 
 function App() {
   return (
@@ -74,6 +76,7 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="activation/:id" element={<ActivateServiceProviderPage />} />
             <Route path="add-service-provider" element={<AddServiceProviderPage />} />
+            <Route path="reset-password" element={<ResetPasswordPage />} />
             
             {/* Chronione routy */}
             <Route path="service-provider/*" element={
@@ -85,6 +88,12 @@ function App() {
             <Route path="admin/dashboard" element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/account/change-password" element={
+              <ProtectedRoute>
+                <ChangePasswordPage />
               </ProtectedRoute>
             } />
  

@@ -126,7 +126,7 @@ namespace KARacter.YouNeed.Api.Controllers
         }
 
         [HttpGet("dashboard-data")]
-        [Authorize(Roles = "CompanyAdmin")]
+        [Authorize(Roles = "CompanyAdmin,CompanyEmployee")]
         public async Task<IActionResult> GetDashboardData()
         {
             _logger.LogInformation("Received dashboard data request");

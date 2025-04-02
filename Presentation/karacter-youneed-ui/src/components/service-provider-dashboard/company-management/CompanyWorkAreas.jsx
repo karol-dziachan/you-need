@@ -1,13 +1,15 @@
-import { Card, Stack, Group, Title, Text, List, Button, ActionIcon, Tooltip, ThemeIcon, Badge, Modal, TextInput, NumberInput, Switch, Textarea } from '@mantine/core';
+import { Card, Stack, Group, Title, Text, List, Button, ActionIcon, Tooltip, ThemeIcon, Badge, Modal, TextInput, NumberInput, Switch, Textarea, Select } from '@mantine/core';
 import { IconMap2, IconEdit, IconTrash, IconPlus, IconUser } from '@tabler/icons-react';
 import { useStyles } from './CompanyManagement.styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { notifications } from '@mantine/notifications';
 import { useApi } from '../../../hooks/useApi';
+import { useJwtData } from '../../../hooks/useJwtData';
 
-export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
+export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData, companyUsers }) => {
   const { classes } = useStyles();
   const { post, put, del } = useApi();
+  const userData = useJwtData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [areaToDelete, setAreaToDelete] = useState(null);
@@ -18,8 +20,15 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
     district: '',
     radiusInKm: null,
     additionalInfo: '',
-    isActive: true
+    isActive: true,
+    userId: null
   });
+
+  // Przygotowanie danych dla komponentu Select
+  const usersSelectData = companyUsers?.map(user => ({
+    value: user.id,
+    label: `${user.firstName} ${user.lastName}`
+  })) || [];
 
   const handleOpenModal = (area = null) => {
     if (area) {
@@ -30,7 +39,8 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
         district: area.district,
         radiusInKm: area.radiusInKm,
         additionalInfo: area.additionalInfo || '',
-        isActive: area.isActive
+        isActive: area.isActive,
+        userId: area.userId || null
       });
     } else {
       setEditingArea(null);
@@ -40,7 +50,8 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
         district: '',
         radiusInKm: null,
         additionalInfo: '',
-        isActive: true
+        isActive: true,
+        userId: null
       });
     }
     setIsModalOpen(true);
@@ -55,12 +66,23 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
       district: '',
       radiusInKm: null,
       additionalInfo: '',
-      isActive: true
+      isActive: true,
+      userId: null
     });
   };
 
   const handleSubmit = async () => {
     try {
+      // Walidacja wymaganych pól
+      if (!formData.city || !formData.postalCode || !formData.district || !formData.userId) {
+        notifications.show({
+          title: 'Błąd',
+          message: 'Wszystkie wymagane pola muszą być wypełnione',
+          color: 'red',
+        });
+        return;
+      }
+
       const data = {
         ...formData,
         companyId
@@ -86,11 +108,8 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
         color: 'green',
       });
 
-
-
       handleCloseModal();
       fetchDashboardData();
-      // TODO: Odśwież listę obszarów
     } catch (error) {
       notifications.show({
         title: 'Błąd',
@@ -141,9 +160,11 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
         <Stack spacing="md">
           <Group position="apart">
             <Title order={3}>Obszary pracy</Title>
-            <Button leftIcon={<IconPlus size={16} />} color="blue" onClick={() => handleOpenModal()}>
-              Dodaj obszar
-            </Button>
+            {userData && userData.role === 'CompanyAdmin' && (
+              <Button leftIcon={<IconPlus size={16} />} color="blue" onClick={() => handleOpenModal()}>
+                Dodaj obszar
+              </Button>
+            )}
           </Group>
 
           {areas?.length === 0 ? (
@@ -183,16 +204,20 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
                       </Stack>
                     </Group>
                     <Group>
+                      {userData && userData.role === 'CompanyAdmin' && (
                       <Tooltip label="Edytuj">
                         <ActionIcon color="blue" variant="light" onClick={() => handleOpenModal(area)}>
                           <IconEdit size={16} />
                         </ActionIcon>
                       </Tooltip>
+                      )}
+                      {userData && userData.role === 'CompanyAdmin' && (
                       <Tooltip label="Usuń">
                         <ActionIcon color="red" variant="light" onClick={() => handleDelete(area.id)}>
                           <IconTrash size={16} />
-                        </ActionIcon>
-                      </Tooltip>
+                          </ActionIcon>
+                        </Tooltip>
+                      )}
                     </Group>
                   </Group>
                 </List.Item>
@@ -209,6 +234,17 @@ export const CompanyWorkAreas = ({ areas, companyId, fetchDashboardData }) => {
         size="md"
       >
         <Stack spacing="md">
+          <Select
+            label="Pracownik"
+            placeholder="Wybierz pracownika"
+            data={usersSelectData}
+            value={formData.userId}
+            onChange={(value) => setFormData({ ...formData, userId: value })}
+            required
+            searchable
+            nothingFound="Brak pracowników"
+            icon={<IconUser size={14} />}
+          />
           <TextInput
             label="Miasto"
             placeholder="Wprowadź miasto"

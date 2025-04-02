@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using FluentValidation;
 using KARacter.YouNeed.Application.Common.Interfaces;
 using MediatR;
@@ -8,7 +9,8 @@ namespace KARacter.YouNeed.Application.Features.EntityOffer.Commands.AddEntityOf
 
 public class AddEntityOfferCommand : IRequest<AddEntityOfferCommandResult>
 {
-    public List<AddEntityOfferDto> AddEntityOfferDtos { get; set; }
+    [JsonPropertyName("addEntityOfferDtos")]
+    public ICollection<AddEntityOfferDto> AddEntityOfferDtos { get; set; }
 }
 
 public class AddEntityOfferDto
@@ -34,20 +36,20 @@ public class AddEntityOfferCommandValidator : AbstractValidator<AddEntityOfferCo
 {
     public AddEntityOfferCommandValidator()
     {
+       /* RuleFor(x => x.AddEntityOfferDtos).NotNull().WithMessage("Lista ofert nie może być pusta");
         RuleForEach(x => x.AddEntityOfferDtos).ChildRules(offer => {
-            offer.RuleFor(x => x.OfferId).NotEmpty();
-            offer.RuleFor(x => x.EntityId).NotEmpty();
-            offer.RuleFor(x => x.TimeToCompleteInMinutes).NotEmpty();
-            offer.RuleFor(x => x.Price).NotEmpty();
-            offer.RuleFor(x => x.Currency).NotEmpty();
-            offer.RuleFor(x => x.UnitOfMeasure).NotEmpty();
-            offer.RuleFor(x => x.IsActive).NotEmpty();
+            offer.RuleFor(x => x.OfferId).NotEmpty().WithMessage("ID oferty jest wymagane");
+            offer.RuleFor(x => x.EntityId).NotEmpty().WithMessage("ID encji jest wymagane");
+            offer.RuleFor(x => x.TimeToCompleteInMinutes).GreaterThanOrEqualTo(0).WithMessage("Czas realizacji musi być większy lub równy 0");
+            offer.RuleFor(x => x.Price).GreaterThanOrEqualTo(0).WithMessage("Cena musi być większa lub równa 0");
+            offer.RuleFor(x => x.Currency).NotEmpty().WithMessage("Waluta jest wymagana");
+            offer.RuleFor(x => x.UnitOfMeasure).NotEmpty().WithMessage("Jednostka miary jest wymagana");
 
             offer.RuleFor(x => x.WhichEntity)
-                .NotEmpty()
+                .NotEmpty().WithMessage("Typ encji jest wymagany")
                 .Must(x => x == "Company" || x == "Worker")
                 .WithMessage("Encja musi być albo firmą albo pracownikiem");
-        });
+        });*/
     }
 }
 
@@ -72,21 +74,29 @@ public class AddEntityOfferCommandHandler : IRequestHandler<AddEntityOfferComman
             {
                 foreach (var offer in request.AddEntityOfferDtos)
                 {
-                    var handler = offer.WhichEntity switch
+                    var result = offer.WhichEntity switch
                     {
-                        "Company" => HandleAddCompanyEntityOffer(offer, cancellationToken),
-                        "Worker" => HandleAddWorkerEntityOffer(offer, cancellationToken),
+                        "Company" => await HandleAddCompanyEntityOffer(offer, cancellationToken),
+                        "Worker" => await HandleAddWorkerEntityOffer(offer, cancellationToken),
                         _ => throw new ArgumentException($"Nieprawidłowy typ encji: {offer.WhichEntity}")
                     };
-                    await handler;
+                    
+                    if (!result.IsSuccess)
+                    {
+                        await transaction.RollbackAsync(cancellationToken);
+                        return result;
+                    }
                 }
 
+                await _context.SaveChangesAsync(cancellationToken);
+                
                 await transaction.CommitAsync(cancellationToken);
                 return new AddEntityOfferCommandResult { IsSuccess = true, Message = "Oferty zostały dodane pomyślnie" };
             }
-            catch
+            catch (Exception ex)
             {
                 await transaction.RollbackAsync(cancellationToken);
+                _logger.LogError(ex, "Error during transaction");
                 return new AddEntityOfferCommandResult { IsSuccess = false, Message = "Wystąpił błąd podczas dodawania oferty" };
             }
         }
@@ -133,7 +143,6 @@ public class AddEntityOfferCommandHandler : IRequestHandler<AddEntityOfferComman
         };
 
         await _context.EntityOffers.AddAsync(entityOffer, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
 
         return new AddEntityOfferCommandResult { IsSuccess = true, Message = "Oferta została dodana pomyślnie" };
     }
@@ -174,7 +183,6 @@ public class AddEntityOfferCommandHandler : IRequestHandler<AddEntityOfferComman
         };
 
         await _context.EntityOffers.AddAsync(entityOffer, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
 
         return new AddEntityOfferCommandResult { IsSuccess = true, Message = "Oferta została dodana pomyślnie" };
     }

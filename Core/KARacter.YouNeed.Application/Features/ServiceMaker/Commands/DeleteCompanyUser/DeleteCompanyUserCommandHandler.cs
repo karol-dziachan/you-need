@@ -55,8 +55,12 @@ public class DeleteCompanyUserCommandHandler : IRequestHandler<DeleteCompanyUser
             EventType = "UserDeactivatedEvent",
             EventData = JsonConvert.SerializeObject(new UserDeactivatedEvent { Id = companyUser.Id, Email = companyUser.User.Email, CompanyName = companyUser.Company.Name }),
             RetryCount = 0
-        };
-        return new DeleteCompanyUserCommandResult { IsSuccess = true, Message = "Użytkownik został usunięty" };
+            };
+
+            await _dbContext.DomainEvents.AddAsync(domainEvent, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return new DeleteCompanyUserCommandResult { IsSuccess = true, Message = "Użytkownik został usunięty" };
         }
         catch (Exception ex)
         {

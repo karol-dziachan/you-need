@@ -37,10 +37,23 @@ public class AddCompanyWorkAreaCommandHandler : IRequestHandler<AddCompanyWorkAr
                 };
             }
 
+            var user = await _context.CompanyUsers
+                .FindAsync(new object[] { request.UserId }, cancellationToken);
+
+            if (user is null)
+            {
+                _logger.LogWarning("Nie znaleziono użytkownika o ID: {UserId}", request.UserId);
+                return new CommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "Nie znaleziono użytkownika o podanym identyfikatorze."
+                };
+            }
+
             var workArea = new CompanyWorkArea
             {
                 CompanyId = request.CompanyId,
-                UserId = request.UserId,
+                UserId = user.UserId,
                 City = request.City,
                 PostalCode = request.PostalCode,
                 District = request.District,

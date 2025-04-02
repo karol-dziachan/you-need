@@ -9,6 +9,8 @@ public class EntityOfferConfiguration : IEntityTypeConfiguration<EntityOffer>
 {
     public void Configure(EntityTypeBuilder<EntityOffer> builder)
     {
+        builder.ToTable("EntityOffer");
+
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.WhichEntity)

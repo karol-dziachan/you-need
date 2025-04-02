@@ -28,6 +28,7 @@ import {
 } from '@tabler/icons-react';
 import { useOffers } from '../../../hooks/useOffers';
 import { notifications } from '@mantine/notifications';
+import { Loader } from '../../../components/loader/Loader';
 
 const OfferNode = ({ offer, level = 0, onEdit, onDelete, onAddChild }) => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -38,9 +39,17 @@ const OfferNode = ({ offer, level = 0, onEdit, onDelete, onAddChild }) => {
     try {
       await onEdit(offer.id, editedOffer);
       setIsEditing(false);
-
+      notifications.show({
+        title: 'Sukces',
+        message: 'Oferta została zaktualizowana',
+        color: 'green'
+      });
     } catch (error) {
-
+      notifications.show({
+        title: 'Błąd',
+        message: 'Nie udało się zaktualizować oferty',
+        color: 'red'
+      });
     }
   };
 
@@ -60,16 +69,26 @@ const OfferNode = ({ offer, level = 0, onEdit, onDelete, onAddChild }) => {
             )}
             {offer.isParentOffer ? <IconFolder size={16} /> : <IconFile size={16} />}
             {isEditing ? (
-              <TextInput
-                value={editedOffer.name}
-                onChange={(e) => setEditedOffer({ ...editedOffer, name: e.target.value })}
-                size="sm"
-                style={{ width: 200 }}
-              />
+              <Group spacing="xs">
+                <TextInput
+                  value={editedOffer.name}
+                  onChange={(e) => setEditedOffer({ ...editedOffer, name: e.target.value })}
+                  size="sm"
+                  style={{ width: 200 }}
+                />
+                <Button size="xs" onClick={handleSave}>Zapisz</Button>
+                <Button size="xs" variant="subtle" onClick={() => {
+                  setIsEditing(false);
+                  setEditedOffer(offer);
+                }}>Anuluj</Button>
+              </Group>
             ) : (
               <Text size="sm" weight={500}>{offer.name}</Text>
             )}
           </Group>
+          {!['sprzątanie', 'remont'].includes(offer.name.toLowerCase()) && (
+            <></>
+          )}
           <Group spacing="xs">
             <Badge color={offer.isActive ? 'green' : 'red'} variant="light">
               {offer.isActive ? 'Aktywna' : 'Nieaktywna'}
@@ -141,6 +160,7 @@ export const TreeCategoriesConfig = () => {
 
   const loadOffers = async () => {
     try {
+      setIsLoading(true);
       const response = await getAllOffers();
       if (response && response.offers) {
         const offersTree = buildOfferTree(response.offers);
@@ -209,6 +229,7 @@ export const TreeCategoriesConfig = () => {
 
   const handleDeleteOffer = async (id) => {
     try {
+      console.log('in handleDeleteOffer', id);
       await deleteOffer(id);
       loadOffers();
  
@@ -228,6 +249,10 @@ export const TreeCategoriesConfig = () => {
     });
     setIsModalOpen(true);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Card withBorder radius="md" p="md">

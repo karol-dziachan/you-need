@@ -14,6 +14,7 @@ import { useJwtData } from '../../hooks/useJwtData';
 import { useStyles } from './ServiceProviderNavbar.styles';
 
 export const ServiceProviderNavbar = () => {
+
   const navigate = useNavigate();
   const userData = useJwtData();
   const { classes } = useStyles();
@@ -57,6 +58,17 @@ export const ServiceProviderNavbar = () => {
             <Text className={classes.userRole}>Usługodawca</Text>
           </div>
 
+          <Menu.Label className={classes.menuLabel}>Zarządzanie kontem</Menu.Label>
+                    
+          <Menu.Item
+            className={classes.menuItem}
+            icon={<IconBuildingStore size={16} className={classes.menuIcon} />}
+            onClick={() => navigate('/account/change-password')}
+          >
+            Zmień hasło
+          </Menu.Item>
+          
+
           <Menu.Label className={classes.menuLabel}>Zarządzanie firmą</Menu.Label>
           
           <Menu.Item
@@ -64,7 +76,7 @@ export const ServiceProviderNavbar = () => {
             icon={<IconBuildingStore size={16} className={classes.menuIcon} />}
             onClick={() => navigate('/service-provider/dashboard')}
           >
-            Panel zarządzania
+            {userData?.role === 'CompanyAdmin' ? 'Panel zarządzania' : 'Moje informacje'}
           </Menu.Item>
           
           <Menu.Item
@@ -72,11 +84,14 @@ export const ServiceProviderNavbar = () => {
             icon={<IconUsers size={16} className={classes.menuIcon} />}
             onClick={() => navigate('/service-provider/employees')}
           >
-            Moi pracownicy
+            {userData?.role === 'CompanyAdmin' ? 'Moi pracownicy' : 'Moje zlecenia'}
           </Menu.Item>
 
+          {userData?.role === 'CompanyAdmin' && (
           <Menu.Label className={classes.menuLabel}>Finanse</Menu.Label>
+          )}
           
+          {userData?.role === 'CompanyAdmin' && (
           <Menu.Item
             className={classes.menuItem}
             icon={<IconWallet size={16} className={classes.menuIcon} />}
@@ -84,7 +99,8 @@ export const ServiceProviderNavbar = () => {
           >
             Portfel
           </Menu.Item>
-          
+          )}
+          {userData?.role === 'CompanyAdmin' && (
           <Menu.Item
             className={classes.menuItem}
             icon={<IconReceipt size={16} className={classes.menuIcon} />}
@@ -92,7 +108,7 @@ export const ServiceProviderNavbar = () => {
           >
             Moje płatności
           </Menu.Item>
-
+          )}
           <Menu.Label className={classes.menuLabel}>Usługi</Menu.Label>
           
           <Menu.Item

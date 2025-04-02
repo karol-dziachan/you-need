@@ -9,6 +9,7 @@ namespace KARacter.YouNeed.Application.Features.EntityOffer.Commands.EditEntityO
 public class EditEntityOfferCommand : IRequest<EditEntityOfferCommandResult>
 {
     public Guid Id { get; set; }
+    public string WhichEntity { get; set; }
     public int TimeToCompleteInMinutes { get; set; }
     public double Price { get; set; }
     public string Currency { get; set; }
@@ -47,21 +48,24 @@ public class EditEntityOfferCommandHandler : IRequestHandler<EditEntityOfferComm
     }
     public async Task<EditEntityOfferCommandResult> Handle(EditEntityOfferCommand request, CancellationToken cancellationToken)
     {
-        _logger.LogTrace("Editing entity offer. With data: {@Request}", request);
+        _logger.LogInformation("Starting to edit entity offer with ID: {Id}", request.Id);
+        _logger.LogDebug("Edit entity offer request details: {@Request}", request);
+
         try
         {
             using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
             try
             {
                 var entityOffer = await _context.EntityOffers
-                    .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-                if (entityOffer == null)
+                if (entityOffer is null)
                 {
-                    _logger.LogError("Entity offer not found. With id: {@Id}", request.Id);
+                    _logger.LogWarning("Entity offer with ID {Id} was not found", request.Id);
                     return new EditEntityOfferCommandResult { IsSuccess = false, Message = "Oferta nie znaleziona" };
                 }
+
+                _logger.LogDebug("Found entity offer: {@EntityOffer}", entityOffer);
 
                 entityOffer.TimeToCompleteInMinutes = request.TimeToCompleteInMinutes;
                 entityOffer.Price = request.Price;
@@ -69,20 +73,24 @@ public class EditEntityOfferCommandHandler : IRequestHandler<EditEntityOfferComm
                 entityOffer.UnitOfMeasure = request.UnitOfMeasure;
                 entityOffer.IsActive = request.IsActive;
 
+                _logger.LogDebug("Updating entity offer with new values: {@UpdatedEntityOffer}", entityOffer);
+                
                 await _context.SaveChangesAsync(cancellationToken);
-
                 await transaction.CommitAsync(cancellationToken);
+
+                _logger.LogInformation("Successfully edited entity offer with ID: {Id}", request.Id);
                 return new EditEntityOfferCommandResult { IsSuccess = true, Message = "Oferta została edytowana pomyślnie" };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error editing entity offer");
+                _logger.LogError(ex, "Failed to edit entity offer with ID {Id} during database operation", request.Id);
+                await transaction.RollbackAsync(cancellationToken);
                 return new EditEntityOfferCommandResult { IsSuccess = false, Message = "Wystąpił błąd podczas edycji oferty" };
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error editing entity offer");
+            _logger.LogError(ex, "Unexpected error while editing entity offer with ID {Id}", request.Id);
             return new EditEntityOfferCommandResult { IsSuccess = false, Message = "Wystąpił błąd podczas edycji oferty" };
         }
     }

@@ -94,7 +94,9 @@ export const LoginPage = () => {
 
         // Przekieruj na stronę główną po krótkim opóźnieniu
         setTimeout(() => {
+          window.location.reload();
           navigate('/');
+          window.location.reload();
         }, 1000);
       } else {
         throw new Error(response.message || 'Wystąpił błąd podczas logowania');
@@ -179,7 +181,7 @@ export const LoginPage = () => {
                       {...form.getInputProps('rememberMe', { type: 'checkbox' })}
                     />
                     <Anchor
-                      onClick={(event) => event.preventDefault()}
+                      onClick={(event) => navigate('/reset-password')}
                       href="#"
                       size="sm"
                     >

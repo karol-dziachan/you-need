@@ -112,6 +112,15 @@ const MainLayout = () => {
   const [sparkles, setSparkles] = useState([]);
   const navigate = useNavigate();
   const userData = useJwtData();
+
+  const [navbarType, setNavbarType] = useState('default');
+
+    const handleLogout = () => {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    navigate('/login');
+  };
+
   useEffect(() => {
     const generateSparkles = () => {
       return Array.from({ length: SPARKLES_COUNT }, () => ({
@@ -252,28 +261,46 @@ const MainLayout = () => {
               </>
             ) : (
               <>
-              {userData && userData.role === 'CompanyAdmin' ? (
-                <ServiceProviderNavbar />
-              ) : (
+              {userData && (
                 <>
-                {userData && userData.role === 'Admin' && (
-                  <Button
-                    variant="outline" 
-                    styles={{
-                      root: {
-                        borderColor: COLORS.accent,
-                        color: COLORS.text,
-                        '&:hover': {
-                          background: COLORS.primary,
-                          borderColor: COLORS.text,
+                  {userData.role === 'CompanyAdmin' && navbarType === 'default' && <ServiceProviderNavbar />}
+                  {userData.role === 'CompanyEmployee' && navbarType === 'default' && <ServiceProviderNavbar />}
+                  {userData.role === 'Admin' && navbarType === 'default' && (
+                    <>
+                    <Button
+                      variant="outline"
+                      styles={{
+                        root: {
+                          borderColor: COLORS.accent,
+                          color: COLORS.text,
+                          '&:hover': {
+                            background: COLORS.primary,
+                            borderColor: COLORS.text,
+                          },
                         },
-                      },
-                    }}
-                    onClick={() => navigate('/admin/dashboard')}
-                  >
-                    Panel Administratora
-                  </Button>
-                )}
+                      }}
+                      onClick={() => navigate('/admin/dashboard')}
+                    >
+                      Panel Administratora
+                    </Button>
+                    <Button
+                      variant="outline" 
+                      styles={{
+                        root: {
+                          borderColor: COLORS.accent,
+                          color: COLORS.text,
+                          '&:hover': {
+                            background: COLORS.primary,
+                            borderColor: COLORS.text,
+                          },
+                        },
+                      }}
+                      onClick={handleLogout}
+                    >
+                      Wyloguj się
+                    </Button>
+                    </>
+                  )}
                 </>
               )}
               </>

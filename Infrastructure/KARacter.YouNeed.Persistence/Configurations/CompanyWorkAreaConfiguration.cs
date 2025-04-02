@@ -11,6 +11,7 @@ public class CompanyWorkAreaConfiguration : IEntityTypeConfiguration<CompanyWork
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.CompanyId)
+            
             .IsRequired();
 
         builder.Property(x => x.City)

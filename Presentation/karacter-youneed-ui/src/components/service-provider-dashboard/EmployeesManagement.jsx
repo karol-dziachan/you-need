@@ -1,10 +1,11 @@
 import { Paper, Title, Text, Stack, Group, ThemeIcon, Grid, Button, Table } from '@mantine/core';
 import { IconUsers, IconPlus, IconEdit, IconTrash } from '@tabler/icons-react';
 import { useStyles } from './EmployeesManagement.styles';
+import { useJwtData } from '../../hooks/useJwtData';
 
 export const EmployeesManagement = () => {
   const { classes } = useStyles();
-
+  const userData = useJwtData();
   const employees = [
     { id: 1, name: 'Jan Kowalski', email: 'jan@example.com', role: 'Administrator' },
     { id: 2, name: 'Anna Nowak', email: 'anna@example.com', role: 'Pracownik' },
@@ -21,9 +22,11 @@ export const EmployeesManagement = () => {
             </ThemeIcon>
             <Title order={2}>Zarządzanie pracownikami</Title>
           </Group>
-          <Button leftIcon={<IconPlus size={16} />} color="green">
-            Dodaj pracownika
-          </Button>
+          {userData && userData.role === 'CompanyAdmin' && (
+            <Button leftIcon={<IconPlus size={16} />} color="green">
+              Dodaj pracownika
+            </Button>
+          )}
         </Group>
 
         <Paper p="md" radius="md" withBorder className={classes.tableContainer}>

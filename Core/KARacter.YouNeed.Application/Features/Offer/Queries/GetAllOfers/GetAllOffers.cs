@@ -49,7 +49,7 @@ public class GetAllOffersQueryHandler : IRequestHandler<GetAllOffersQuery, GetAl
 
         try
         {
-            var offers = await _context.Offers.ToListAsync(cancellationToken);
+            var offers = await _context.Offers.Where(o => !o.IsAddedByUser).ToListAsync(cancellationToken);
 
             var offerDtos = offers.Select(o => new OfferDto()
             {

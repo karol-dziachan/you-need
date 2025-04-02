@@ -44,6 +44,18 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, LoginQueryResult>
                 Token = null
             };
         }
+
+        if (!user.IsEmailConfirmed)
+        {
+            _logger.LogWarning("Użytkownik: {Email} nie potwierdził swojego email", request.Email);
+            return new LoginQueryResult
+            {
+                IsSuccess = false,
+                Message = "Użytkownik nie potwierdził swojego email",
+                Token = null
+            };
+        }
+        
         
 
         _logger.LogDebug("Weryfikacja hasła dla użytkownika: {Email}", request.Email);

@@ -40,6 +40,7 @@ import { TreeCategoriesConfig } from './components/TreeCategoriesConfig';
 import { DisputeManagement } from './components/DisputeManagement';
 import { CompanyVerification } from './components/CompanyVerification';
 import { ReportAnalysis } from './components/ReportAnalysis';
+import { Loader } from '../loader/Loader';
 
 const StatCard = ({ title, value, icon, color, trend }) => (
   <Card withBorder radius="md" p="md">
@@ -232,6 +233,7 @@ export const AdminDashboard = () => {
   const { classes } = useStyles();
   const [activeTab, setActiveTab] = useState('overview');
 
+
   return (
     <Container fluid p="md">
       <Stack spacing="md">
@@ -279,7 +281,7 @@ export const AdminDashboard = () => {
           </Tabs.Panel>
 
           <Tabs.Panel value="categories" pt="md">
-            <TreeCategoriesConfig />
+            <TreeCategoriesConfig  />
           </Tabs.Panel>
 
           <Tabs.Panel value="disputes" pt="md">

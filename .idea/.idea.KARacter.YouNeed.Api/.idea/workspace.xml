@@ -8,7 +8,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4074a3a0-353a-45f8-8e85-079c7b9f8376" name="Changes" comment="" />
+    <list default="true" id="4074a3a0-353a-45f8-8e85-079c7b9f8376" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.KARacter.YouNeed.Api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KARacter.YouNeed.Api/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/DeleteEntityOffer/DeleteEntityOffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/DeleteEntityOffer/DeleteEntityOffer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/EditEntityOffer/EditEntityOffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/EditEntityOffer/EditEntityOffer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Queries/GetOffersForProviderQuery/GetOffersForProviderQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Queries/GetOffersForProviderQuery/GetOffersForProviderQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Configurations/EntityOfferConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Persistence/Configurations/EntityOfferConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/EntityOffersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/EntityOffersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/MainLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/admin-dashboard/AdminDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/admin-dashboard/AdminDashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/admin-dashboard/components/TreeCategoriesConfig.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/components/admin-dashboard/components/TreeCategoriesConfig.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/hooks/useOffers.js" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/hooks/useOffers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/login-page/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/login-page/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/service-provider-dashboard-page/ServiceProviderDashboardPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/karacter-youneed-ui/src/pages/service-provider-dashboard-page/ServiceProviderDashboardPage.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,8 +38,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/055a18fbf98849e9806bffca7f177a0d2ac00/4f/e25bdaf2/ConcurrentDictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/234a73a7961a4d2b8ee3c62d90ba071945600/02/98a4a7c1/DefaultHttpContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/721419248abb429f893abc86e13060efb2e000/f1/d34d2da6/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9a9343bd6768445b96adc85d2274cab67c00/8d/fbaad94d/HealthCheckEndpointRouteBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b473cdcd79684d7ea13728c669c471851dc400/6f/198e751f/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b473cdcd79684d7ea13728c669c471851dc400/fe/a395dc5d/ControllerBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7415982338a3ccbd2a7a4eb483af627bda727e356b86bb32c5d4f6998f9c/IRequestHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8aca45508683a6169bab9e8bd96b7cda607d638cacfaa31173c8c278c45/ISender.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/95fc696d91bc61835f3e531f168ca1fd9b5381ecf8af8d1999af07476a8d/Mediator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f4bc324a395d24ed12db75b0a81536b642509aa14825bf114d9b7c934e2b/Mediator.cs" root0="FORCE_HIGHLIGHTING" />
@@ -38,25 +56,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.KARacter.YouNeed.Api.executor&quot;: &quot;Debug&quot;,
-    &quot;.NET Project.KARacter.YouNeed.EventProcessor.executor&quot;: &quot;Run&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;do_not_show_solution_notification&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.KARacter.YouNeed.Api.executor": "Debug",
+    ".NET Project.KARacter.YouNeed.EventProcessor.executor": "Debug",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "do_not_show_solution_notification": "true",
+    "git-widget-placeholder": "develop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected=".NET Project.KARacter.YouNeed.EventProcessor">
+}]]></component>
+  <component name="RunManager" selected=".NET Launch Settings Profile.KARacter.YouNeed.Api">
     <configuration name="KARacter.YouNeed.EventProcessor" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -105,6 +123,7 @@
       <workItem from="1743330054728" duration="105000" />
       <workItem from="1743330166261" duration="8096000" />
       <workItem from="1743412973734" duration="16000" />
+      <workItem from="1743610388818" duration="329000" />
     </task>
     <servers />
   </component>
@@ -132,19 +151,6 @@
           <line>121</line>
           <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/ServiceProvider/Commands/RegisterServiceProviderCommandHandler.cs" containingFunctionPresentation="Method 'Handle'" />
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs</url>
-          <line>23</line>
-          <properties documentPath="$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs" containingFunctionPresentation="Method 'InvokeAsync'">
-            <startOffsets>
-              <option value="557" />
-            </startOffsets>
-            <endOffsets>
-              <option value="597" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Infrastructure/KARacter.YouNeed.EventProcessor/Services/EventProcessorService.cs</url>
@@ -210,6 +216,71 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/EntityOffersController.cs</url>
+          <line>43</line>
+          <properties documentPath="$PROJECT_DIR$/Presentation/KARacter.YouNeed.Api/Controllers/EntityOffersController.cs" containingFunctionPresentation="Method 'Post'">
+            <startOffsets>
+              <option value="1822" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1927" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs</url>
+          <line>68</line>
+          <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="2914" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2986" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs</url>
+          <line>76</line>
+          <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="3245" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3627" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs</url>
+          <line>151</line>
+          <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs" containingFunctionPresentation="Method 'HandleAddWorkerEntityOffer'">
+            <startOffsets>
+              <option value="6649" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6724" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs</url>
+          <line>83</line>
+          <properties documentPath="$PROJECT_DIR$/Core/KARacter.YouNeed.Application/Features/EntityOffer/Commands/AddEntityOffer/AddEntityOffer.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="3669" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3691" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

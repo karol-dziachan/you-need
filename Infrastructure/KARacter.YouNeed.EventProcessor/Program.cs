@@ -46,6 +46,9 @@ builder.ConfigureServices((hostContext, services) =>
     // Rejestracja serwisów
     services.AddScoped<IEventHandlerFactory, EventHandlerFactory>();
     services.AddScoped<ServiceProviderRegisteredEventHandler>();
+    services.AddScoped<UserDeactivatedEventHandler>();
+    services.AddScoped<UserRequestedPasswordResetEventHandler>();
+    services.AddScoped<UserChangedPasswordEventHandler>();
     services.AddHostedService<EventProcessorService>();
 });
 

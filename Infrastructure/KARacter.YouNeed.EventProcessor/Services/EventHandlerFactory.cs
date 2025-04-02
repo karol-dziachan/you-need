@@ -19,6 +19,8 @@ public class EventHandlerFactory : IEventHandlerFactory
         {
             "ServiceProviderRegisteredEvent" => _serviceProvider.GetRequiredService<ServiceProviderRegisteredEventHandler>(),
             "UserDeactivatedEvent" => _serviceProvider.GetRequiredService<UserDeactivatedEventHandler>(),
+            "UserRequestedPasswordResetEvent" => _serviceProvider.GetRequiredService<UserRequestedPasswordResetEventHandler>(),
+            "UserChangedPasswordEvent" => _serviceProvider.GetRequiredService<UserChangedPasswordEventHandler>(),
             _ => null
         };
     }

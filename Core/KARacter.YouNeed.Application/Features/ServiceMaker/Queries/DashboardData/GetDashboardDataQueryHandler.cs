@@ -24,6 +24,8 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
         try
         {
             var email = _jwtService.ValidateToken(request.JwtToken);
+
+            var role = _jwtService.GetUserRole(request.JwtToken);
             
             var user = await GetUserByEmail(email, cancellationToken);
             if (user is null)
@@ -51,7 +53,7 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
             {
                 IsSuccess = true,
                 Message = "Pomyślnie pobrano dane",
-                DashboardData = BuildDashboardData(user, company, workSchedules, workAreas, breakSettings)
+                DashboardData = BuildDashboardData(user, company, workSchedules, workAreas, breakSettings, role)
             };
         }
         catch (Exception ex)
@@ -124,7 +126,7 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
         };
     }
 
-    private DashboardDataDto BuildDashboardData(User user, Company company, List<CompanyWorkSchedule> workSchedules, List<CompanyWorkArea> workAreas, List<CompanyBreakSettings> breakSettings)
+    private DashboardDataDto BuildDashboardData(User user, Company company, List<CompanyWorkSchedule> workSchedules, List<CompanyWorkArea> workAreas, List<CompanyBreakSettings> breakSettings, string role)
     {
         return new DashboardDataDto
         {
@@ -151,20 +153,24 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                 Description = company.Description,
                 IsActive = company.IsActive
             },
-            BreakSettings = breakSettings?.Select(x => new BreakSettingsDto
-            {
-                Id = x.Id,
-                UserFullName = $"{x.User?.FirstName} {x.User?.LastName}",
-                CompanyId = x.CompanyId,
-                MinimumBreakBetweenOrdersInMinutes = x.MinimumBreakBetweenOrdersInMinutes,
-                MaximumOrdersPerDay = x.MaximumOrdersPerDay,
-                IsActive = x.IsActive,
-                AllowWeekendOrders = x.AllowWeekendOrders,
-                AllowHolidayOrders = x.AllowHolidayOrders,
-                ExcludedDates = x.ExcludedDates,
-                SpecialBreakRules = x.SpecialBreakRules
-            })?.ToList() ?? new List<BreakSettingsDto>(),
-            CompanyUsers = company.CompanyUsers?.Select(x => new CompanyUserDto
+            BreakSettings = breakSettings?
+                .Where(x => role == "CompanyAdmin" || x.UserId == user.Id)
+                .Select(x => new BreakSettingsDto
+                {
+                    Id = x.Id,
+                    UserFullName = $"{x.User?.FirstName} {x.User?.LastName}",
+                    CompanyId = x.CompanyId,
+                    MinimumBreakBetweenOrdersInMinutes = x.MinimumBreakBetweenOrdersInMinutes,
+                    MaximumOrdersPerDay = x.MaximumOrdersPerDay,
+                    IsActive = x.IsActive,
+                    AllowWeekendOrders = x.AllowWeekendOrders,
+                    AllowHolidayOrders = x.AllowHolidayOrders,
+                    ExcludedDates = x.ExcludedDates,
+                    SpecialBreakRules = x.SpecialBreakRules
+                })?.ToList() ?? new List<BreakSettingsDto>(),
+            CompanyUsers = company.CompanyUsers?
+            .Where(x => role == "CompanyAdmin" || x.UserId == user.Id)
+            .Select(x => new CompanyUserDto
             {
                 Id = x.Id,
                 Email = x.User?.Email,
@@ -174,7 +180,9 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                 Role = x.UserRole?.Name,
                 IsActive = x.IsActive
             })?.ToList() ?? new List<CompanyUserDto>(),
-            WorkAreas = workAreas?.Select(x => new WorkAreaDto
+            WorkAreas = workAreas?
+                .Where(x => role == "CompanyAdmin" || x.UserId == user.Id)
+            .Select(x => new WorkAreaDto
             {
                 Id = x.Id,
                 UserFullName = $"{x.User?.FirstName} {x.User?.LastName}",
@@ -185,7 +193,9 @@ public class GetDashboardDataQueryHandler : IRequestHandler<GetDashboardDataQuer
                 AdditionalInfo = x.AdditionalInfo,
                 IsActive = x.IsActive
             })?.ToList() ?? new List<WorkAreaDto>(),
-            WorkSchedules = workSchedules?.Select(x => new WorkScheduleDto
+            WorkSchedules = workSchedules?
+            .Where(x => role == "CompanyAdmin" || x.User.UserId == user.Id)
+            .Select(x => new WorkScheduleDto
             {
                 Id = x.Id,
                 CompanyUserId = x.UserId,

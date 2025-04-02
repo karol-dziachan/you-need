@@ -4,8 +4,10 @@ import { IconUser, IconEdit, IconTrash, IconPlus, IconPhone, IconId } from '@tab
 import { useStyles } from './CompanyManagement.styles';
 import { notifications } from '@mantine/notifications';
 import { useApi } from '../../../hooks/useApi';
+import { useJwtData } from '../../../hooks/useJwtData';
 
 export const CompanyUsers = ({ users, fetchDashboardData, companyId }) => {
+  const userData = useJwtData();
   const { classes } = useStyles();
   const { put, del, post } = useApi();
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -163,13 +165,15 @@ export const CompanyUsers = ({ users, fetchDashboardData, companyId }) => {
         <Stack spacing="md">
           <Group position="apart">
             <Title order={3}>Lista pracowników</Title>
+            {userData && userData.role === 'CompanyAdmin' && (
             <Button 
               leftIcon={<IconPlus size={16} />} 
               color="blue"
               onClick={() => setAddModalOpen(true)}
-            >
-              Dodaj pracownika
-            </Button>
+              >
+                Dodaj pracownika
+              </Button>
+            )}
           </Group>
 
           <List spacing="md">
@@ -223,6 +227,7 @@ export const CompanyUsers = ({ users, fetchDashboardData, companyId }) => {
                       {user.role === 'CompanyAdmin' ? 'Administrator' : user.role === 'CompanyEmployee' ? 'Pracownik' : user.role}
                     </Text>
                     <Group>
+                      {userData && userData.role === 'CompanyAdmin' && (
                       <Tooltip label="Edytuj">
                         <ActionIcon 
                           color={user.isActive ? "blue" : "gray"} 
@@ -231,7 +236,9 @@ export const CompanyUsers = ({ users, fetchDashboardData, companyId }) => {
                         >
                           <IconEdit size={16} />
                         </ActionIcon>
-                      </Tooltip>
+                        </Tooltip>
+                      )}
+                      {userData && userData.role === 'CompanyAdmin' && (
                       <Tooltip label={user.isActive ? "Dezaktywuj" : "Aktywuj"}>
                         <ActionIcon 
                           color={user.isActive ? "red" : "green"} 
@@ -241,6 +248,7 @@ export const CompanyUsers = ({ users, fetchDashboardData, companyId }) => {
                           {user.isActive ? <IconTrash size={16} /> : <IconPlus size={16} />}
                         </ActionIcon>
                       </Tooltip>
+                      )}
                     </Group>
                   </Group>
                 </Group>
@@ -381,9 +389,11 @@ export const CompanyUsers = ({ users, fetchDashboardData, companyId }) => {
             <Button variant="default" onClick={() => setAddModalOpen(false)}>
               Anuluj
             </Button>
-            <Button onClick={handleAddSubmit}>
-              Dodaj pracownika
-            </Button>
+            {userData && userData.role === 'CompanyAdmin' && (
+              <Button onClick={handleAddSubmit}>
+                Dodaj pracownika
+              </Button>
+            )}
           </Group>
         </Stack>
       </Modal>

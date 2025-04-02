@@ -35,7 +35,7 @@ public class DeleteEntityOfferCommandHandler : IRequestHandler<DeleteEntityOffer
             using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
             try
             {
-                var entityOffer = await _context.EntityOffers.AsNoTracking()
+                var entityOffer = await _context.EntityOffers
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
                 if (entityOffer == null)

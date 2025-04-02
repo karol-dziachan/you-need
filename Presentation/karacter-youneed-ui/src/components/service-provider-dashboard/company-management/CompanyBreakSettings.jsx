@@ -33,6 +33,7 @@ import {
   IconInfoCircle
 } from '@tabler/icons-react';
 import { useStyles } from './CompanyManagement.styles';
+import { useJwtData } from '../../../hooks/useJwtData';
 
 const BreakSettingsForm = ({ 
   initialData, 
@@ -155,6 +156,7 @@ const BreakSettingsForm = ({
 
 export const CompanyBreakSettings = ({ breakSettings = [], companyId, users = [], fetchBreakSettings = () => {} }) => {
   const { classes } = useStyles();
+  const userData = useJwtData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSettings, setEditingSettings] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -202,13 +204,15 @@ export const CompanyBreakSettings = ({ breakSettings = [], companyId, users = []
       <Stack spacing="md">
         <Group position="apart">
           <Title order={3}>Ustawienia przerw</Title>
+          {userData && userData.role === 'CompanyAdmin' && (
           <Button 
             leftIcon={<IconPlus size={16} />} 
             color="blue"
             onClick={() => handleOpenModal()}
           >
-            Dodaj ustawienia
-          </Button>
+              Dodaj ustawienia
+            </Button>
+          )}
         </Group>
 
         {!breakSettings?.length ? (
@@ -243,6 +247,7 @@ export const CompanyBreakSettings = ({ breakSettings = [], companyId, users = []
                           </div>
                         </Group>
                         <Group spacing="xs">
+                          {userData && userData.role === 'CompanyAdmin' && (
                           <Tooltip label="Edytuj ustawienia">
                             <ActionIcon 
                               color="blue" 
@@ -252,6 +257,8 @@ export const CompanyBreakSettings = ({ breakSettings = [], companyId, users = []
                               <IconEdit size={16} />
                             </ActionIcon>
                           </Tooltip>
+                          )}
+                          {userData && userData.role === 'CompanyAdmin' && (
                           <Tooltip label="Usuń ustawienia">
                             <ActionIcon 
                               color="red" 
@@ -261,6 +268,7 @@ export const CompanyBreakSettings = ({ breakSettings = [], companyId, users = []
                               <IconTrash size={16} />
                             </ActionIcon>
                           </Tooltip>
+                          )}
                         </Group>
                       </Group>
 

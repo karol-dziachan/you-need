@@ -5,8 +5,10 @@ import { useStyles } from './CompanyManagement.styles';
 import { TimeInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import { useApi } from '../../../hooks/useApi';
+import { useJwtData } from '../../../hooks/useJwtData';
 
 export const CompanySchedules = ({ schedules, companyId, users, fetchDashboardData }) => {
+  const userData = useJwtData();
   const { classes } = useStyles();
   const { post, put, del } = useApi();
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -225,16 +227,20 @@ export const CompanySchedules = ({ schedules, companyId, users, fetchDashboardDa
                 <Text size="md" weight={600}>{userFullName}</Text>
               </Group>
               <Group spacing={4}>
+                {userData && userData.role === 'CompanyAdmin' && (
                 <Tooltip label="Edytuj">
                   <ActionIcon size="md" color="blue" variant="light" onClick={() => handleOpenEditModal(schedule)}>
                     <IconEdit size={16} />
                   </ActionIcon>
                 </Tooltip>
+                )}
+                {userData && userData.role === 'CompanyAdmin' && (
                 <Tooltip label="Usuń">
                   <ActionIcon size="md" color="red" variant="light" onClick={() => handleDeleteSchedule(schedule)}>
                     <IconTrash size={16} />
                   </ActionIcon>
                 </Tooltip>
+                )}
               </Group>
             </Group>
             <Group spacing="xs" mt={2}>
@@ -502,6 +508,7 @@ export const CompanySchedules = ({ schedules, companyId, users, fetchDashboardDa
               <Text size="md" color="dimmed">Zarządzaj harmonogramem pracowników</Text>
             </Stack>
           </Group>
+          {userData && userData.role === 'CompanyAdmin' && (
           <Button 
             leftIcon={<IconPlus size={16} />} 
             variant="light"
@@ -512,9 +519,10 @@ export const CompanySchedules = ({ schedules, companyId, users, fetchDashboardDa
               });
               setAddModalOpen(true);
             }}
-          >
-            Dodaj grafik
-          </Button>
+            >
+              Dodaj grafik
+            </Button>
+          )}
         </Group>
 
         <Grid gutter="md">

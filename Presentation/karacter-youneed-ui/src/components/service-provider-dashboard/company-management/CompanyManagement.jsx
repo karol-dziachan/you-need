@@ -7,13 +7,14 @@ import { CompanyUsers } from './CompanyUsers';
 import { CompanySchedules } from './CompanySchedules';
 import { CompanyWorkAreas } from './CompanyWorkAreas';
 import { CompanyBreakSettings } from './CompanyBreakSettings';
+import { useJwtData } from '../../../hooks/useJwtData';
 
 // Funkcja pomocnicza do konwersji czasu z formatu "HH:mm" na format TimeSpan
 
 
 export const CompanyManagement = ({ dashboardData }) => {
   const { classes } = useStyles();
-
+  const userData = useJwtData();
   return (
     <Paper p="xl" radius="md" withBorder className={classes.root}>
       <Stack spacing="xl">
@@ -24,9 +25,11 @@ export const CompanyManagement = ({ dashboardData }) => {
             </ThemeIcon>
             <Title order={2}>Zarządzanie firmą</Title>
           </Group>
-          <Button leftIcon={<IconEdit size={16} />} color="blue">
-            Edytuj dane
-          </Button>
+          {userData && userData.role === 'CompanyAdmin' && (
+            <Button leftIcon={<IconEdit size={16} />} color="blue">
+              Edytuj dane
+            </Button>
+          )}
         </Group>
 
         <Tabs defaultValue="company" classNames={{ tab: classes.tab }}>
@@ -54,7 +57,7 @@ export const CompanyManagement = ({ dashboardData }) => {
           </Tabs.Panel>
 
           <Tabs.Panel value="areas" pt="xl">
-            <CompanyWorkAreas areas={dashboardData?.workAreas} companyId={dashboardData?.company?.id} fetchDashboardData={fetchDashboardData} />
+            <CompanyWorkAreas areas={dashboardData?.workAreas} companyId={dashboardData?.company?.id} fetchDashboardData={fetchDashboardData} companyUsers={dashboardData?.companyUsers} />
           </Tabs.Panel>
 
           <Tabs.Panel value="breaks" pt="xl">

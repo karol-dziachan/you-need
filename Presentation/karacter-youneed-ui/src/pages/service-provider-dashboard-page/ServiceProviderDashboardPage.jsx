@@ -8,23 +8,29 @@ import { QuickActions } from '../../components/service-provider-navbar/QuickActi
 import { CompanyManagement } from '../../components/service-provider-dashboard/CompanyManagement';
 import { EmployeesManagement } from '../../components/service-provider-dashboard/EmployeesManagement';
 import { WalletManagement } from '../../components/service-provider-dashboard/WalletManagement';
+import { ServiceProviderOffer } from '../../components/service-provider-dashboard/service-provider-offer/ServiceProviderOffer';
+import { Loader } from '../../components/loader/Loader';
+import { useJwtData } from '../../hooks/useJwtData';
 
 const ServiceProviderDashboardPage = () => {
   const { get } = useApi();
   const [dashboardData, setDashboardData] = useState(null);
+  const userData = useJwtData();
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const fetchDashboardData = async () => {
     try {
-      console.log('fetching dashboard data');
+      setLoading(true);
       const response = await get('/service-provider/dashboard-data');
-      console.log('response', response);
       setDashboardData(response.dashboardData);
     } catch (err) {
       setError(err.message);
       console.error('Błąd podczas pobierania danych:', err);
+    } finally { 
+      setLoading(false);
     }
   };
 
@@ -42,14 +48,7 @@ const ServiceProviderDashboardPage = () => {
     switch (path) {
       case 'offers':
         return (
-          <Paper p="xl" radius="md" withBorder>
-            <Stack spacing="md">
-              <Text size="xl" weight={700}>Moja oferta</Text>
-              <Text size="sm" color="dimmed">
-                Tu będzie zarządzanie ofertami
-              </Text>
-            </Stack>
-          </Paper>
+          <ServiceProviderOffer companyId={dashboardData?.company?.id} dashboardData={dashboardData} />
         );
       case 'dashboard':
         return <CompanyManagement dashboardData={dashboardData} fetchDashboardData={fetchDashboardData} />;
@@ -277,6 +276,10 @@ const ServiceProviderDashboardPage = () => {
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <Container size="xl" py="xl">
       <Stack spacing="xl">
@@ -294,7 +297,9 @@ const ServiceProviderDashboardPage = () => {
           </Paper>
         )}
 
-        <Stats />
+        {userData?.role === 'CompanyAdmin' && (
+          <Stats />
+        )}
 
         <Grid>
           <Grid.Col span={8}>

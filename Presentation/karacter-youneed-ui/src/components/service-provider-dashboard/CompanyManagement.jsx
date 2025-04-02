@@ -10,9 +10,11 @@ import { CompanyBreakSettings } from './company-management/CompanyBreakSettings'
 import { useState, useEffect } from 'react';
 import { useApi } from '../../hooks/useApi';
 import { notifications } from '@mantine/notifications';
+import { useJwtData } from '../../hooks/useJwtData';
 
 export const CompanyManagement = ({ dashboardData, fetchDashboardData }) => {
   const { put } = useApi();
+  const userData = useJwtData();
   const { classes } = useStyles();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editedData, setEditedData] = useState({
@@ -112,14 +114,16 @@ export const CompanyManagement = ({ dashboardData, fetchDashboardData }) => {
             </ThemeIcon>
             <Title order={2} className={classes.title}>Zarządzanie firmą</Title>
           </Group>
-          <Button 
-            leftIcon={<IconEdit size={16} />} 
-            variant="gradient" 
+          {userData && userData.role === 'CompanyAdmin' && (
+            <Button 
+              leftIcon={<IconEdit size={16} />} 
+              variant="gradient" 
             gradient={{ from: 'blue', to: 'cyan' }}
             onClick={handleOpenModal}
-          >
-            Edytuj dane
-          </Button>
+            >
+              Edytuj dane
+            </Button>
+          )}
         </Group>
 
         <Tabs defaultValue="company" classNames={{ tab: classes.tab }}>
@@ -147,7 +151,7 @@ export const CompanyManagement = ({ dashboardData, fetchDashboardData }) => {
           </Tabs.Panel>
 
           <Tabs.Panel value="areas" pt="xl">
-            <CompanyWorkAreas areas={dashboardData?.workAreas} companyId={dashboardData?.company?.id} fetchDashboardData={fetchDashboardData} />
+            <CompanyWorkAreas areas={dashboardData?.workAreas} companyId={dashboardData?.company?.id} fetchDashboardData={fetchDashboardData} companyUsers={dashboardData?.companyUsers} />
           </Tabs.Panel>
 
           <Tabs.Panel value="breaks" pt="xl">
