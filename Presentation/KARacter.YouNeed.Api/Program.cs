@@ -3,6 +3,7 @@ using KARacter.YouNeed.Application;
 using KARacter.YouNeed.Infrastructure;
 using KARacter.YouNeed.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using KARacter.YouNeed.Infrastructure.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -20,7 +21,8 @@ builder.Services.AddCors(options =>
         )
         .AllowAnyMethod()
         .AllowAnyHeader()
-        .AllowCredentials();
+        .AllowCredentials()
+        .SetIsOriginAllowed(_ => true); // Tymczasowo dla celów rozwojowych
     });
 });
 
@@ -37,6 +39,8 @@ builder.Services.AddJwtAuthorization(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddSignalR();
+
 
 builder.Services.AddCustomHealthChecks(builder.Configuration);
 
@@ -82,5 +86,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapGet("/home", () => "/swagger/index.html");
-
+app.MapHub<ChatHub>("/api/v1.0/chatHub");
 app.Run();

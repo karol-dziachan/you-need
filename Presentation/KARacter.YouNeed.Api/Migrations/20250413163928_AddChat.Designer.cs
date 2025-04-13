@@ -4,6 +4,7 @@ using KARacter.YouNeed.Persistence.ContextCreator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KARacter.YouNeed.Api.Migrations
 {
     [DbContext(typeof(YouNeedDbContext))]
-    partial class YouNeedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250413163928_AddChat")]
+    partial class AddChat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +84,7 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.Property<DateTime?>("ReadAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("SenderId")
+                    b.Property<Guid>("SenderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ThreadId")
@@ -101,7 +104,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasIndex("Type");
 
-                    b.ToTable("ChatMessages");
+                    b.ToTable("ChatMessage");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.ChatThread", b =>
@@ -131,7 +134,7 @@ namespace KARacter.YouNeed.Api.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -142,7 +145,7 @@ namespace KARacter.YouNeed.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChatThreads");
+                    b.ToTable("ChatThread");
                 });
 
             modelBuilder.Entity("KARacter.YouNeed.Domain.Entities.Company", b =>
@@ -852,7 +855,8 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.HasOne("KARacter.YouNeed.Domain.Entities.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("KARacter.YouNeed.Domain.Entities.ChatThread", "Thread")
                         .WithMany("Messages")
@@ -875,7 +879,8 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.HasOne("KARacter.YouNeed.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Consultant");
 

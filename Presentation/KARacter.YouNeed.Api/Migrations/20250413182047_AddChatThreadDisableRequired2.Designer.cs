@@ -4,6 +4,7 @@ using KARacter.YouNeed.Persistence.ContextCreator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KARacter.YouNeed.Api.Migrations
 {
     [DbContext(typeof(YouNeedDbContext))]
-    partial class YouNeedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250413182047_AddChatThreadDisableRequired2")]
+    partial class AddChatThreadDisableRequired2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

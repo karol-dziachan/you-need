@@ -3,6 +3,7 @@ using KARacter.YouNeed.Application.Features.Login.Commands.ResetPassword;
 using KARacter.YouNeed.Application.Features.Login.Queries.Login;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using KARacter.YouNeed.Application.Features.Login.Commands.ChangeForgottenPassword;
 
 namespace KARacter.YouNeed.Api.Controllers;
 
@@ -63,6 +64,19 @@ public class AuthController : ControllerBase
             return Ok(result);
         }
         return Unauthorized(result.Message);
+    }
+
+    [HttpPost("change-forgotten-password")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> ChangeForgottenPassword([FromBody] ChangeForgottenPasswordCommand command)
+    {
+        var result = await _mediator.Send(command);
+        if (result.IsSuccess)
+        {
+            return Ok(result);
+        }
+        return Unauthorized(result);
     }
     
 }

@@ -4,6 +4,7 @@ using KARacter.YouNeed.Persistence.ContextCreator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KARacter.YouNeed.Api.Migrations
 {
     [DbContext(typeof(YouNeedDbContext))]
-    partial class YouNeedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250413173503_AddChatDisableRequired")]
+    partial class AddChatDisableRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +134,7 @@ namespace KARacter.YouNeed.Api.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -875,7 +878,8 @@ namespace KARacter.YouNeed.Api.Migrations
                     b.HasOne("KARacter.YouNeed.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Consultant");
 
