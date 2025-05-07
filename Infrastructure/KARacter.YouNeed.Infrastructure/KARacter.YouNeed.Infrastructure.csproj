@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\KARacter.YouNeed.Application\KARacter.YouNeed.Application.csproj" />
+    
   </ItemGroup>
 
 </Project>

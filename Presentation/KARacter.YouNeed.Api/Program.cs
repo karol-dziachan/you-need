@@ -3,10 +3,28 @@ using KARacter.YouNeed.Application;
 using KARacter.YouNeed.Infrastructure;
 using KARacter.YouNeed.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using KARacter.YouNeed.Infrastructure.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+// Konfiguracja CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:3000",
+            "http://localhost:3001",
+            "http://youneed.com.pl",
+            "https://youneed.com.pl"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .SetIsOriginAllowed(_ => true); // Tymczasowo dla celów rozwojowych
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -17,10 +35,12 @@ builder.Services.AddDistributedMemoryCache();
 
 
 builder.Services.AddHttpContextAccessor();
-//builder.Services.AddJwtAuthorization(builder.Configuration);
+builder.Services.AddJwtAuthorization(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddSignalR();
+
 
 builder.Services.AddCustomHealthChecks(builder.Configuration);
 
@@ -55,28 +75,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapHealthChecks("/health", new HealthCheckOptions
-{
-    ResponseWriter = async (context, report) =>
-    {
-        context.Response.ContentType = "application/json";
-        var response = new
-        {
-            Status = report.Status.ToString(),
-            HealthChecks = report.Entries.Select(x => new
-            {
-                Component = x.Key,
-                Status = x.Value.Status.ToString(),
-                Description = x.Value.Description,
-                Error = x.Value.Exception?.Message,
-                Details = x.Value.Data.Count > 0 ? x.Value.Data : null
-            }),
-            TotalDuration = report.TotalDuration
-        };
-        await context.Response.WriteAsJsonAsync(response);
-    }
-});
-
+// Dodanie CORS middleware przed innymi middleware'ami
+app.UseCors();
 
 app.ConfigureMiddlewares();
 
@@ -86,5 +86,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapGet("/home", () => "/swagger/index.html");
-
+app.MapHub<ChatHub>("/api/v1.0/chatHub");
 app.Run();

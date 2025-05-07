@@ -9,14 +9,34 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using KARacter.YouNeed.Common.Options;
+using System.Security.Claims;
+using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 
 namespace KARacter.YouNeed.Infrastructure
 {
     public static class DependencyInjection
     {
+        private static readonly ILogger _logger;
+
+        static DependencyInjection()
+        {
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            });
+            _logger = loggerFactory.CreateLogger(typeof(DependencyInjection));
+        }
+
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<EmailSettingsOptions>(configuration.GetSection("EmailSettings"));
+            services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
             services.AddTransient<IDateTime, DateTimeService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IJWTService, JwtService>();
 
             return services;
         }
@@ -28,20 +48,42 @@ namespace KARacter.YouNeed.Infrastructure
 
         public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
-           services.AddHealthChecks()
-            .AddMySql(
+           /*services.AddHealthChecks()
+            .AddSqlServer(
                 configuration.GetConnectionString("DefaultConnection"),
-                name: "Po³¹czenie z baz¹ danych",
+                name: "PoÅ‚Ä…czenie z bazÄ… danych",
                 failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Degraded,
                 tags: new[] { "db", "mysql" }
-            );
+            );*/
 
             return services;
         }
 
         public static IServiceCollection AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
-           services.AddAuthentication(options =>
+            var jwtOptions = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
+            if (jwtOptions is null)
+            {
+                throw new InvalidOperationException("Brak konfiguracji JWT w appsettings.json");
+            }
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                RequireExpirationTime = true,
+                ValidateTokenReplay = false
+            };
+
+            services.AddSingleton(tokenValidationParameters);
+
+            services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -49,17 +91,11 @@ namespace KARacter.YouNeed.Infrastructure
             })
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["Jwt:Issuer"],
-                    ValidAudience = configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
-                };
+                options.TokenValidationParameters = tokenValidationParameters;
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = true;
+                options.MapInboundClaims = false;
+                options.IncludeErrorDetails = true;
 
                 options.Events = new JwtBearerEvents
                 {
@@ -80,7 +116,7 @@ namespace KARacter.YouNeed.Infrastructure
                         var result = JsonSerializer.Serialize(new
                         {
                             error = "Brak autoryzacji",
-                            message = "Nie masz uprawnieñ do tego zasobu"
+                            message = "Nie masz uprawnieÅ„ do tego zasobu"
                         });
 
                         return context.Response.WriteAsync(result);
@@ -92,8 +128,8 @@ namespace KARacter.YouNeed.Infrastructure
 
                         var result = JsonSerializer.Serialize(new
                         {
-                            error = "Dostêp zabroniony",
-                            message = "Nie masz wymaganych uprawnieñ"
+                            error = "DostÄ™p zabroniony",
+                            message = "Nie masz wymaganych uprawnieÅ„"
                         });
 
                         return context.Response.WriteAsync(result);
@@ -101,20 +137,20 @@ namespace KARacter.YouNeed.Infrastructure
                 };
             });
 
-
-            /// Role do rozbudowywania
-            /* 
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdminRole", policy =>
-                    policy.RequireRole(Roles.Admin));
+                    policy.RequireRole("Admin"));
 
-                options.AddPolicy("RequireUserRole", policy =>
-                    policy.RequireRole(Roles.User, Roles.Admin));
+                options.AddPolicy("RequireCustomerRole", policy =>
+                    policy.RequireRole("Customer"));
 
-                options.AddPolicy("RequireClientRole", policy =>
-                    policy.RequireRole(Roles.Client, Roles.Admin));
-            });*/
+                options.AddPolicy("RequireCompanyEmployeeRole", policy =>
+                    policy.RequireRole("CompanyEmployee"));
+
+                options.AddPolicy("RequireCompanyAdminRole", policy =>
+                    policy.RequireRole("CompanyAdmin"));
+            });
 
             return services;
         }
